@@ -1,0 +1,26 @@
+<div class="limit-height">
+  <clr-datagrid>
+    <clr-dg-column>
+      <ng-container *clrDgHideableColumn="{ hidden: false }">Cedula</ng-container>
+    </clr-dg-column>
+    <clr-dg-column>Nombre</clr-dg-column>
+    <clr-dg-column>Lider de zona</clr-dg-column>
+    <clr-dg-column>Miembro desde</clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let member of members">
+      <clr-dg-cell>{{ member.id }}</clr-dg-cell>
+      <clr-dg-cell>{{ member.name }}</clr-dg-cell>
+      <clr-dg-cell>{{ member.zoneLeader}}</clr-dg-cell>
+      <clr-dg-cell>{{ member.memberSince | date }}</clr-dg-cell>
+    </clr-dg-row>
+
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="20">
+        <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]">Miembros por pagina</clr-dg-page-size>
+        {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} de
+        {{ pagination.totalItems }} miembros
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</div>
+

@@ -1,0 +1,18 @@
+<clr-main-container>
+  <clr-header class="header-6">
+    <div class="branding">
+      <a routerLink="/app/">
+        <img src="logo.png" alt="Logo" class="logo" height="32" />
+        <span class="title">Templo Belen</span>
+      </a>
+    </div>
+    <div class="header-nav">
+      <a routerLink="/app/memeber-details" routerLinkActive="active" class="nav-link">Detalles de Membresía</a>
+      <a routerLink="/app/members" routerLinkActive="active" class="nav-link">Membresías</a>
+    </div>
+  </clr-header>
+
+  <div class="content-container">
+    <router-outlet></router-outlet>
+  </div>
+</clr-main-container>
