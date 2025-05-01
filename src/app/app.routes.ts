@@ -5,6 +5,6 @@ import { LoginComponent } from './shared/components/login/login.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/members', pathMatch: 'full' },
-  { path: 'members', component: MembersComponent, canActivate: [AuthGuard] },
+  { path: 'members', component: MembersComponent },
   { path: 'login', component: LoginComponent },
 ];
