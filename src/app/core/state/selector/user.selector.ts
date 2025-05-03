@@ -1,5 +1,5 @@
 import {createSelector} from '@ngrx/store';
-import {LoginError, UserModel} from '../models/user.model';
+import {LoginError, UserModel} from '../../models/user.model';
 
 const currentUserSelector = (state: any): UserModel => state.currentUser ?? null;
 const currentLoginError = (state: any) => state.error ?? null;
@@ -14,6 +14,6 @@ export const selectCurrentUser = createSelector(
 export const selectLoginError = createSelector(
   currentLoginError,
   (state): LoginError => {
-    return {msg: state.msg, code: state.code};
+    return state === null ? {msg: '', code: 200} : {msg: state.msg, code: state.code};
   }
 );

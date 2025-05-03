@@ -32,8 +32,8 @@
             formControlName="password"
           />
         </clr-password-container>
-        @if (hasError()) {
-          <div class="error active">Usuario o contraseña invalida</div>
+        @if (getHasError()) {
+          <div class="error active">{{getErrorMsg()}}</div>
         }
         <button type="submit" [disabled]="isInvalid()"  class="btn btn-primary">Log in</button>
       </div>

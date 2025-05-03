@@ -2,7 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {login} from '../state/actions/user.action';
-import {selectCurrentUser} from './user.selector';
+import {selectCurrentUser, selectLoginError} from '../state/selector/user.selector';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,10 @@ export class UserService {
 
   public fetchCurrentUser() {
     return this._store.select(selectCurrentUser);
+  }
+
+  public fetchCurrentLoginError() {
+    return this._store.select(selectLoginError);
   }
 
   public registerUser(): Observable<any> {
