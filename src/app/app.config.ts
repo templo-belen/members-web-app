@@ -2,12 +2,13 @@ import {ApplicationConfig, importProvidersFrom, provideZoneChangeDetection} from
 import {provideRouter} from '@angular/router';
 
 import {routes} from './app.routes';
-import {provideStore} from '@ngrx/store';
+import {provideState, provideStore} from '@ngrx/store';
 import {provideHttpClient} from '@angular/common/http';
 import {provideEffects} from '@ngrx/effects';
 import {UserEffects} from './core/state/effects/user.effects';
 import {provideAnimations} from '@angular/platform-browser/animations';
 import {ClarityModule} from '@clr/angular';
+import {userReducer} from './core/state/reducers/user.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,5 +19,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideStore(),
     provideEffects(UserEffects),
+    provideState({name: 'user', reducer: userReducer})
   ]
 };

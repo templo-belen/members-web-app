@@ -22,7 +22,6 @@ export const userReducer = createReducer(
   on(loginSuccess, (state, props) => {
     const currentUser: UserModel = {userId: props.userId, username: props.username};
     localStorage.setItem("token", props.token);
-    localStorage.setItem("authenticated", 'true');
     return {...state, currentUser: currentUser, token: props.token};
   }),
   on(loginFailure, (state, props) => {
