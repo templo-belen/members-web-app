@@ -1,5 +1,5 @@
-import {createReducer, on, State} from '@ngrx/store';
-import {login, loginFailure, loginSuccess, UserAction} from '../actions/user.action';
+import {createReducer, on} from '@ngrx/store';
+import {login, loginFailure, loginSuccess} from '../actions/user.action';
 import {LoginError, UserModel} from '../../models/user.model';
 
 export interface UserState {
