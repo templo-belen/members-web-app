@@ -1,0 +1,28 @@
+<div class="content-container">
+  <clr-vertical-nav>
+    <a clrVerticalNavLink routerLink="./basic-info" routerLinkActive="active">
+      <cds-icon clrVerticalNavIcon shape="user"></cds-icon>
+      Datos Personales
+    </a>
+    <a clrVerticalNavLink routerLink="./family-info" routerLinkActive="active">
+      <cds-icon clrVerticalNavIcon shape="home"></cds-icon>
+      Datos Familiares
+    </a>
+    <a clrVerticalNavLink routerLink="./general-info" routerLinkActive="active">
+      <cds-icon clrVerticalNavIcon shape="details"></cds-icon>
+      Datos Generales
+    </a>
+    <a clrVerticalNavLink routerLink="./references" routerLinkActive="active">
+      <cds-icon clrVerticalNavIcon shape="book"></cds-icon>
+      Referencias
+    </a>
+    <a clrVerticalNavLink routerLink="./dew-info" routerLinkActive="active">
+      <cds-icon clrVerticalNavIcon shape="world"></cds-icon>
+      DEW
+    </a>
+  </clr-vertical-nav>
+
+  <div class="content-area">
+    <router-outlet></router-outlet>
+  </div>
+</div>
