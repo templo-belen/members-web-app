@@ -1,17 +1,52 @@
 <div class="limit-height">
+<div *ngIf="isLoading();">
+<clr-progress-bar clrValue="75" clrLoop></clr-progress-bar>
+<h4>Progress Bar</h4>
+</div>
+  <div *ngIf="membersList().length > 0;">
   <clr-datagrid>
     <clr-dg-column>
       <ng-container *clrDgHideableColumn="{ hidden: false }">Cedula</ng-container>
     </clr-dg-column>
-    <clr-dg-column>Nombre</clr-dg-column>
-    <clr-dg-column>Lider de zona</clr-dg-column>
-    <clr-dg-column>Miembro desde</clr-dg-column>
+    <clr-dg-column>
+      <ng-container *clrDgHideableColumn="{ hidden: false }">Nombre</ng-container>
+    </clr-dg-column>
+    <clr-dg-column>
+      <ng-container *clrDgHideableColumn="{ hidden: false }">Fecha de nacimiento</ng-container>
+    </clr-dg-column>
+    <clr-dg-column>
+      <ng-container *clrDgHideableColumn="{ hidden: false }">Pais de nacimiento</ng-container>
+    </clr-dg-column>
+    <clr-dg-column>
+      <ng-container *clrDgHideableColumn="{ hidden: false }">Pais de residencia</ng-container>
+    </clr-dg-column>
+    <clr-dg-column>
+      <ng-container *clrDgHideableColumn="{ hidden: false }">Ocupacion</ng-container>
+    </clr-dg-column>
+    <clr-dg-column>
+      <ng-container *clrDgHideableColumn="{ hidden: false }">Rol en la Igelsia</ng-container>
+    </clr-dg-column>
+    <clr-dg-column>
+      <ng-container *clrDgHideableColumn="{ hidden: false }">Pastor de zona</ng-container>
+    </clr-dg-column>
+    <clr-dg-column>
+      <ng-container *clrDgHideableColumn="{ hidden: false }">Es Pastor?</ng-container>
+    </clr-dg-column>
+    <clr-dg-column>
+      <ng-container *clrDgHideableColumn="{ hidden: false }">Es lider de celula?</ng-container>
+    </clr-dg-column>
 
-    <clr-dg-row *clrDgItems="let member of members">
-      <clr-dg-cell>{{ member.id }}</clr-dg-cell>
-      <clr-dg-cell>{{ member.name }}</clr-dg-cell>
-      <clr-dg-cell>{{ member.zoneLeader}}</clr-dg-cell>
-      <clr-dg-cell>{{ member.memberSince | date }}</clr-dg-cell>
+    <clr-dg-row *clrDgItems="let member of membersList()">
+      <clr-dg-cell>{{ member.idNumber }}</clr-dg-cell>
+      <clr-dg-cell>{{ member.names + member.surnames }}</clr-dg-cell>
+      <clr-dg-cell>{{ member.birthdate | date }}</clr-dg-cell>
+      <clr-dg-cell>{{ member.birthCountry}}</clr-dg-cell>
+      <clr-dg-cell>{{ member.residenceCountry}}</clr-dg-cell>
+      <clr-dg-cell>{{ member.occupation}}</clr-dg-cell>
+      <clr-dg-cell>{{ member.currentRole}}</clr-dg-cell>
+      <clr-dg-cell>{{ member.zonePastor}}</clr-dg-cell>
+      <clr-dg-cell>{{ member.isPastor }}</clr-dg-cell>
+      <clr-dg-cell>{{ member.isCellLeader }}</clr-dg-cell>
     </clr-dg-row>
 
     <clr-dg-footer>
@@ -22,5 +57,7 @@
       </clr-dg-pagination>
     </clr-dg-footer>
   </clr-datagrid>
+              </div>
+<ng-template #loading>Loading data...</ng-template>
 </div>
 
