@@ -1,3 +1,5 @@
+import { MemberBasicInfo } from "./member.model";
+
 export class LoginResponseModel {
   userId: number;
   username: string;
@@ -18,9 +20,27 @@ export class LoginErrorResponseModel {
   code: number;
   msg: string;
 
-  constructor(props: ({code: number, msg: string})) {
+  constructor(props: ({ code: number, msg: string })) {
     this.code = props.code;
     this.msg = props.msg;
   }
 
+}
+
+export class MemberListResponseModel {
+  memberList: MemberBasicInfo[];
+
+  constructor(props: ({ memberList: MemberBasicInfo[] })) {
+    this.memberList = props.memberList;
+  }
+}
+
+export class MemberErrorResponseModel {
+  code: number;
+  msg: string;
+
+  constructor(props: ({ code: number, msg: string })) {
+    this.code = props.code;
+    this.msg = props.msg;
+  }
 }

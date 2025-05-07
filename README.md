@@ -57,3 +57,8 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+
+## Locailzacion
+
+Algunos componentes de Clarity tienen botones predefinidios para algunas operaciones, esos botones tienen textos en ingles. Para locailzarlos a español hay que agregar la traduccion en ./src/app/app.config.ts. La ilsta completa de los strings diponibls la pueden encontrar [aqui](https://github.com/vmware-clarity/ng-clarity/blob/main/projects/angular/src/utils/i18n/common-strings.default.ts)

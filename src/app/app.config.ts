@@ -1,22 +1,24 @@
-import {ApplicationConfig, importProvidersFrom, isDevMode, provideZoneChangeDetection} from '@angular/core';
-import {provideRouter} from '@angular/router';
+import { APP_INITIALIZER, ApplicationConfig, importProvidersFrom, inject, isDevMode, provideAppInitializer, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
 
-import {routes} from './app.routes';
-import {provideState, provideStore} from '@ngrx/store';
-import {provideHttpClient} from '@angular/common/http';
-import {provideEffects} from '@ngrx/effects';
-import {UserEffects} from './core/state/effects/user.effects';
-import {provideAnimations} from '@angular/platform-browser/animations';
-import {ClarityModule} from '@clr/angular';
-import {userReducer} from './core/state/reducers/user.reducer';
-import {provideStoreDevtools} from '@ngrx/store-devtools';
+import { routes } from './app.routes';
+import { provideState, provideStore } from '@ngrx/store';
+import { provideHttpClient } from '@angular/common/http';
+import { provideEffects } from '@ngrx/effects';
+import { UserEffects } from './core/state/effects/user.effects';
+import { MemberEffects } from './core/state/effects/member.effects';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { ClarityModule, ClrCommonStringsService } from '@clr/angular';
+import { userReducer } from './core/state/reducers/user.reducer';
+import { memberReducer } from './core/state/reducers/member.reducer';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimations(),
     importProvidersFrom(ClarityModule),
     provideHttpClient(),
-    provideZoneChangeDetection({eventCoalescing: true}),
+    provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideStore(),
     provideStoreDevtools({
@@ -28,6 +30,17 @@ export const appConfig: ApplicationConfig = {
       connectInZone: true // If set to true, the connection is established within the Angular zone
     }),
     provideEffects(UserEffects),
-    provideState({name: 'user', reducer: userReducer})
+    provideEffects(MemberEffects),
+    provideState({ name: 'user', reducer: userReducer }),
+    provideState({ name: 'member', reducer: memberReducer }),
+    ClrCommonStringsService,
+    provideAppInitializer(() => {
+      // Use inject() to get the service inside the initializer function
+      const stringsService = inject(ClrCommonStringsService);
+
+      stringsService.localize({
+        "pickColumns": "Administrar columnas",
+      });
+    })
   ]
-};
+}

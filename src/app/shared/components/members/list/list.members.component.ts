@@ -1,23 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { ClrDatagridModule, ClrIconModule } from '@clr/angular';
-import { MembersService } from '../../../../core/services/members.service';
-import { Member } from '../../../../core/models/member.model';
+import { Component, Input, Signal } from '@angular/core';
+import { ClrDatagridModule, ClrIconModule, ClrProgressBarModule } from '@clr/angular';
+import { MemberBasicInfo } from '../../../../core/models/member.model';
 
 @Component({
   selector: 'app-members-list',
-  imports: [ClrDatagridModule, ClrIconModule, CommonModule],
+  imports: [ClrDatagridModule, ClrIconModule, CommonModule, ClrProgressBarModule],
   templateUrl: './list.members.component.html',
   styleUrl: './list.members.component.scss',
-  providers: [MembersService],
   standalone: true
 })
 export class MembersListComponent {
-  members: Member[];
-
-  constructor(public service: MembersService) {
-    this.members = this.service.all;
-  }
+  @Input({ required: true }) membersList!: Signal<MemberBasicInfo[]>;
+  @Input({ required: true }) isLoading!: Signal<boolean>;
 
 }
 
