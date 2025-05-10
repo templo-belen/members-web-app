@@ -5,6 +5,9 @@ import { memberDetailsRoutes } from '../members/details/member-details.routes';
 
 export const layoutRoutes: Routes = [
   { path: '', redirectTo: 'members', pathMatch: 'full' },
-  { path: 'members', component: MembersComponent },
-  { path: 'member-details', component: MemberDetailsComponent, children: memberDetailsRoutes },
+  {
+    path: 'members',
+    component: MembersComponent,
+    children: memberDetailsRoutes,
+  },
 ];

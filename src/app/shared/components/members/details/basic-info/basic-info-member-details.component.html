@@ -1,2 +1,162 @@
-<p>basic-info-member-details works!</p>
+<div class="clr-row">
+  <div class="clr-col-2">
+    <div cds-text="subsection bold">Datos Personales</div>
+  </div>
+  <div class="clr-col-10" *ngIf="!isEditable">
+    <button type="button" class="btn" (click)="toggleEditMode()">
+      <cds-icon shape="pencil"></cds-icon>
+    </button>
+  </div>
+</div>
+<form clrForm [formGroup]="memberForm" (ngSubmit)="onSubmit()" clrLayout="horizontal">
+  <div class="clr-row">
+    <div class="clr-col-2">
+      <img [src]="'foto.jpg'" alt="Profile" class="clr-mb-md profile-picture" />
+      <input type="file" id="profilePicture" (change)="onFileSelected($event)" class="clr-mt" *ngIf="isEditable" />
+    </div>
+    <div class="clr-col-5">
+      <clr-input-container>
+        <label>Número de documento</label>
+        <input clrInput formControlName="idNumber" />
+      </clr-input-container>
 
+      <clr-input-container>
+        <label>Nombres</label>
+        <input clrInput formControlName="names" />
+      </clr-input-container>
+
+      <clr-input-container>
+        <label>Apellidos</label>
+        <input clrInput formControlName="surnames" />
+      </clr-input-container>
+
+      <clr-date-container>
+        <label>Fecha de nacimiento</label>
+        <input clrDate formControlName="birthdate" />
+      </clr-date-container>
+
+      <clr-input-container>
+        <label>País de nacimiento</label>
+        <input clrInput formControlName="birthCountry" />
+      </clr-input-container>
+
+      <clr-input-container>
+        <label>País de residencia</label>
+        <input clrInput formControlName="residenceCountry" />
+      </clr-input-container>
+
+      <clr-input-container>
+        <label>Dirección</label>
+        <input clrInput formControlName="address" />
+      </clr-input-container>
+
+      <clr-input-container>
+        <label>Teléfono</label>
+        <input clrInput formControlName="phoneNumber" />
+      </clr-input-container>
+
+      <clr-input-container>
+        <label>Celular</label>
+        <input clrInput formControlName="cellphoneNumber" />
+      </clr-input-container>
+
+      <clr-input-container>
+        <label>Email</label>
+        <input clrInput formControlName="email" type="email" />
+      </clr-input-container>
+
+      <clr-input-container>
+        <label>Libreta militar</label>
+        <input clrInput formControlName="militaryService" />
+      </clr-input-container>
+
+      <clr-input-container>
+        <label>Estudios completados</label>
+        <input clrInput formControlName="studiesCompleted" />
+      </clr-input-container>
+
+      <clr-input-container>
+        <label>Título obtenido</label>
+        <input clrInput formControlName="degreeObtained" />
+      </clr-input-container>
+    </div>
+    <div class="clr-col-5">
+      <clr-input-container>
+        <label>Otros estudios</label>
+        <input clrInput formControlName="otherStudies" />
+      </clr-input-container>
+
+      <clr-input-container>
+        <label>Empresa</label>
+        <input clrInput formControlName="company" />
+      </clr-input-container>
+
+      <clr-input-container>
+        <label>Ocupación</label>
+        <input clrInput formControlName="occupation" />
+      </clr-input-container>
+
+      <clr-input-container>
+        <label>EPS</label>
+        <input clrInput formControlName="eps" />
+      </clr-input-container>
+
+      <clr-input-container>
+        <label>RH</label>
+        <input clrInput formControlName="rh" />
+      </clr-input-container>
+
+      <clr-radio-container>
+        <label>Género</label>
+        <clr-radio-wrapper>
+          <input type="radio" clrRadio value="Masculino" formControlName="gender" />
+          <label>Masculino</label>
+        </clr-radio-wrapper>
+        <clr-radio-wrapper>
+          <input type="radio" clrRadio value="Femenino" formControlName="gender" />
+          <label>Femenino</label>
+        </clr-radio-wrapper>
+      </clr-radio-container>
+
+      <clr-input-container>
+        <label>Punto de predicación</label>
+        <input clrInput formControlName="preachingPoint" />
+      </clr-input-container>
+
+      <clr-input-container>
+        <label>Rol actual</label>
+        <input clrInput formControlName="currentRole" />
+      </clr-input-container>
+
+      <clr-date-container>
+        <label>Fecha de compromiso</label>
+        <input clrDate formControlName="commitmentDate" />
+      </clr-date-container>
+
+      <clr-input-container>
+        <label>Liderazgo celular</label>
+        <input clrInput formControlName="cellLeadership" />
+      </clr-input-container>
+
+      <clr-input-container>
+        <label>Pastor de zona</label>
+        <input clrInput formControlName="zonePastor" />
+      </clr-input-container>
+
+      <clr-input-container>
+        <label>Liderazgo</label>
+        <input clrInput formControlName="leadership" />
+      </clr-input-container>
+
+      <clr-input-container>
+        <label>Estado</label>
+        <input clrInput formControlName="status" />
+      </clr-input-container>
+    </div>
+  </div>
+
+  <div class="clr-form-actions" *ngIf="isEditable">
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <button type="button" class="btn btn-secondary" (click)="toggleEditMode()">Cancelar</button>
+  </div>
+</form>

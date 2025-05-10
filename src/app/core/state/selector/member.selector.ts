@@ -25,3 +25,10 @@ export const selectIsLoading = createSelector(
     return state.isLoading ?? false
   }
 );
+
+export const selectMemberBasicInfo = createSelector(
+  selectMemberState,
+  (state): MemberBasicInfo => {
+    return state.memberBasicInfo ?? MemberBasicInfo.empty()
+  }
+);
