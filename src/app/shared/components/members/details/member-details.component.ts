@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ClrVerticalNavModule } from '@clr/angular';
 
@@ -10,4 +10,11 @@ import { ClrVerticalNavModule } from '@clr/angular';
   styleUrl: './member-details.component.scss',
 })
 export class MemberDetailsComponent {
+  @Input({ required: true }) closeModal!: () => void;
+  @Input({ required: true }) memberName!: string;
+  @Input({ required: true }) memberId!: number;
+
+  handleClose() {
+    this.closeModal();
+  }
 }

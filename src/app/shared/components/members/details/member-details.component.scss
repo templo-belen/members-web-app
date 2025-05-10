@@ -1,0 +1,9 @@
+.details-header {
+  display: flex;
+  flex: 0 0 auto;
+  min-width: calc(204*(1rem/var(--cds-global-base)));
+  padding: 0 var(--cds-global-space-7);
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}

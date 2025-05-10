@@ -6,3 +6,27 @@
 .limit-height clr-datagrid {
   height: 100%;
 }
+
+.icon-column {
+  min-width: 50px;
+  width: 50px;
+  max-width: 50px;
+}
+
+.icon-cell {
+  text-align: center;
+  min-width: 50px;
+  width: 50px;
+  max-width: 50px;
+}
+
+.detail-icon {
+  cursor: pointer;
+  color: #0072a3;
+  /* Clarity blue color */
+}
+
+.detail-icon:hover {
+  color: #004a70;
+  /* Darker blue on hover */
+}
