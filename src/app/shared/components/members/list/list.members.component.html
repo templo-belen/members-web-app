@@ -5,6 +5,7 @@
 </div>
   <div *ngIf="membersList().length > 0;">
   <clr-datagrid>
+  <clr-dg-column class="icon-column"></clr-dg-column>
     <clr-dg-column>
       <ng-container *clrDgHideableColumn="{ hidden: false }">Cedula</ng-container>
     </clr-dg-column>
@@ -37,8 +38,14 @@
     </clr-dg-column>
 
     <clr-dg-row *clrDgItems="let member of membersList()">
+    <clr-dg-cell class="icon-cell">
+ <cds-icon shape="detail-expand"
+                    class="detail-icon"
+                    (click)="onDetailIconClick(member.id,  member.names + ' ' + member.surnames, $event)">
+          </cds-icon>
+          </clr-dg-cell>
       <clr-dg-cell>{{ member.idNumber }}</clr-dg-cell>
-      <clr-dg-cell>{{ member.names + member.surnames }}</clr-dg-cell>
+      <clr-dg-cell>{{ member.names + " " + member.surnames }}</clr-dg-cell>
       <clr-dg-cell>{{ member.birthdate | date }}</clr-dg-cell>
       <clr-dg-cell>{{ member.birthCountry}}</clr-dg-cell>
       <clr-dg-cell>{{ member.residenceCountry}}</clr-dg-cell>

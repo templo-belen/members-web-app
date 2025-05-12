@@ -13,6 +13,12 @@ import { MemberBasicInfo } from '../../../../core/models/member.model';
 export class MembersListComponent {
   @Input({ required: true }) membersList!: Signal<MemberBasicInfo[]>;
   @Input({ required: true }) isLoading!: Signal<boolean>;
+  @Input({ required: true }) openModal!: (memberId: number, memberName: string) => void;
+
+  onDetailIconClick(memberId: number, memberName: string, event: MouseEvent): void {
+    event.stopPropagation(); // Prevent row selection if enabled
+    this.openModal(memberId, memberName);
+  }
 
 }
 
