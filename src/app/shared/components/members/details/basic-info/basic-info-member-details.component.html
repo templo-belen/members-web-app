@@ -8,7 +8,7 @@
     </button>
   </div>
 </div>
-<form clrForm [formGroup]="memberForm" (ngSubmit)="onSubmit()" clrLayout="horizontal">
+<form clrForm [formGroup]="memberForm" (ngSubmit)="onSubmit()" clrLayout="horizontal" clrLabelSize="3">
   <div class="clr-row">
     <div class="clr-col-2">
       <img [src]="'foto.jpg'" alt="Profile" class="clr-mb-md profile-picture" />
@@ -32,7 +32,7 @@
 
       <clr-date-container>
         <label>Fecha de nacimiento</label>
-        <input clrDate formControlName="birthdate" />
+        <input type="date" autocomplete="off" clrDate formControlName="birthdate" />
       </clr-date-container>
 
       <clr-input-container>
@@ -65,6 +65,25 @@
         <input clrInput formControlName="email" type="email" />
       </clr-input-container>
 
+      <clr-radio-container>
+        <label>Género</label>
+        <clr-radio-wrapper>
+          <input type="radio" clrRadio value="Masculino" formControlName="gender" />
+          <label>Masculino</label>
+        </clr-radio-wrapper>
+        <clr-radio-wrapper>
+          <input type="radio" clrRadio value="Femenino" formControlName="gender" />
+          <label>Femenino</label>
+        </clr-radio-wrapper>
+      </clr-radio-container>
+
+      <clr-input-container>
+        <label>RH</label>
+        <input clrInput formControlName="rh" />
+      </clr-input-container>
+    </div>
+
+    <div class="clr-col-5">
       <clr-input-container>
         <label>Libreta militar</label>
         <input clrInput formControlName="militaryService" />
@@ -79,8 +98,7 @@
         <label>Título obtenido</label>
         <input clrInput formControlName="degreeObtained" />
       </clr-input-container>
-    </div>
-    <div class="clr-col-5">
+
       <clr-input-container>
         <label>Otros estudios</label>
         <input clrInput formControlName="otherStudies" />
@@ -102,26 +120,23 @@
       </clr-input-container>
 
       <clr-input-container>
-        <label>RH</label>
-        <input clrInput formControlName="rh" />
-      </clr-input-container>
-
-      <clr-radio-container>
-        <label>Género</label>
-        <clr-radio-wrapper>
-          <input type="radio" clrRadio value="Masculino" formControlName="gender" />
-          <label>Masculino</label>
-        </clr-radio-wrapper>
-        <clr-radio-wrapper>
-          <input type="radio" clrRadio value="Femenino" formControlName="gender" />
-          <label>Femenino</label>
-        </clr-radio-wrapper>
-      </clr-radio-container>
-
-      <clr-input-container>
         <label>Punto de predicación</label>
         <input clrInput formControlName="preachingPoint" />
       </clr-input-container>
+
+      <clr-toggle-container class="clr-toggle-right">
+        <label>Es pastor</label>
+        <clr-toggle-wrapper>
+          <input type="checkbox" clrToggle formControlName="isPastor" />
+        </clr-toggle-wrapper>
+      </clr-toggle-container>
+
+      <clr-toggle-container class="clr-toggle-right">
+        <label>Es lider de célula</label>
+        <clr-toggle-wrapper>
+          <input type="checkbox" clrToggle formControlName="isCellLeader" />
+        </clr-toggle-wrapper>
+      </clr-toggle-container>
 
       <clr-input-container>
         <label>Rol actual</label>
