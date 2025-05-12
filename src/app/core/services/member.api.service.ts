@@ -23,10 +23,21 @@ export class MemberApiService {
         catchError(error => {
           return of(new MemberErrorResponseModel({ msg: error.error.msg, code: error.status }));
         })
-      )
-      ;
+      );
   }
 
+  public basicInfoById(memberId: number): Observable<MemberBasicInfo | MemberErrorResponseModel> {
+    // TODO: move base URL to environments
+    // https://github.com/templo-belen/members-web-app/issues/34
+    return this._http.get<MemberBasicInfo>(`http://localhost:8000/members/${memberId}`, { observe: "response" })
+      .pipe(
+        map(response => {
+          return new MemberBasicInfo(response.body!);
+        }),
+        catchError(error => {
+          return of(new MemberErrorResponseModel({ msg: error.error.msg, code: error.status }));
+        }));
+  }
 }
 
 

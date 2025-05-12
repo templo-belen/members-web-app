@@ -1,7 +1,7 @@
-  <app-members-list [membersList]="membersList" [isLoading]="isLoading" [openModal]="openModal"></app-members-list>
-    <clr-modal [(clrModalOpen)]="isModalOpen" [clrModalSize]="'full-screen'"[clrModalClosable]="false">
-      <div class="modal-body">
-      <app-member-details [memberName]="selectedMemberName" [memberId]="selectedMemberId" [closeModal]="closeModal"></app-member-details>
-
-      </div>
-    </clr-modal>
+<app-members-list [membersList]="membersList" [isLoading]="isLoading" [openModal]="openModal"></app-members-list>
+<clr-modal [(clrModalOpen)]="isModalOpen" [clrModalSize]="'full-screen'" [clrModalClosable]="false">
+  <div class="modal-body">
+    <app-member-details [memberName]="selectedMemberName" [memberId]="selectedMemberId"
+      [closeModal]="closeModal"></app-member-details>
+  </div>
+</clr-modal>
