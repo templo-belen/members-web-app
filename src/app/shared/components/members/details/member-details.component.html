@@ -29,7 +29,17 @@
     </a>
   </clr-vertical-nav>
   <div class="content-area">
-    <router-outlet></router-outlet>
+    <div class="clr-row">
+      <div class="clr-col-2">
+        <div cds-text="subsection bold">{{ currentTabTitle }}</div>
+      </div>
+      <div class="clr-col-10" >
+        <button type="button" class="btn" (click)="toggleEditMode()">
+          <cds-icon shape="pencil"></cds-icon>
+        </button>
+      </div>
+    </div>
+    <router-outlet (activate)="onTabActivate($event)"></router-outlet>
   </div>
 </div>
 </div>

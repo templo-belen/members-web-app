@@ -42,6 +42,16 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
       this.memberForm = this.buildForm(memberBasicInfo);
       this.setFormEditable();
     });
+    this.memberForm.disable();
+  }
+
+  setEditMode(mode: boolean) {
+    this.isEditable = mode;
+    if (mode) {
+      this.memberForm.enable();
+    } else {
+      this.memberForm.disable();
+    }
   }
 
   onFileSelected(event: any) {

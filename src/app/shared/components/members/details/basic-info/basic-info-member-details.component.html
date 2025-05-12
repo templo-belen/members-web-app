@@ -1,13 +1,3 @@
-<div class="clr-row">
-  <div class="clr-col-2">
-    <div cds-text="subsection bold">Datos Personales</div>
-  </div>
-  <div class="clr-col-10" *ngIf="!isEditable">
-    <button type="button" class="btn" (click)="toggleEditMode()">
-      <cds-icon shape="pencil"></cds-icon>
-    </button>
-  </div>
-</div>
 <form clrForm [formGroup]="memberForm" (ngSubmit)="onSubmit()" clrLayout="horizontal" clrLabelSize="3">
   <div class="clr-row">
     <div class="clr-col-2">

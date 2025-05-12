@@ -7,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrl: './general-info-member-details.component.scss'
 })
 export class GeneralInfoMemberDetailsComponent {
+  isEditable: boolean = false;
 
+  setEditMode(mode: boolean) {
+    this.isEditable = mode;
+    if (mode) {
+      // TODO activate form
+    } else {
+
+    }
+  }
 }
