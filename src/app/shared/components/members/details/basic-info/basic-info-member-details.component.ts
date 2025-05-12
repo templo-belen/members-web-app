@@ -32,6 +32,16 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
     this._memberService.fetchMemberBasicInfo().subscribe(memberBasicInfo => {
       this.memberForm.patchValue(memberBasicInfo);
     });
+    this.memberForm.disable();
+  }
+
+  setEditMode(mode: boolean) {
+    this.isEditable = mode;
+    if (mode) {
+      this.memberForm.enable();
+    } else {
+      this.memberForm.disable();
+    }
   }
 
   onFileSelected(event: any) {

@@ -8,4 +8,15 @@ import { Component } from '@angular/core';
 })
 export class DewInfoMemberDetailsComponent {
 
+  isEditable: boolean = false;
+
+  setEditMode(mode: boolean) {
+    this.isEditable = mode;
+    if (mode) {
+      // TODO activate form
+    } else {
+
+    }
+  }
+
 }

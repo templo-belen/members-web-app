@@ -7,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrl: './references-member-details.component.scss'
 })
 export class ReferencesMemberDetailsComponent {
+  isEditable: boolean = false;
 
+  setEditMode(mode: boolean) {
+    this.isEditable = mode;
+    if (mode) {
+      // TODO activate form
+    } else {
+
+    }
+  }
 }
