@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { basicInfo, list } from '../state/actions/members.action';
-import { selectIsLoading, selectMemberBasicInfo, selectMemberList, selectMemberListError } from '../state/selector/member.selector';
+import { basicInfo, list, selectedMemberId } from '../state/actions/members.action';
+import { selectIsLoading, selectMemberBasicInfo, selectMemberList, selectMemberListError, selectSelectedMemberId } from '../state/selector/member.selector';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +14,16 @@ export class MemberService {
     this._store.dispatch(list());
   }
 
+  public dispatchSelectedMemberId(memberId: number) {
+    this._store.dispatch(selectedMemberId({ memberId }));
+  }
+
   public fetchMemberList() {
     return this._store.select(selectMemberList);
+  }
+
+  public fetchSelectedMemberId() {
+    return this._store.select(selectSelectedMemberId);
   }
 
   public fetchCurrentMemberListError() {
@@ -31,6 +39,10 @@ export class MemberService {
   }
 
   public dispatchMemberBasicInfo(memberId: number) {
+    if (memberId < 1) {
+      console.log("Not selecting member", memberId);
+      return;
+    }
     this._store.dispatch(basicInfo({ memberId }));
   }
 

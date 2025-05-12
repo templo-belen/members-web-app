@@ -4,6 +4,7 @@ import { MemberBasicInfo } from '../../../../../core/models/member.model';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MemberService } from '../../../../../core/services/member.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-basic-info-member-details',
@@ -15,22 +16,22 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
 
   private _memberService = inject(MemberService);
 
-  @Input()
-  memberId = 1;
-
   memberForm: FormGroup;
   isEditable: boolean = false;
 
   constructor(private fb: FormBuilder) {
     this.memberForm = this.fb.group(MemberBasicInfo.empty());
     this.memberForm.disable();
-    this._memberService.fetchMemberBasicInfo().subscribe(memberBasicInfo => {
-      this.memberForm.patchValue(memberBasicInfo);
-    });
   }
 
   ngOnInit(): void {
-    this._memberService.dispatchMemberBasicInfo(this.memberId);
+    this._memberService.fetchSelectedMemberId().subscribe(memberId => {
+      this._memberService.dispatchMemberBasicInfo(memberId);
+    });
+
+    this._memberService.fetchMemberBasicInfo().subscribe(memberBasicInfo => {
+      this.memberForm.patchValue(memberBasicInfo);
+    });
   }
 
   onFileSelected(event: any) {
