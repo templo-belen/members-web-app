@@ -38,6 +38,7 @@ export class MembersComponent implements OnInit {
   public openModal = (memberId: number, memberName: string) => {
     this.selectedMemberId = memberId;
     this.selectedMemberName = memberName;
+    this._memberService.dispatchSelectedMemberId(this.selectedMemberId);
     this.isModalOpen = true;
   }
   public closeModal = () => {

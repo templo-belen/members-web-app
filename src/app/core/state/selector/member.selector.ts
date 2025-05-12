@@ -26,6 +26,13 @@ export const selectIsLoading = createSelector(
   }
 );
 
+export const selectSelectedMemberId = createSelector(
+  selectMemberState,
+  (state): number => {
+    return state.selectedMemberId ?? -1
+  }
+);
+
 export const selectMemberBasicInfo = createSelector(
   selectMemberState,
   (state): MemberBasicInfo => {

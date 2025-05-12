@@ -7,6 +7,8 @@ export enum MembersAction {
   ListSuccess = '[Member] List Success',
   ListFailure = '[Member] List Failure',
 
+  SelectedMemberId = '[Member] Selected Member ID',
+
   BasicInfo = '[Member] Basic Info',
   BasicInfoSuccess = '[Member] Basic Info Success',
   BasicInfoFailure = '[Member] Basic Info Failure',
@@ -15,6 +17,8 @@ export enum MembersAction {
 export const list = createAction(MembersAction.List);
 export const listSuccess = createAction(MembersAction.ListSuccess, props<MemberListResponseModel>());
 export const listFailure = createAction(MembersAction.ListFailure, props<MemberErrorResponseModel>());
+
+export const selectedMemberId = createAction(MembersAction.SelectedMemberId, props<{ memberId: number }>());
 
 export const basicInfo = createAction(MembersAction.BasicInfo, props<{ memberId: number }>());
 export const basicInfoSuccess = createAction(MembersAction.BasicInfoSuccess, props<MemberBasicInfo>());
