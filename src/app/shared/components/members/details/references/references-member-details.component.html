@@ -1,92 +1,79 @@
 <div class="container p-2">
     <form clrForm (ngSubmit)="onSubmit()">
 
-        
-      <div class="clr-row mt-6">
-        <div class="clr-col-6">
-          <clr-input-container class="field-container">
-            <label>Tiempo:</label>
-            <input 
-            clrInput type="text" 
-            formControlName="time"
-            placeholder=" "
-            autocomplete=" " />
-          </clr-input-container>
-        </div>
-        
-        
-        <div class="clr-col-6">
-          <clr-input-container>
-            <label >Iglesia: </label>
-            <input 
-            clrInput type="text" 
-            [formControl]="churchName"
-            placeholder="Nombre de iglesia"/>
-            <!-- TODO AQUI SE DEBERIAN DESPLEGAR UNA LISTA DE IGLESIAS  -->
-          </clr-input-container>
-          <!--<cds-icon shape="search"></cds-icon> -->
-        </div>
-        
-        <div class="clr-col-6">
-          <clr-input-container>
-            <label>Pastor:</label>
-            <input clrInput type="text"
-             [formControl]="leadPastorName"
-             placeholder="Pastor Lider" />
-             <!-- TODO AQUI SE DEBERIAN DESPLEGAR UNA LISTA DE PASTORES  -->
-          </clr-input-container>
-        <!-- <cds-icon shape="search"></cds-icon> AQUI HAY UNA LUPA -->
-          
-        </div>
-        
-        <div class="clr-col-6">
-          <clr-input-container>
-            <label>Retiro:</label>
-            <input clrInput type="text" [formControl]="reasonForLeaving" />
-          </clr-input-container>
+      <div class="clr-row mt-4">
+        <div class="clr-col-12">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="center">Tiempo</th>
+                <th class="center">Iglesia</th>
+                <th class="center">Pastor</th>
+                <th class="center">Retiro</th>
+                <th class="center"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let reference of churchReferences; let i = index">
+                <td>
+                  <clr-date-container>
+                    <input 
+                    type="date" 
+                    clrDate [(ngModel)]="reference.time" 
+                    [name]="'time' + i" />
+                  </clr-date-container>
+                </td>
+                <td>
+                  <input 
+                  clrInput type="text" 
+                  [(ngModel)]="reference.churchName"
+                  [name]="'churchName' + i" 
+                  placeholder="Nombre de iglesia" />
+                </td>
+                <td>
+                  <input 
+                  clrInput type="text" 
+                  [(ngModel)]="reference.leadPastorName" 
+                  [name]="'leadPastorName' + i" 
+                  placeholder="Pastor lider" />
+                </td>
+                <td>
+                  <input 
+                  clrInput type="text" 
+                  [(ngModel)]="reference.reasonForLeaving" 
+                  [name]="'reasonForLeaving' + i" 
+                  placeholder="Razón de retiro" />
+                </td>
+                <td class="action-column">
+                  <button 
+                  *ngIf="i === churchReferences.length - 1 " 
+                  type="button" class="btn btn-sm btn-icon" 
+                  (click)="addReference()">
+                  <cds-icon shape="plus"></cds-icon>
+                  </button>
+                  <button 
+                  *ngIf="i !== churchReferences.length - 1 " 
+                  type="button" class="btn btn-sm btn-icon" 
+                  (click)="removeReference(i)">
+                  <cds-icon shape="minus"></cds-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      
+
+
       <div class="clr-row mt-4">
-        <div class="clr-col-8">
+        <div class="clr-col-10">
           <clr-textarea-container>
             <label class="single-line">Razones por las cuales decidió congregarse en Templo Belen:</label>
              <textarea class="text-box" clrTextarea [formControl]="reasonsForJoining" rows="4"></textarea>
           </clr-textarea-container>
         </div>
       </div>
-      
 
-      
-      <div class="clr-row mt-4 audit-info">
-        <div class="clr-col-md-6">
-          <clr-date-container>
-            <label>Creado:</label>
-            <input type="date" clrDate [formControl]="createdOn" />
-          </clr-date-container>
-        </div>
-        
-        <div class="clr-col-6">
-          <clr-input-container>
-            <label>Creado:</label>
-            <input clrInput type="text" [formControl]="createdBy" />
-          </clr-input-container>
-        </div>
-        
-        <div class="clr-col-md-6">
-            <clr-date-container>
-              <label>Modificado</label>
-              <input type="date" clrDate [formControl]="modifiedOn" />
-            </clr-date-container>
-          </div>
-        
-        <div class="clr-col-6">
-          <clr-input-container>
-            <label>Modificado</label>
-            <input clrInput type="text" [formControl]="modifiedBy" />
-          </clr-input-container>
-        </div>
-      </div>
       
       <div class="clr-row mt-4">
         <div class="clr-col-12 text-right">
