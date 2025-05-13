@@ -4,7 +4,7 @@ import { MemberBasicInfo } from '../../../../../core/models/member.model';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MemberService } from '../../../../../core/services/member.service';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { editModeSubject } from '../../../../../core/subjects/members.subjects';
 
 @Component({
   selector: 'app-basic-info-member-details',
@@ -25,6 +25,15 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    editModeSubject.subscribe(mode => {
+      this.isEditable = mode;
+      if (this.isEditable) {
+        this.memberForm.enable();
+      } else {
+        this.memberForm.disable();
+      }
+    });
+
     this._memberService.fetchSelectedMemberId().subscribe(memberId => {
       this._memberService.dispatchMemberBasicInfo(memberId);
     });
@@ -33,15 +42,6 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
       this.memberForm.patchValue(memberBasicInfo);
     });
     this.memberForm.disable();
-  }
-
-  setEditMode(mode: boolean) {
-    this.isEditable = mode;
-    if (mode) {
-      this.memberForm.enable();
-    } else {
-      this.memberForm.disable();
-    }
   }
 
   onFileSelected(event: any) {
@@ -53,11 +53,6 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
   }
 
   toggleEditMode() {
-    this.isEditable = !this.isEditable;
-    if (this.isEditable) {
-      this.memberForm.enable();
-    } else {
-      this.memberForm.disable();
-    }
+    editModeSubject.next(!this.isEditable);
   }
 }

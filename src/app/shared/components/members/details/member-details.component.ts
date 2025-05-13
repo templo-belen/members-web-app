@@ -1,11 +1,12 @@
-import {Component, Input} from '@angular/core';
-import {NavigationEnd, Router, RouterModule} from '@angular/router';
-import {ClrVerticalNavModule} from '@clr/angular';
-import {filter, Subject} from 'rxjs';
+import { Component, Input } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { ClrVerticalNavModule } from '@clr/angular';
+import { editModeSubject } from '../../../../core/subjects/members.subjects';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-member-details',
-  imports: [RouterModule, ClrVerticalNavModule],
+  imports: [RouterModule, ClrVerticalNavModule, CommonModule],
   templateUrl: './member-details.component.html',
   styleUrl: './member-details.component.scss',
 })
@@ -15,33 +16,20 @@ export class MemberDetailsComponent {
   @Input({ required: true }) memberId!: number;
 
   isEditable = false;
-  editModeSubject = new Subject<boolean>();
-  currentTabComponent: any;
-
   currentTabTitle = 'Datos Personales';
 
   constructor() {
+    editModeSubject.subscribe(mode => this.isEditable = mode);
   }
 
   toggleEditMode() {
-    this.isEditable = !this.isEditable;
-    this.editModeSubject.next(this.isEditable);
-  }
-
-  onTabActivate(componentRef: any) {
-    this.currentTabComponent = componentRef;
-    this.editModeSubject.subscribe(mode => {
-      if (this.currentTabComponent?.setEditMode) {
-        this.currentTabComponent.setEditMode(mode);
-      }
-    });
+    editModeSubject.next(!this.isEditable);
   }
 
   handleClose() {
     this.closeModal();
-    this.currentTabComponent.setEditMode(false);
     this.currentTabTitle = 'Datos Personales';
-    this.isEditable = false;
+    editModeSubject.next(false);
   }
 
   onLinkClick(event: MouseEvent): void {
