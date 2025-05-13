@@ -2,44 +2,44 @@
   <header class="header">
     <div class="details-header">
       <span class="title">{{memberName}}</span>
-        <button type="button" class="btn btn-outline" (click)="handleClose()">Cerrar</button>
+      <button type="button" class="btn btn-outline" (click)="handleClose()">Cerrar</button>
     </div>
   </header>
-<div class="content-container">
-  <clr-vertical-nav>
-    <a clrVerticalNavLink routerLink="./basic-info" routerLinkActive="active">
-      <cds-icon clrVerticalNavIcon shape="user"></cds-icon>
-      Datos Personales
-    </a>
-    <a clrVerticalNavLink routerLink="./family-info" routerLinkActive="active">
-      <cds-icon clrVerticalNavIcon shape="home"></cds-icon>
-      Datos Familiares
-    </a>
-    <a clrVerticalNavLink routerLink="./general-info" routerLinkActive="active">
-      <cds-icon clrVerticalNavIcon shape="details"></cds-icon>
-      Datos Generales
-    </a>
-    <a clrVerticalNavLink routerLink="./references" routerLinkActive="active">
-      <cds-icon clrVerticalNavIcon shape="book"></cds-icon>
-      Referencias
-    </a>
-    <a clrVerticalNavLink routerLink="./dew-info" routerLinkActive="active">
-      <cds-icon clrVerticalNavIcon shape="world"></cds-icon>
-      DEW
-    </a>
-  </clr-vertical-nav>
-  <div class="content-area">
-    <div class="clr-row">
-      <div class="clr-col-2">
-        <div cds-text="subsection bold">{{ currentTabTitle }}</div>
+  <div class="content-container">
+    <clr-vertical-nav>
+      <a clrVerticalNavLink routerLink="./basic-info" routerLinkActive="active" (click)="onLinkClick($event)">
+        <cds-icon clrVerticalNavIcon shape="user"></cds-icon>
+        Datos Personales
+      </a>
+      <a clrVerticalNavLink routerLink="./family-info" routerLinkActive="active" (click)="onLinkClick($event)">
+        <cds-icon clrVerticalNavIcon shape="home"></cds-icon>
+        Datos Familiares
+      </a>
+      <a clrVerticalNavLink routerLink="./general-info" routerLinkActive="active" (click)="onLinkClick($event)">
+        <cds-icon clrVerticalNavIcon shape="details"></cds-icon>
+        Datos Generales
+      </a>
+      <a clrVerticalNavLink routerLink="./references" routerLinkActive="active" (click)="onLinkClick($event)">
+        <cds-icon clrVerticalNavIcon shape="book"></cds-icon>
+        Referencias
+      </a>
+      <a clrVerticalNavLink routerLink="./dew-info" routerLinkActive="active" (click)="onLinkClick($event)">
+        <cds-icon clrVerticalNavIcon shape="world"></cds-icon>
+        DEW
+      </a>
+    </clr-vertical-nav>
+    <div class="content-area">
+      <div class="clr-row">
+        <div class="clr-col-2">
+          <div cds-text="subsection bold">{{ currentTabTitle }}</div>
+        </div>
+        <div class="clr-col-10">
+          <a role="button" (click)="toggleEditMode()">
+            <cds-icon shape="pencil"></cds-icon>
+          </a>
+        </div>
       </div>
-      <div class="clr-col-10" >
-        <button type="button" class="btn" (click)="toggleEditMode()">
-          <cds-icon shape="pencil"></cds-icon>
-        </button>
-      </div>
+      <router-outlet (activate)="onTabActivate($event)"></router-outlet>
     </div>
-    <router-outlet (activate)="onTabActivate($event)"></router-outlet>
   </div>
-</div>
 </div>
