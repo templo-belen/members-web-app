@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, map, Observable, of } from 'rxjs';
 import { MemberErrorResponseModel, MemberListResponseModel } from '../models/api-response.model';
 import { MemberBasicInfo } from '../models/member.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +11,13 @@ import { MemberBasicInfo } from '../models/member.model';
 export class MemberApiService {
 
   private _http = inject(HttpClient);
+  private _baseUrl = environment.backendBaseUrl;
 
   constructor() {
   }
 
   public list(): Observable<MemberListResponseModel | MemberErrorResponseModel> {
-    return this._http.get<MemberBasicInfo[]>('http://localhost:8000/members', { observe: "response" })
+    return this._http.get<MemberBasicInfo[]>(`${this._baseUrl}/members`, { observe: "response" })
       .pipe(
         map(response => {
           return new MemberListResponseModel({ memberList: response.body! });
@@ -27,9 +29,7 @@ export class MemberApiService {
   }
 
   public basicInfoById(memberId: number): Observable<MemberBasicInfo | MemberErrorResponseModel> {
-    // TODO: move base URL to environments
-    // https://github.com/templo-belen/members-web-app/issues/34
-    return this._http.get<MemberBasicInfo>(`http://localhost:8000/members/${memberId}`, { observe: "response" })
+    return this._http.get<MemberBasicInfo>(`${this._baseUrl}/members/${memberId}`, { observe: "response" })
       .pipe(
         map(response => {
           return new MemberBasicInfo(response.body!);

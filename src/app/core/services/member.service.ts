@@ -40,7 +40,6 @@ export class MemberService {
 
   public dispatchMemberBasicInfo(memberId: number) {
     if (memberId < 1) {
-      console.log("Not selecting member", memberId);
       return;
     }
     this._store.dispatch(basicInfo({ memberId }));
