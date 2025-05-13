@@ -34,12 +34,12 @@
           <div cds-text="subsection bold">{{ currentTabTitle }}</div>
         </div>
         <div class="clr-col-10">
-          <a role="button" (click)="toggleEditMode()">
+          <a role="button" (click)="toggleEditMode()" *ngIf="!isEditable">
             <cds-icon shape="pencil"></cds-icon>
           </a>
         </div>
       </div>
-      <router-outlet (activate)="onTabActivate($event)"></router-outlet>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>
