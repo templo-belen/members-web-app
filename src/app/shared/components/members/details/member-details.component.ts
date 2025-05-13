@@ -20,21 +20,7 @@ export class MemberDetailsComponent {
 
   currentTabTitle = 'Datos Personales';
 
-  constructor(private router: Router) {
-    this.router.events.pipe(
-      filter((event: any) => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      this.updateTabTitle(this.router.url);
-    });
-  }
-
-  updateTabTitle(url: string) {
-    if (url.includes('basic-info')) this.currentTabTitle = 'Datos Personales';
-    else if (url.includes('family-info')) this.currentTabTitle = 'Datos Familiares';
-    else if (url.includes('general-info')) this.currentTabTitle = 'Datos Generales';
-    else if (url.includes('references')) this.currentTabTitle = 'Referencias';
-    else if (url.includes('dew-info')) this.currentTabTitle = 'DEW';
-    else this.currentTabTitle = '';
+  constructor() {
   }
 
   toggleEditMode() {
@@ -54,7 +40,13 @@ export class MemberDetailsComponent {
   handleClose() {
     this.closeModal();
     this.currentTabComponent.setEditMode(false);
+    this.currentTabTitle = 'Datos Personales';
     this.isEditable = false;
+  }
+
+  onLinkClick(event: MouseEvent): void {
+    const element = event.currentTarget as HTMLElement;
+    this.currentTabTitle = element.textContent?.trim() ?? '';
   }
 
 }
