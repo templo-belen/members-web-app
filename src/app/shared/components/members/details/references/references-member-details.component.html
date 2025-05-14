@@ -1,86 +1,76 @@
 <div class="container p-2">
-    <form clrForm (ngSubmit)="onSubmit()">
-
-      <div class="clr-row mt-4">
-        <div class="clr-col-12">
-          <table class="table">
-            <thead>
-              <tr>
-                <th class="center">Tiempo</th>
-                <th class="center">Iglesia</th>
-                <th class="center">Pastor</th>
-                <th class="center">Retiro</th>
-                <th class="center"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let reference of churchReferences; let i = index">
-                <td>
-                  <clr-date-container>
-                    <input 
-                    type="date" 
-                    clrDate [(ngModel)]="reference.time" 
-                    [name]="'time' + i" />
-                  </clr-date-container>
-                </td>
-                <td>
-                  <input 
-                  clrInput type="text" 
-                  [(ngModel)]="reference.churchName"
-                  [name]="'churchName' + i" 
-                  placeholder="Nombre de iglesia" />
-                </td>
-                <td>
-                  <input 
-                  clrInput type="text" 
-                  [(ngModel)]="reference.leadPastorName" 
-                  [name]="'leadPastorName' + i" 
-                  placeholder="Pastor lider" />
-                </td>
-                <td>
-                  <input 
-                  clrInput type="text" 
-                  [(ngModel)]="reference.reasonForLeaving" 
-                  [name]="'reasonForLeaving' + i" 
-                  placeholder="Razón de retiro" />
-                </td>
-                <td class="action-column">
-                  <button 
-                  *ngIf="i === churchReferences.length - 1 " 
-                  type="button" class="btn btn-sm btn-icon" 
-                  (click)="addReference()">
-                  <cds-icon shape="plus"></cds-icon>
-                  </button>
-                  <button 
-                  *ngIf="i !== churchReferences.length - 1 " 
-                  type="button" class="btn btn-sm btn-icon" 
-                  (click)="removeReference(i)">
-                  <cds-icon shape="minus"></cds-icon>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-
-      <div class="clr-row mt-4">
-        <div class="clr-col-10">
-          <clr-textarea-container>
-            <label class="single-line">Razones por las cuales decidió congregarse en Templo Belen:</label>
-             <textarea class="text-box" clrTextarea [formControl]="reasonsForJoining" rows="4"></textarea>
-          </clr-textarea-container>
-        </div>
-      </div>
-
-      
-      <div class="clr-row mt-4">
-        <div class="clr-col-12 text-right">
-          <button type="button" class="btn btn-outline">Cancelar</button>
-          <button type="submit" class="btn btn-primary ml-2">Guardar</button>
-        </div>
-      </div>
-    </form>
+  <div class="clr-row">
+    <div class="clr-col-2">
+      <div cds-text="subsection bold">Referencias</div>
+    </div>
+    <div class="clr-col-10" *ngIf="!isEditable">
+      <button type="button" class="btn" (click)="toggleEditMode()">
+        <cds-icon shape="pencil"></cds-icon>
+      </button>
+    </div>
   </div>
-  
+  <form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
+
+<div class="clr-row mt-4">
+  <div class="clr-col-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="left">Tiempo</th>
+          <th class="left">Iglesia</th>
+          <th class="left">Pastor</th>
+          <th class="left">Retiro</th>
+          <th class="left" *ngIf="isEditable"></th>
+        </tr>
+      </thead>
+      <tbody formArrayName="references">
+        <tr *ngFor="let reference of referencesArray.controls; let i = index" [formGroupName]="i">
+          <td>
+            <input  formControlName="totalTime" type="number" autocomplete="off" formControlName="totalTime" [readonly]="!isEditable" class="clr-input">
+          </td>
+          <td>
+            <input type="text" formControlName="churchName" [readonly]="!isEditable" class="clr-input">
+          </td>
+          <td>
+            <input type="text" formControlName="mainPastorName" [readonly]="!isEditable" class="clr-input">
+          </td>
+          <td>
+            <input type="text" formControlName="leavingReason" [readonly]="!isEditable" class="clr-input">
+          </td>
+          <td *ngIf="isEditable">
+            <button type="button" class="btn btn-icon btn-sm" (click)="removeReference(i)">
+              <cds-icon shape="trash"></cds-icon>
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="referencesArray.controls.length === 0">
+          <td colspan="5" class="text-center">No hay referencias disponibles</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div *ngIf="isEditable" class="mt-2">
+      <button type="button" class="btn btn-sm btn-icon" (click)="addReference()">
+        <cds-icon shape="plus"></cds-icon> Añadir referencia
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="clr-row mt-4">
+  <div class="clr-col-10">
+    <clr-textarea-container>
+      <label class="single-line">Razones por las cuales decidió congregarse en Templo Belen:</label>
+      <textarea class="text-box" clrTextarea formControlName="reasonsForCongregating" rows="4"></textarea>
+    </clr-textarea-container>
+  </div>
+</div>
+
+<div class="clr-row mt-4">
+  <div class="clr-form-actions" *ngIf="isEditable">
+    <button type="submit" class="btn btn-primary" [disabled]="memberForm.invalid">Guardar</button>
+    <button type="button" class="btn btn-secondary" (click)="toggleEditMode()">Cancelar</button>
+  </div>
+</div>
+  </form>
+</div>

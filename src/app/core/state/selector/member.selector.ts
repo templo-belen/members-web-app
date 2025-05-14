@@ -2,6 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { MemberBasicInfo, MemberError } from '../../models/member.model';
 import { MemberListResponseModel } from '../../models/api-response.model';
 import { MemberState } from '../reducers/member.reducer';
+import { MemberReference } from '../../models/member-reference-model';
 
 const selectMemberState = createFeatureSelector<MemberState>('member');
 
@@ -37,5 +38,12 @@ export const selectMemberBasicInfo = createSelector(
   selectMemberState,
   (state): MemberBasicInfo => {
     return state.memberBasicInfo ?? MemberBasicInfo.empty()
+  }
+);
+
+export const selectMemberReferences = createSelector(
+  selectMemberState,
+  (state): MemberReference => {
+    return state.memberReferences ?? MemberReference.empty()
   }
 );

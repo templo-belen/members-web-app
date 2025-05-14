@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { basicInfo, list, selectedMemberId } from '../state/actions/members.action';
-import { selectIsLoading, selectMemberBasicInfo, selectMemberList, selectMemberListError, selectSelectedMemberId } from '../state/selector/member.selector';
+import { basicInfo, list, references, selectedMemberId } from '../state/actions/members.action';
+import { selectIsLoading, selectMemberReferences, selectMemberBasicInfo, selectMemberList, selectMemberListError, selectSelectedMemberId } from '../state/selector/member.selector';
 
 @Injectable({
   providedIn: 'root'
@@ -55,5 +55,17 @@ export class MemberService {
   public dispatchMemberEnums(memberId: number) {
     // TODO: add member enums to the store
     // https://github.com/templo-belen/members-web-app/issues/35
+  }
+  
+  public fetchMemberReferences() {
+    return this._store.select(selectMemberReferences);
+  }
+
+  public dispatchMemberReferences(memberId: number) {
+    if (memberId < 1) {
+      console.log("Not selecting member", memberId);
+      return;
+    }
+    this._store.dispatch(references({ memberId }));
   }
 }

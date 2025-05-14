@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { MemberBasicInfo } from '../../models/member.model'
 import { MemberErrorResponseModel, MemberListResponseModel } from '../../models/api-response.model';
+import { MemberReference } from '../../models/member-reference-model';
 
 export enum MembersAction {
   List = '[Member] List',
@@ -12,6 +13,10 @@ export enum MembersAction {
   BasicInfo = '[Member] Basic Info',
   BasicInfoSuccess = '[Member] Basic Info Success',
   BasicInfoFailure = '[Member] Basic Info Failure',
+
+  References = '[Member] References',
+  ReferencesSuccess = '[Member] References Success',
+  ReferencesFailure = '[Member] References Failure',
 }
 
 export const list = createAction(MembersAction.List);
@@ -23,3 +28,7 @@ export const selectedMemberId = createAction(MembersAction.SelectedMemberId, pro
 export const basicInfo = createAction(MembersAction.BasicInfo, props<{ memberId: number }>());
 export const basicInfoSuccess = createAction(MembersAction.BasicInfoSuccess, props<MemberBasicInfo>());
 export const basicInfoFailure = createAction(MembersAction.BasicInfoFailure, props<MemberErrorResponseModel>());
+
+export const references = createAction(MembersAction.References, props<{ memberId: number }>());
+export const referencesSuccess = createAction(MembersAction.ReferencesSuccess, props<MemberReference>());
+export const referencesFailure = createAction(MembersAction.ReferencesFailure, props<MemberErrorResponseModel>());

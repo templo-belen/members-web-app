@@ -1,57 +1,105 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, FormArray } from '@angular/forms';
 import { ClrFormsModule, ClrDatagridModule, ClrIconModule } from '@clr/angular';
-import { ChurchReference } from '../../../../../core/models/church-reference-model';
+import { MemberReference, references } from '../../../../../core/models/member-reference-model';
+import { MemberService } from '../../../../../core/services/member.service';
 
 @Component({
   selector: 'app-references-member-details',
-  imports: [     
-    FormsModule,
-    ReactiveFormsModule,
-    ClrFormsModule,
-    ClrDatagridModule,
-    ClrIconModule,
-    CommonModule],
+  imports: [FormsModule, ReactiveFormsModule, ClrFormsModule, ClrDatagridModule, ClrIconModule, CommonModule],
   templateUrl: './references-member-details.component.html',
   styleUrl: './references-member-details.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   standalone: true
-
 })
 export class ReferencesMemberDetailsComponent implements OnInit {
 
-  churchReferences: ChurchReference[] = [];
+  private _memberService = inject(MemberService);
 
-  //TODO: mover a un form group 
-  reasonsForJoining = new FormControl('');
-  createdOn = new FormControl('');
-  createdBy = new FormControl('');
-  modifiedOn = new FormControl('');
-  modifiedBy = new FormControl('');
+  memberForm: FormGroup;
+  isEditable: boolean = false;
+  memberReferences: MemberReference | null = null;
 
-  ngOnInit(): void {
-    this.addReference();
+  constructor(private fb: FormBuilder) {
+    this.memberForm = this.createForm();
+    this.memberForm.disable();
   }
 
-  addReference(): void {
-    this.churchReferences.push({
-      time: '',
-      churchName: '',
-      leadPastorName: '',
-      reasonForLeaving: ''
+  createForm(): FormGroup {
+    return this.fb.group({
+      id: [0],
+      references: this.fb.array([]),
+      reasonsForCongregating: ['']
     });
   }
 
-  removeReference(index: number): void {
-    if (this.churchReferences.length > 1) {
-      this.churchReferences.splice(index, 1);
+  get referencesArray(): FormArray {
+    return this.memberForm.get('references') as FormArray;
+  }
+
+  createReferenceGroup(reference: references): FormGroup {
+    return this.fb.group({
+      totalTime: [reference.totalTime],
+      churchName: [reference.churchName],
+      mainPastorName: [reference.mainPastorName],
+      leavingReason: [reference.leavingReason]
+    });
+  }
+
+  ngOnInit(): void {
+    this._memberService.fetchSelectedMemberId().subscribe(memberId => {
+      if (memberId) {
+        this._memberService.dispatchMemberReferences(memberId);
+      }
+    });
+    
+    this._memberService.fetchMemberReferences().subscribe(memberReferences => {
+      if (memberReferences) {
+        this.memberReferences = memberReferences;
+        this.updateForm(memberReferences);
+      }
+    });
+  }
+
+  updateForm(data: MemberReference): void {
+    this.memberForm = this.createForm();
+    this.memberForm.disable();
+    
+    this.memberForm.patchValue({
+      id: data.id,
+      reasonsForCongregating: data.reasonsForCongregating
+    });
+
+    if (data.references && data.references.length > 0) {
+      data.references.forEach(reference => {
+        (this.memberForm.get('references') as FormArray).push(this.createReferenceGroup(reference));
+      });
+    }
+
+    if (this.isEditable) {
+      this.memberForm.enable();
     }
   }
 
-  onSubmit(): void {
-    const formData = {
+  onSubmit() {
+    
+  }
 
-    };  
+  toggleEditMode() {
+    this.isEditable = !this.isEditable;
+    if (this.isEditable) {
+      this.memberForm.enable();
+    } else {
+      this.memberForm.disable();
+    }
+  }
+
+  addReference() {
+    this.referencesArray.push(this.createReferenceGroup(references.empty()));
+  }
+
+  removeReference(index: number) {
+    this.referencesArray.removeAt(index);
   }
 }

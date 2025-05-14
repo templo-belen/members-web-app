@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, map, Observable, of } from 'rxjs';
 import { MemberErrorResponseModel, MemberListResponseModel } from '../models/api-response.model';
 import { MemberBasicInfo } from '../models/member.model';
+import { MemberReference } from '../models/member-reference-model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,16 @@ export class MemberApiService {
       .pipe(
         map(response => {
           return new MemberBasicInfo(response.body!);
+        }),
+        catchError(error => {
+          return of(new MemberErrorResponseModel({ msg: error.error.msg, code: error.status }));
+        }));
+  }
+  public referencesById(memberId: number): Observable<MemberReference | MemberErrorResponseModel> {
+    return this._http.get<MemberReference>(`http://localhost:8000/members/${memberId}/references`, { observe: "response" })
+      .pipe(
+        map(response => {
+          return new MemberReference(response.body!);
         }),
         catchError(error => {
           return of(new MemberErrorResponseModel({ msg: error.error.msg, code: error.status }));
