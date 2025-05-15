@@ -1,25 +1,24 @@
-<div class="container p-2">
-  <div class="clr-row">
-    <div class="clr-col-2">
-      <div cds-text="subsection bold">Referencias</div>
-    </div>
+<div class="clr-row">
+  <div class="clr-col-2">
+    <div cds-text="subsection bold">Referencias</div>
+  </div>
     <div class="clr-col-10" *ngIf="!isEditable">
       <button type="button" class="btn" (click)="toggleEditMode()">
         <cds-icon shape="pencil"></cds-icon>
       </button>
     </div>
   </div>
-  <form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
+  <form  [formGroup]="memberForm" (ngSubmit)="onSubmit()">
 
 <div class="clr-row mt-4">
   <div class="clr-col-12">
     <table class="table">
       <thead>
         <tr>
-          <th class="left">Tiempo</th>
-          <th class="left">Iglesia</th>
-          <th class="left">Pastor</th>
-          <th class="left">Retiro</th>
+          <th class="left">Tiempo total</th>
+          <th class="left">Iglesia anterior</th>
+          <th class="left">Pastor lider</th>
+          <th class="left">Motivo del Retiro</th>
           <th class="left" *ngIf="isEditable"></th>
         </tr>
       </thead>
@@ -51,20 +50,24 @@
     
     <div *ngIf="isEditable" class="mt-2">
       <button type="button" class="btn btn-sm btn-icon" (click)="addReference()">
-        <cds-icon shape="plus"></cds-icon> Añadir referencia
+        <cds-icon shape="plus"></cds-icon> Añadir nueva referencia
       </button>
     </div>
   </div>
 </div>
 
+<div>
 <div class="clr-row mt-4">
-  <div class="clr-col-10">
+  <div class="clr-col-12">
     <clr-textarea-container>
       <label class="single-line">Razones por las cuales decidió congregarse en Templo Belen:</label>
-      <textarea class="text-box" clrTextarea formControlName="reasonsForCongregating" rows="4"></textarea>
+      <textarea  class="text-box" clrTextarea formControlName="reasonsForCongregating" ></textarea>
     </clr-textarea-container>
   </div>
 </div>
+</div>
+
+
 
 <div class="clr-row mt-4">
   <div class="clr-form-actions" *ngIf="isEditable">
@@ -73,4 +76,3 @@
   </div>
 </div>
   </form>
-</div>

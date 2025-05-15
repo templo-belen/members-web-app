@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, FormArray } from '@angular/forms';
 import { ClrFormsModule, ClrDatagridModule, ClrIconModule } from '@clr/angular';
 import { MemberReference, references } from '../../../../../core/models/member-reference-model';
@@ -10,8 +10,6 @@ import { MemberService } from '../../../../../core/services/member.service';
   imports: [FormsModule, ReactiveFormsModule, ClrFormsModule, ClrDatagridModule, ClrIconModule, CommonModule],
   templateUrl: './references-member-details.component.html',
   styleUrl: './references-member-details.component.scss',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  standalone: true
 })
 export class ReferencesMemberDetailsComponent implements OnInit {
 
@@ -22,7 +20,7 @@ export class ReferencesMemberDetailsComponent implements OnInit {
   memberReferences: MemberReference | null = null;
 
   constructor(private fb: FormBuilder) {
-    this.memberForm = this.createForm();
+    this.memberForm = this.fb.group(MemberReference.empty());
     this.memberForm.disable();
   }
 
@@ -34,8 +32,38 @@ export class ReferencesMemberDetailsComponent implements OnInit {
     });
   }
 
+  ngOnInit(): void {
+    this._memberService.fetchSelectedMemberId().subscribe(memberId => {
+        this._memberService.dispatchMemberReferences(memberId);
+    });
+    
+    this._memberService.fetchMemberReferences().subscribe(memberReferences => {
+      this.memberForm.patchValue(memberReferences);
+        this.updateForm(memberReferences);
+    });
+  }
+  
+  onSubmit() {}
+
+  toggleEditMode() {
+    this.isEditable = !this.isEditable;
+    if (this.isEditable) {
+      this.memberForm.enable();
+    } else {
+      this.memberForm.disable();
+    }
+  }
+
   get referencesArray(): FormArray {
     return this.memberForm.get('references') as FormArray;
+  }
+
+  addReference() {
+    this.referencesArray.push(this.createReferenceGroup(references.empty()));
+  }
+
+  removeReference(index: number) {
+    this.referencesArray.removeAt(index);
   }
 
   createReferenceGroup(reference: references): FormGroup {
@@ -44,21 +72,6 @@ export class ReferencesMemberDetailsComponent implements OnInit {
       churchName: [reference.churchName],
       mainPastorName: [reference.mainPastorName],
       leavingReason: [reference.leavingReason]
-    });
-  }
-
-  ngOnInit(): void {
-    this._memberService.fetchSelectedMemberId().subscribe(memberId => {
-      if (memberId) {
-        this._memberService.dispatchMemberReferences(memberId);
-      }
-    });
-    
-    this._memberService.fetchMemberReferences().subscribe(memberReferences => {
-      if (memberReferences) {
-        this.memberReferences = memberReferences;
-        this.updateForm(memberReferences);
-      }
     });
   }
 
@@ -80,26 +93,5 @@ export class ReferencesMemberDetailsComponent implements OnInit {
     if (this.isEditable) {
       this.memberForm.enable();
     }
-  }
-
-  onSubmit() {
-    
-  }
-
-  toggleEditMode() {
-    this.isEditable = !this.isEditable;
-    if (this.isEditable) {
-      this.memberForm.enable();
-    } else {
-      this.memberForm.disable();
-    }
-  }
-
-  addReference() {
-    this.referencesArray.push(this.createReferenceGroup(references.empty()));
-  }
-
-  removeReference(index: number) {
-    this.referencesArray.removeAt(index);
   }
 }

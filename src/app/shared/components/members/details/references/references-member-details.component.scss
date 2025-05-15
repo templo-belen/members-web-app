@@ -1,61 +1,18 @@
-clr-input-container, clr-textarea-container {
-    margin-top: 0.5rem;
-  }
-  
-  .clr-input, .clr-textarea {
-    width: 100% !important;
-  }
-  
-  .mt-4 {
-    margin-top: 2rem;
-  }
-  
-  .single-line {
-    white-space: nowrap;
-  }
-  
-  .text-box {
-    margin-top: 25px;
-    width: max-content;
-  }
-  ////////////////////////////////////////////////////////////////////////////////////
-  // TABLA
-  table {
-    width: 100%;
-    
-    input {
-      width: 100%;
-      border-radius: 3px;
-      padding: 0.25rem 0.5rem;
-      
-    }
-  }
-  
-  .action-column {
-    width: 100px;
-    text-align: right;
-    
-    .btn-icon {
-      margin-left: 0.5rem;
-    }
-  }
-  
-  td {
-    vertical-align: middle;
-    padding: 0.5rem;
-  }
-  
-  .btn-icon {
-    min-width: 0;
-    padding: 0.25rem;
-    margin: 0 0.25rem;
-    
-    cds-icon {
-      margin: 0;
-    }
-  }
+.mt-4 {
+  margin-top: 2rem;
+}
 
-  .left {
-    text-align: center;
-    top: 20px;
+table {
+  width: 100%;
+
+  input {
+    width: 100%;
+    border-radius: 3px;
+    padding: 0.25rem 0.5rem;
   }
+}
+
+td {
+  vertical-align: middle;
+  padding: 0.5rem;
+}
