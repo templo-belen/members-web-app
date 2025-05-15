@@ -43,7 +43,9 @@ export class ReferencesMemberDetailsComponent implements OnInit {
     });
   }
   
-  onSubmit() {}
+  onSubmit() {
+    // TODO: save member references
+  }
 
   toggleEditMode() {
     this.isEditable = !this.isEditable;

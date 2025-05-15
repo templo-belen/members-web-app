@@ -25,7 +25,7 @@
       <tbody formArrayName="references">
         <tr *ngFor="let reference of referencesArray.controls; let i = index" [formGroupName]="i">
           <td>
-            <input  formControlName="totalTime" type="number" autocomplete="off" formControlName="totalTime" [readonly]="!isEditable" class="clr-input">
+            <input  formControlName="totalTime" type="number" autocomplete="off" [readonly]="!isEditable" class="clr-input">
           </td>
           <td>
             <input type="text" formControlName="churchName" [readonly]="!isEditable" class="clr-input">
