@@ -1,11 +1,11 @@
-<div class="main-container modal-member-content">
-  <header class="header header-member-info">
+<div class="details-main-container">
+  <header class="header">
     <div class="details-header">
       <span class="title">{{memberName}}</span>
       <button type="button" class="btn btn-outline" (click)="handleClose()">Cerrar</button>
     </div>
   </header>
-  <div class="content-container">
+<div class="content-container">
     <clr-vertical-nav>
       <a clrVerticalNavLink [routerLink]="['./basic-info']" routerLinkActive="active" (click)="onLinkClick($event, './basic-info')" [class.disabled]="isEditable">
         <cds-icon clrVerticalNavIcon shape="user" ></cds-icon>
@@ -28,7 +28,7 @@
         DEW
       </a>
     </clr-vertical-nav>
-    <div class="content-area">
+  <div class="details-content-area">
       <div class="clr-row">
         <div class="clr-col-2">
           <div cds-text="subsection bold">{{ currentTabTitle }}</div>
@@ -45,7 +45,7 @@
           <button type="button" class="btn btn-secondary" (click)="toggleEditMode()">Cancelar</button>
         </div>
       </div>
-      <router-outlet></router-outlet>
-    </div>
+
+    <router-outlet></router-outlet>
   </div>
 </div>

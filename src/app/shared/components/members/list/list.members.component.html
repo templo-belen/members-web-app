@@ -1,9 +1,9 @@
-<div class="limit-height">
+<div class="datagrid-limit-height">
 <div *ngIf="isLoading();">
 <clr-progress-bar clrValue="75" clrLoop></clr-progress-bar>
 <h4>Progress Bar</h4>
 </div>
-  <div *ngIf="membersList().length > 0;">
+  <div *ngIf="membersList().length > 0;" class="datagrid-limit-height">
   <clr-datagrid>
   <clr-dg-column class="icon-column"></clr-dg-column>
     <clr-dg-column>
