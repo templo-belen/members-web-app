@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { MemberBasicInfo } from '../../models/member.model'
+import { MemberBasicInfo, MemberGeneralInfo } from '../../models/member.model'
 import { MemberErrorResponseModel, MemberListResponseModel } from '../../models/api-response.model';
 
 export enum MembersAction {
@@ -12,6 +12,10 @@ export enum MembersAction {
   BasicInfo = '[Member] Basic Info',
   BasicInfoSuccess = '[Member] Basic Info Success',
   BasicInfoFailure = '[Member] Basic Info Failure',
+
+  GeneralInfo = '[Member] General Info',
+  GeneralInfoSuccess = '[Member] General Info Success',
+  GeneralInfoFailure = '[Member] General Info Failure',
 }
 
 export const list = createAction(MembersAction.List);
@@ -23,3 +27,7 @@ export const selectedMemberId = createAction(MembersAction.SelectedMemberId, pro
 export const basicInfo = createAction(MembersAction.BasicInfo, props<{ memberId: number }>());
 export const basicInfoSuccess = createAction(MembersAction.BasicInfoSuccess, props<MemberBasicInfo>());
 export const basicInfoFailure = createAction(MembersAction.BasicInfoFailure, props<MemberErrorResponseModel>());
+
+export const generalInfo = createAction(MembersAction.GeneralInfo, props<{ memberId: number }>());
+export const generalInfoSuccess = createAction(MembersAction.GeneralInfoSuccess, props<MemberGeneralInfo>());
+export const generalInfoFailure = createAction(MembersAction.GeneralInfoFailure, props<MemberErrorResponseModel>());
