@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { ClrVerticalNavModule } from '@clr/angular';
-import { editModeSubject } from '../../../../core/subjects/members.subjects';
-import { CommonModule } from '@angular/common';
+import {Component, Input} from '@angular/core';
+import {ActivatedRoute, Router, RouterModule} from '@angular/router';
+import {ClrVerticalNavModule} from '@clr/angular';
+import {editModeSubject} from '../../../../core/subjects/members.subjects';
+import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-member-details',
@@ -18,7 +18,7 @@ export class MemberDetailsComponent {
   isEditable = false;
   currentTabTitle = 'Datos Personales';
 
-  constructor() {
+  constructor(private router: Router, private route: ActivatedRoute) {
     editModeSubject.subscribe(mode => this.isEditable = mode);
   }
 
@@ -32,7 +32,16 @@ export class MemberDetailsComponent {
     editModeSubject.next(false);
   }
 
-  onLinkClick(event: MouseEvent): void {
+  onLinkClick(event: MouseEvent, path: string): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (this.isEditable) {
+      return;
+    }
+
+    this.router.navigate([path], { relativeTo: this.route });
+
     const element = event.currentTarget as HTMLElement;
     this.currentTabTitle = element.textContent?.trim() ?? '';
   }

@@ -1,5 +1,5 @@
-<div class="main-container">
-  <header class="header">
+<div class="main-container modal-member-content">
+  <header class="header header-member-info">
     <div class="details-header">
       <span class="title">{{memberName}}</span>
       <button type="button" class="btn btn-outline" (click)="handleClose()">Cerrar</button>
@@ -7,23 +7,23 @@
   </header>
   <div class="content-container">
     <clr-vertical-nav>
-      <a clrVerticalNavLink routerLink="./basic-info" routerLinkActive="active" (click)="onLinkClick($event)">
-        <cds-icon clrVerticalNavIcon shape="user"></cds-icon>
+      <a clrVerticalNavLink href="#" routerLinkActive="active" (click)="onLinkClick($event, './basic-info')" [class.disabled]="isEditable">
+        <cds-icon clrVerticalNavIcon shape="user" ></cds-icon>
         Datos Personales
       </a>
-      <a clrVerticalNavLink routerLink="./family-info" routerLinkActive="active" (click)="onLinkClick($event)">
+      <a clrVerticalNavLink href="#" routerLinkActive="active" (click)="onLinkClick($event, './family-info')" [class.disabled]="isEditable">
         <cds-icon clrVerticalNavIcon shape="home"></cds-icon>
         Datos Familiares
       </a>
-      <a clrVerticalNavLink routerLink="./general-info" routerLinkActive="active" (click)="onLinkClick($event)">
+      <a clrVerticalNavLink href="#" routerLinkActive="active" (click)="onLinkClick($event, './general-info')" [class.disabled]="isEditable">
         <cds-icon clrVerticalNavIcon shape="details"></cds-icon>
         Datos Generales
       </a>
-      <a clrVerticalNavLink routerLink="./references" routerLinkActive="active" (click)="onLinkClick($event)">
+      <a clrVerticalNavLink href="#" routerLinkActive="active" (click)="onLinkClick($event, './references')" [class.disabled]="isEditable">
         <cds-icon clrVerticalNavIcon shape="book"></cds-icon>
         Referencias
       </a>
-      <a clrVerticalNavLink routerLink="./dew-info" routerLinkActive="active" (click)="onLinkClick($event)">
+      <a clrVerticalNavLink href="#" routerLinkActive="active" (click)="onLinkClick($event, './dew-info')" [class.disabled]="isEditable">
         <cds-icon clrVerticalNavIcon shape="world"></cds-icon>
         DEW
       </a>
@@ -33,10 +33,16 @@
         <div class="clr-col-2">
           <div cds-text="subsection bold">{{ currentTabTitle }}</div>
         </div>
-        <div class="clr-col-10">
-          <a role="button" (click)="toggleEditMode()" *ngIf="!isEditable">
+        <!-- Edit member button -->
+        <div class="clr-col-8 edit-member-button" *ngIf="!isEditable">
+          <button role="button" (click)="toggleEditMode()"  class="btn btn-secondary">
             <cds-icon shape="pencil"></cds-icon>
-          </a>
+          </button>
+        </div>
+        <!-- Save / Cancel buttons -->
+        <div class="clr-col-8 edit-member-actions" *ngIf="isEditable">
+          <button type="submit" class="btn btn-primary">Guardar</button>
+          <button type="button" class="btn btn-secondary" (click)="toggleEditMode()">Cancelar</button>
         </div>
       </div>
       <router-outlet></router-outlet>

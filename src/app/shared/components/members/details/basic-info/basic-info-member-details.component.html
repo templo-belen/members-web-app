@@ -1,8 +1,29 @@
 <form clrForm [formGroup]="memberForm" (ngSubmit)="onSubmit()" clrLayout="horizontal" clrLabelSize="3">
   <div class="clr-row">
     <div class="clr-col-2">
-      <img [src]="'foto.jpg'" alt="Profile" class="clr-mb-md profile-picture" />
-      <input type="file" id="profilePicture" (change)="onFileSelected($event)" class="clr-mt" *ngIf="isEditable" />
+      <div class="profile-container">
+        <div class="profile-picture">
+          <img [src]="'no_image.png'" alt="Profile picture" />
+        </div>
+        <div *ngIf="isEditable" class="file-input-wrapper">
+          <clr-file-input-container clrButtonLabel="Seleccionar imagen" class="image-upload-box"  *ngIf="isEditable"  >
+            <input
+              type="file"
+              formControlName="file"
+              accept=".jpg,.jpeg,.png,image/jpeg,image/png"
+              clrFileInput
+              [clrMaxFileSize]="300000"
+            />
+            <clr-control-success>Imagen correcta</clr-control-success>
+            <clr-control-error *clrIfError="'accept'; let error = error">
+              Solo se permite seleccionar imágenes (.jpg,.jpeg,.png)
+            </clr-control-error>
+            <clr-control-error *clrIfError="'maxFileSize'; let error = error">
+              El archivo es muy grande (Máximo: 300KB)
+            </clr-control-error>
+          </clr-file-input-container>
+        </div>
+      </div>
     </div>
     <div class="clr-col-5">
       <clr-input-container>
@@ -146,8 +167,4 @@
     </div>
   </div>
 
-  <div class="clr-form-actions" *ngIf="isEditable">
-    <button type="submit" class="btn btn-primary">Guardar</button>
-    <button type="button" class="btn btn-secondary" (click)="toggleEditMode()">Cancelar</button>
-  </div>
 </form>
