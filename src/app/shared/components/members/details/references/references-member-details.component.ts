@@ -47,7 +47,6 @@ export class ReferencesMemberDetailsComponent implements OnInit {
     );
 
     return this.fb.group({
-      id: [memberReferences.id || 0],
       references: referencesArray,
       reasonsForCongregating: [memberReferences.reasonsForCongregating || '']
     });
