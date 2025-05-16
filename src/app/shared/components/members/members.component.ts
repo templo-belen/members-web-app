@@ -1,10 +1,10 @@
-import { Component, computed, inject, OnInit, Signal } from '@angular/core';
-import { MembersListComponent } from './list/list.members.component';
-import { MemberService } from '../../../core/services/member.service';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { ClrModalModule } from '@clr/angular';
-import { CommonModule } from '@angular/common';
-import { MemberDetailsComponent } from './details/member-details.component';
+import {Component, computed, inject, OnInit, Signal} from '@angular/core';
+import {MembersListComponent} from './list/list.members.component';
+import {MemberService} from '../../../core/services/member.service';
+import {toSignal} from '@angular/core/rxjs-interop';
+import {ClrModalModule} from '@clr/angular';
+import {CommonModule} from '@angular/common';
+import {MemberDetailsComponent} from './details/member-details.component';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
@@ -48,10 +48,10 @@ export class MembersComponent implements OnInit {
 
     this.isModalOpen = true;
   }
+
   public closeModal = () => {
     this.isModalOpen = false;
   }
-
 
   ngOnInit(): void {
     this._memberService.dispatchList();

@@ -1,10 +1,10 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
-import { ClarityModule } from '@clr/angular';
-import { MemberBasicInfo } from '../../../../../core/models/member.model';
-import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MemberService } from '../../../../../core/services/member.service';
-import { editModeSubject } from '../../../../../core/subjects/members.subjects';
+import {Component, inject, OnInit} from '@angular/core';
+import {ClarityModule} from '@clr/angular';
+import {MemberBasicInfo} from '../../../../../core/models/member.model';
+import {CommonModule} from '@angular/common';
+import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {MemberService} from '../../../../../core/services/member.service';
+import {editModeSubject} from '../../../../../core/subjects/members.subjects';
 
 @Component({
   selector: 'app-basic-info-member-details',
@@ -21,6 +21,7 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {
     this.memberForm = this.fb.group(MemberBasicInfo.empty());
+    this.memberForm.addControl('file', new FormControl<FileList | null>(null));  //TODO evaluar si formara parte del modelo
     this.memberForm.disable();
   }
 
