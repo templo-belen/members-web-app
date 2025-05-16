@@ -1,1 +1,96 @@
-<p>references-member-details works!</p>
+<form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
+  <div class="clr-row mt-4">
+    <div class="clr-col-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="left">Tiempo total</th>
+            <th class="left">Iglesia anterior</th>
+            <th class="left">Pastor líder</th>
+            <th class="left">Motivo del Retiro</th>
+            <th class="left" *ngIf="isEditable"></th>
+          </tr>
+        </thead>
+        <tbody formArrayName="references">
+          <tr
+            *ngFor="let reference of referencesArray.controls; let i = index"
+            [formGroupName]="i"
+          >
+            <td>
+              <input
+                formControlName="totalTime"
+                type="number"
+                autocomplete="off"
+                [readonly]="!isEditable"
+                class="clr-input"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                formControlName="churchName"
+                [readonly]="!isEditable"
+                class="clr-input"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                formControlName="mainPastorName"
+                [readonly]="!isEditable"
+                class="clr-input"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                formControlName="leavingReason"
+                [readonly]="!isEditable"
+                class="clr-input"
+              />
+            </td>
+            <td *ngIf="isEditable">
+              <button
+                type="button"
+                class="btn btn-icon btn-sm"
+                (click)="removeReference(i)"
+              >
+                <cds-icon shape="trash"></cds-icon>
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="referencesArray.controls.length === 0">
+            <td colspan="5" class="text-center">
+              No hay referencias disponibles
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="isEditable" class="mt-2">
+        <button
+          type="button"
+          class="btn btn-sm btn-icon"
+          (click)="addReference()"
+        >
+          <cds-icon shape="plus"></cds-icon> Añadir nueva referencia
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="clr-row mt-4">
+    <div class="clr-col-12">
+      <clr-textarea-container>
+        <label class="single-line">
+          Razones por las cuales decidió congregarse en Templo Belén:
+        </label>
+        <textarea
+          clrTextarea
+          style="width: 100%; min-height: 150px;"
+          formControlName="reasonsForCongregating"
+        ></textarea>
+      </clr-textarea-container>
+    </div>
+  </div>
+</form>
