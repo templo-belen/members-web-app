@@ -130,24 +130,10 @@
         <input clrInput formControlName="eps" />
       </clr-input-container>
 
-      <clr-input-container>
+      <clr-input-container formGroupName="preachingPoint">
         <label>Punto de predicación</label>
-        <input clrInput formControlName="preachingPoint" />
+        <input clrInput formControlName="name" />
       </clr-input-container>
-
-      <clr-toggle-container class="clr-toggle-right">
-        <label>Es pastor</label>
-        <clr-toggle-wrapper>
-          <input type="checkbox" clrToggle formControlName="isPastor" />
-        </clr-toggle-wrapper>
-      </clr-toggle-container>
-
-      <clr-toggle-container class="clr-toggle-right">
-        <label>Es lider de célula</label>
-        <clr-toggle-wrapper>
-          <input type="checkbox" clrToggle formControlName="isCellLeader" />
-        </clr-toggle-wrapper>
-      </clr-toggle-container>
 
       <clr-input-container>
         <label>Rol actual</label>

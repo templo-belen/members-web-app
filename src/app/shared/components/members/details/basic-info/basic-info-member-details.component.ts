@@ -20,19 +20,24 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
   isEditable: boolean = false;
 
   constructor(private fb: FormBuilder) {
-    this.memberForm = this.fb.group(MemberBasicInfo.empty());
-    this.memberForm.addControl('file', new FormControl<FileList | null>(null));  //TODO evaluar si formara parte del modelo
-    this.memberForm.disable();
+    this.memberForm = this.buildForm(new MemberBasicInfo());
+    this.setFormEditable();
+  }
+
+  buildForm(memberBasicInfo: MemberBasicInfo): FormGroup {
+    const form = this.fb.group({
+      ...memberBasicInfo,
+      preachingPoint: this.fb.group(memberBasicInfo.preachingPoint!),
+      zonePastor: this.fb.group(memberBasicInfo.zonePastor!),
+      file: new FormControl<FileList | null>(null),  //TODO evaluar si formara parte del modelo
+    });
+    return form;
   }
 
   ngOnInit(): void {
     editModeSubject.subscribe(mode => {
       this.isEditable = mode;
-      if (this.isEditable) {
-        this.memberForm.enable();
-      } else {
-        this.memberForm.disable();
-      }
+      this.setFormEditable();
     });
 
     this._memberService.fetchSelectedMemberId().subscribe(memberId => {
@@ -40,7 +45,8 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
     });
 
     this._memberService.fetchMemberBasicInfo().subscribe(memberBasicInfo => {
-      this.memberForm.patchValue(memberBasicInfo);
+      this.memberForm = this.buildForm(memberBasicInfo);
+      this.setFormEditable();
     });
     this.memberForm.disable();
   }
@@ -55,5 +61,13 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
 
   toggleEditMode() {
     editModeSubject.next(!this.isEditable);
+  }
+
+  setFormEditable() {
+    if (this.isEditable) {
+      this.memberForm.enable();
+    } else {
+      this.memberForm.disable();
+    }
   }
 }

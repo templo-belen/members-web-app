@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Signal } from '@angular/core';
 import { ClrDatagridModule, ClrIconModule, ClrProgressBarModule } from '@clr/angular';
-import { MemberBasicInfo } from '../../../../core/models/member.model';
+import { MemberListItem } from '../../../../core/models/member.model';
 
 @Component({
   selector: 'app-members-list',
@@ -11,7 +11,7 @@ import { MemberBasicInfo } from '../../../../core/models/member.model';
   standalone: true
 })
 export class MembersListComponent {
-  @Input({ required: true }) membersList!: Signal<MemberBasicInfo[]>;
+  @Input({ required: true }) membersList!: Signal<MemberListItem[]>;
   @Input({ required: true }) isLoading!: Signal<boolean>;
   @Input({ required: true }) openModal!: (memberId: number, memberName: string) => void;
 
