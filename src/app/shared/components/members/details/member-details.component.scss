@@ -26,3 +26,21 @@
   flex-direction: column;
   height: 100%;
 }
+
+.edit-member-button {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.edit-member-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+clr-vertical-nav a.disabled,
+clr-vertical-nav a.disabled cds-icon {
+  pointer-events: none;
+  opacity: 0.5;
+}

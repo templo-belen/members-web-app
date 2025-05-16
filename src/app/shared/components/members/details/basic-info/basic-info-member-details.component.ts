@@ -1,10 +1,10 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
-import { ClarityModule } from '@clr/angular';
-import { MemberBasicInfo } from '../../../../../core/models/member.model';
-import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MemberService } from '../../../../../core/services/member.service';
-import { toSignal } from '@angular/core/rxjs-interop';
+import {Component, inject, OnInit} from '@angular/core';
+import {ClarityModule} from '@clr/angular';
+import {MemberBasicInfo} from '../../../../../core/models/member.model';
+import {CommonModule} from '@angular/common';
+import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {MemberService} from '../../../../../core/services/member.service';
+import {editModeSubject} from '../../../../../core/subjects/members.subjects';
 
 @Component({
   selector: 'app-basic-info-member-details',
@@ -20,18 +20,35 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
   isEditable: boolean = false;
 
   constructor(private fb: FormBuilder) {
-    this.memberForm = this.fb.group(MemberBasicInfo.empty());
-    this.memberForm.disable();
+    this.memberForm = this.buildForm(new MemberBasicInfo());
+    this.setFormEditable();
+  }
+
+  buildForm(memberBasicInfo: MemberBasicInfo): FormGroup {
+    const form = this.fb.group({
+      ...memberBasicInfo,
+      preachingPoint: this.fb.group(memberBasicInfo.preachingPoint!),
+      zonePastor: this.fb.group(memberBasicInfo.zonePastor!),
+      file: new FormControl<FileList | undefined>(undefined),  //TODO evaluar si formara parte del modelo
+    });
+    return form;
   }
 
   ngOnInit(): void {
+    editModeSubject.subscribe(mode => {
+      this.isEditable = mode;
+      this.setFormEditable();
+    });
+
     this._memberService.fetchSelectedMemberId().subscribe(memberId => {
       this._memberService.dispatchMemberBasicInfo(memberId);
     });
 
     this._memberService.fetchMemberBasicInfo().subscribe(memberBasicInfo => {
-      this.memberForm.patchValue(memberBasicInfo);
+      this.memberForm = this.buildForm(memberBasicInfo);
+      this.setFormEditable();
     });
+    this.memberForm.disable();
   }
 
   onFileSelected(event: any) {
@@ -43,7 +60,10 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
   }
 
   toggleEditMode() {
-    this.isEditable = !this.isEditable;
+    editModeSubject.next(!this.isEditable);
+  }
+
+  setFormEditable() {
     if (this.isEditable) {
       this.memberForm.enable();
     } else {
