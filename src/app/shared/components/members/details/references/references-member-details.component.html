@@ -1,15 +1,4 @@
-<div class="clr-row">
-  <div class="clr-col-2">
-    <div cds-text="subsection bold">Referencias</div>
-  </div>
-    <div class="clr-col-10" *ngIf="!isEditable">
-      <button type="button" class="btn" (click)="toggleEditMode()">
-        <cds-icon shape="pencil"></cds-icon>
-      </button>
-    </div>
-  </div>
-  <form  [formGroup]="memberForm" (ngSubmit)="onSubmit()">
-
+<form  [formGroup]="memberForm" (ngSubmit)="onSubmit()">
 <div class="clr-row mt-4">
   <div class="clr-col-12">
     <table class="table">
@@ -66,13 +55,4 @@
   </div>
 </div>
 </div>
-
-
-
-<div class="clr-row mt-4">
-  <div class="clr-form-actions" *ngIf="isEditable">
-    <button type="submit" class="btn btn-primary" [disabled]="memberForm.invalid">Guardar</button>
-    <button type="button" class="btn btn-secondary" (click)="toggleEditMode()">Cancelar</button>
-  </div>
-</div>
-  </form>
+</form>

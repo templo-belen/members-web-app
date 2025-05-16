@@ -70,4 +70,20 @@ export class MemberError {
   }
 }
 
+export class MemberReferences {
+  id: number = 0;
+  references: MemberReference[] = [];
+  reasonsForCongregating: string = '';
+}
+
+export class MemberReference { 
+  totalTime: number = 0;
+  churchName: string = '';
+  mainPastorName: string = '';
+  leavingReason: string = '';
+} 
+
+
+
+
 

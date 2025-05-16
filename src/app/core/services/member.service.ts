@@ -60,11 +60,7 @@ export class MemberService {
     return this._store.select(selectMemberReferences);
   }
 
-  public dispatchMemberReferences(memberId: number) {
-    if (memberId < 1) {
-      console.log("Not selecting member", memberId);
-      return;
-    }
-    this._store.dispatch(references({ memberId }));
-  }
+  public dispatchMemberReferences(memberId: number){
+      return this._store.dispatch(references({ memberId }));
+    }  
 }

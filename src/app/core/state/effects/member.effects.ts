@@ -4,8 +4,7 @@ import {referencesFailure, referencesSuccess,  basicInfoFailure, basicInfoSucces
 import { exhaustMap, map } from 'rxjs';
 import { MemberApiService } from '../../services/member.api.service';
 import { MemberListResponseModel } from '../../models/api-response.model';
-import { MemberBasicInfo } from '../../models/member.model';
-import { MemberReference } from '../../models/member-reference-model';
+import { MemberBasicInfo, MemberReferences } from '../../models/member.model';
 
 @Injectable()
 export class MemberEffects {
@@ -55,7 +54,7 @@ export class MemberEffects {
       ofType(MembersAction.References),
       exhaustMap(({ memberId }) => {
         return this._memberApiService.referencesById(memberId).pipe(map(response => {
-          if (response instanceof MemberReference) {
+          if (response instanceof MemberReferences) {
             const success = referencesSuccess(response);
             return success;
           } else {
