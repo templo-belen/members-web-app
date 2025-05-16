@@ -30,6 +30,7 @@ export class MemberDetailsComponent {
     this.closeModal();
     this.currentTabTitle = 'Datos Personales';
     editModeSubject.next(false);
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   onLinkClick(event: MouseEvent, path: string): void {

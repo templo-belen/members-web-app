@@ -7,23 +7,23 @@
   </header>
   <div class="content-container">
     <clr-vertical-nav>
-      <a clrVerticalNavLink href="#" routerLinkActive="active" (click)="onLinkClick($event, './basic-info')" [class.disabled]="isEditable">
+      <a clrVerticalNavLink [routerLink]="['./basic-info']" routerLinkActive="active" (click)="onLinkClick($event, './basic-info')" [class.disabled]="isEditable">
         <cds-icon clrVerticalNavIcon shape="user" ></cds-icon>
         Datos Personales
       </a>
-      <a clrVerticalNavLink href="#" routerLinkActive="active" (click)="onLinkClick($event, './family-info')" [class.disabled]="isEditable">
+      <a clrVerticalNavLink [routerLink]="['./family-info']" routerLinkActive="active" (click)="onLinkClick($event, './family-info')" [class.disabled]="isEditable">
         <cds-icon clrVerticalNavIcon shape="home"></cds-icon>
         Datos Familiares
       </a>
-      <a clrVerticalNavLink href="#" routerLinkActive="active" (click)="onLinkClick($event, './general-info')" [class.disabled]="isEditable">
+      <a clrVerticalNavLink [routerLink]="['./general-info']" routerLinkActive="active" (click)="onLinkClick($event, './general-info')" [class.disabled]="isEditable">
         <cds-icon clrVerticalNavIcon shape="details"></cds-icon>
         Datos Generales
       </a>
-      <a clrVerticalNavLink href="#" routerLinkActive="active" (click)="onLinkClick($event, './references')" [class.disabled]="isEditable">
+      <a clrVerticalNavLink [routerLink]="['./references']" routerLinkActive="active" (click)="onLinkClick($event, './references')" [class.disabled]="isEditable">
         <cds-icon clrVerticalNavIcon shape="book"></cds-icon>
         Referencias
       </a>
-      <a clrVerticalNavLink href="#" routerLinkActive="active" (click)="onLinkClick($event, './dew-info')" [class.disabled]="isEditable">
+      <a clrVerticalNavLink [routerLink]="['./dew-info']" routerLinkActive="active" (click)="onLinkClick($event, './dew-info')" [class.disabled]="isEditable">
         <cds-icon clrVerticalNavIcon shape="world"></cds-icon>
         DEW
       </a>

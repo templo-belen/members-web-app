@@ -29,7 +29,7 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
       ...memberBasicInfo,
       preachingPoint: this.fb.group(memberBasicInfo.preachingPoint!),
       zonePastor: this.fb.group(memberBasicInfo.zonePastor!),
-      file: new FormControl<FileList | null>(null),  //TODO evaluar si formara parte del modelo
+      file: new FormControl<FileList | undefined>(undefined),  //TODO evaluar si formara parte del modelo
     });
     return form;
   }

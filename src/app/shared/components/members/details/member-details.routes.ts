@@ -6,7 +6,6 @@ import { ReferencesMemberDetailsComponent } from './references/references-member
 import { DewInfoMemberDetailsComponent } from './dew-info/dew-info-member-details.component';
 
 export const memberDetailsRoutes: Routes = [
-  { path: '', redirectTo: 'basic-info', pathMatch: 'full' },
   { path: 'basic-info', component: BasicInfoMemberDetailsComponent },
   { path: 'family-info', component: FamilyInfoMemberDetailsComponent },
   { path: 'general-info', component: GeneralInfoMemberDetailsComponent },
