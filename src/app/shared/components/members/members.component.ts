@@ -1,10 +1,11 @@
-import { Component, computed, inject, OnInit, Signal } from '@angular/core';
-import { MembersListComponent } from './list/list.members.component';
-import { MemberService } from '../../../core/services/member.service';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { ClrModalModule } from '@clr/angular';
-import { CommonModule } from '@angular/common';
-import { MemberDetailsComponent } from './details/member-details.component';
+import {Component, computed, inject, OnInit, Signal} from '@angular/core';
+import {MembersListComponent} from './list/list.members.component';
+import {MemberService} from '../../../core/services/member.service';
+import {toSignal} from '@angular/core/rxjs-interop';
+import {ClrModalModule} from '@clr/angular';
+import {CommonModule} from '@angular/common';
+import {MemberDetailsComponent} from './details/member-details.component';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-members',
@@ -27,6 +28,9 @@ export class MembersComponent implements OnInit {
   public hasError = computed(() => this._error()?.code !== 200)
   public errorMsg: Signal<string | undefined> = computed(() => this._error()?.msg);
 
+  private _router = inject(Router);
+  private _route = inject(ActivatedRoute);
+
   public getErrorMsg(): string {
     return this.errorMsg()!;
   }
@@ -39,6 +43,9 @@ export class MembersComponent implements OnInit {
     this.selectedMemberId = memberId;
     this.selectedMemberName = memberName;
     this._memberService.dispatchSelectedMemberId(this.selectedMemberId);
+
+    this._router.navigate(['basic-info'], {relativeTo: this._route});
+
     this.isModalOpen = true;
   }
 

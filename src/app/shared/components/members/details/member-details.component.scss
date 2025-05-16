@@ -7,3 +7,29 @@
   justify-content: space-between;
   width: 100%;
 }
+
+.edit-member-button{
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.edit-member-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.header-member-info {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+clr-vertical-nav a.disabled,
+clr-vertical-nav a.disabled cds-icon {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+
