@@ -2,7 +2,7 @@ import { Component, inject, Input, OnInit } from '@angular/core';
 import { ClarityModule } from '@clr/angular';
 import { MemberBasicInfo } from '../../../../../core/models/member.model';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MemberService } from '../../../../../core/services/member.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -20,8 +20,17 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
   isEditable: boolean = false;
 
   constructor(private fb: FormBuilder) {
-    this.memberForm = this.fb.group(MemberBasicInfo.empty());
-    this.memberForm.disable();
+    this.memberForm = this.buildForm(new MemberBasicInfo());
+    this.setFormEditable();
+  }
+
+  buildForm(memberBasicInfo: MemberBasicInfo): FormGroup {
+    const form = this.fb.group({
+      ...memberBasicInfo,
+      preachingPoint: this.fb.group(memberBasicInfo.preachingPoint!),
+      zonePastor: this.fb.group(memberBasicInfo.zonePastor!),
+    });
+    return form;
   }
 
   ngOnInit(): void {
@@ -30,7 +39,8 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
     });
 
     this._memberService.fetchMemberBasicInfo().subscribe(memberBasicInfo => {
-      this.memberForm.patchValue(memberBasicInfo);
+      this.memberForm = this.buildForm(memberBasicInfo);
+      this.setFormEditable();
     });
   }
 
@@ -44,6 +54,10 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
 
   toggleEditMode() {
     this.isEditable = !this.isEditable;
+    this.setFormEditable();
+  }
+
+  setFormEditable() {
     if (this.isEditable) {
       this.memberForm.enable();
     } else {
