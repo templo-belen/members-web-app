@@ -41,10 +41,10 @@ export class MembersComponent implements OnInit {
     this._memberService.dispatchSelectedMemberId(this.selectedMemberId);
     this.isModalOpen = true;
   }
+
   public closeModal = () => {
     this.isModalOpen = false;
   }
-
 
   ngOnInit(): void {
     this._memberService.dispatchList();

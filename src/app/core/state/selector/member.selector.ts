@@ -1,13 +1,12 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { MemberBasicInfo, MemberError } from '../../models/member.model';
-import { MemberListResponseModel } from '../../models/api-response.model';
+import { MemberBasicInfo, MemberError, MemberListItem } from '../../models/member.model';
 import { MemberState } from '../reducers/member.reducer';
 
 const selectMemberState = createFeatureSelector<MemberState>('member');
 
 export const selectMemberList = createSelector(
   selectMemberState,
-  (state): MemberBasicInfo[] => {
+  (state): MemberListItem[] => {
     return state.memberList ?? []
   }
 );
@@ -36,6 +35,6 @@ export const selectSelectedMemberId = createSelector(
 export const selectMemberBasicInfo = createSelector(
   selectMemberState,
   (state): MemberBasicInfo => {
-    return state.memberBasicInfo ?? MemberBasicInfo.empty()
+    return state.memberBasicInfo ?? new MemberBasicInfo()
   }
 );
