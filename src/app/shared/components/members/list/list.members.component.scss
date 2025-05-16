@@ -1,10 +1,9 @@
-.limit-height {
+.datagrid-limit-height {
   height: 100%;
-  padding: '50px';
 }
 
-.limit-height clr-datagrid {
-  height: 100%;
+.datagrid-limit-height clr-datagrid {
+  height: 100% !important;
 }
 
 .icon-column {
