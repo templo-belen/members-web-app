@@ -1,10 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
-import {references, referencesSuccess, referencesFailure, basicInfo, basicInfoFailure, basicInfoSuccess, list, listFailure, listSuccess, selectedMemberId } from '../actions/members.action';
-import { MemberBasicInfo, MemberError } from '../../models/member.model';
-import { MemberReference } from '../../models/member-reference-model';
+import { basicInfo, basicInfoFailure, basicInfoSuccess, list, listFailure, listSuccess, selectedMemberId } from '../actions/members.action';
+import { MemberBasicInfo, MemberError, MemberListItem } from '../../models/member.model';
 
 export interface MemberState {
-  memberList?: MemberBasicInfo[];
+  memberList?: MemberListItem[];
   isLoading: boolean;
   error?: MemberError;
   selectedMemberId: number;
@@ -16,22 +15,21 @@ export const initialState: MemberState = {
   memberList: [],
   isLoading: false,
   selectedMemberId: -1,
-  memberBasicInfo: MemberBasicInfo.empty(),
-  memberReferences: MemberReference.empty(),
+  memberBasicInfo: new MemberBasicInfo(),
 };
 
 export const memberReducer = createReducer(
   initialState,
   on(list, (state) => {
-    const memberList: MemberBasicInfo[] = [];
+    const memberList: MemberListItem[] = [];
     return { ...state, memberList: memberList, isLoading: true };
   }),
   on(listSuccess, (state, props) => {
-    const memberList: MemberBasicInfo[] = props.memberList;
+    const memberList: MemberListItem[] = props.memberList;
     return { ...state, memberList: memberList, isLoading: false };
   }),
   on(listFailure, (state, props) => {
-    const memberList: MemberBasicInfo[] = [];
+    const memberList: MemberListItem[] = [];
     return { ...state, memberList: memberList, isLoading: false, error: { msg: props.msg, code: props.code } };
   }),
   on(selectedMemberId, (state, { memberId }) => {

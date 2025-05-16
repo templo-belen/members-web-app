@@ -15,25 +15,25 @@
     <clr-dg-column>
       <ng-container *clrDgHideableColumn="{ hidden: false }">Fecha de nacimiento</ng-container>
     </clr-dg-column>
-    <clr-dg-column>
-      <ng-container *clrDgHideableColumn="{ hidden: false }">Pais de nacimiento</ng-container>
+    <clr-dg-column [clrDgField]="'birthCountry'">
+      <ng-container  *clrDgHideableColumn="{ hidden: false }">Pais de nacimiento</ng-container>
     </clr-dg-column>
-    <clr-dg-column>
-      <ng-container *clrDgHideableColumn="{ hidden: false }">Pais de residencia</ng-container>
+    <clr-dg-column [clrDgField]="'residenceCountry'">
+      <ng-container  *clrDgHideableColumn="{ hidden: false }">Pais de residencia</ng-container>
     </clr-dg-column>
-    <clr-dg-column>
-      <ng-container *clrDgHideableColumn="{ hidden: false }">Ocupacion</ng-container>
+    <clr-dg-column [clrDgField]="'occupation'">
+      <ng-container  *clrDgHideableColumn="{ hidden: false }">Ocupacion</ng-container>
     </clr-dg-column>
-    <clr-dg-column>
+    <clr-dg-column [clrDgField]="'currentRole'">
       <ng-container *clrDgHideableColumn="{ hidden: false }">Rol en la Igelsia</ng-container>
     </clr-dg-column>
-    <clr-dg-column>
-      <ng-container *clrDgHideableColumn="{ hidden: false }">Pastor de zona</ng-container>
+    <clr-dg-column [clrDgField]="'zonePastor'">
+      <ng-container  *clrDgHideableColumn="{ hidden: false }">Pastor de zona</ng-container>
     </clr-dg-column>
-    <clr-dg-column>
-      <ng-container *clrDgHideableColumn="{ hidden: false }">Es Pastor?</ng-container>
+    <clr-dg-column [clrDgField]="'isPastor'">
+      <ng-container  *clrDgHideableColumn="{ hidden: false }">Es Pastor?</ng-container>
     </clr-dg-column>
-    <clr-dg-column>
+    <clr-dg-column [clrDgField]="'isCellLeader'">
       <ng-container *clrDgHideableColumn="{ hidden: false }">Es lider de celula?</ng-container>
     </clr-dg-column>
 
