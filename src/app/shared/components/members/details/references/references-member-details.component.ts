@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, FormArray } from '@angular/forms';
 import { ClrFormsModule, ClrDatagridModule, ClrIconModule } from '@clr/angular';
-import { MemberReference, references } from '../../../../../core/models/member-reference-model';
+import { MemberReference, References } from '../../../../../core/models/member-reference-model';
 import { MemberService } from '../../../../../core/services/member.service';
 
 @Component({
@@ -61,14 +61,14 @@ export class ReferencesMemberDetailsComponent implements OnInit {
   }
 
   addReference() {
-    this.referencesArray.push(this.createReferenceGroup(references.empty()));
+    this.referencesArray.push(this.createReferenceGroup(References.empty()));
   }
 
   removeReference(index: number) {
     this.referencesArray.removeAt(index);
   }
 
-  createReferenceGroup(reference: references): FormGroup {
+  createReferenceGroup(reference: References): FormGroup {
     return this.fb.group({
       totalTime: [reference.totalTime],
       churchName: [reference.churchName],

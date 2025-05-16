@@ -1,20 +1,20 @@
 //Refactorizar este archivo
 import { SelectOption } from "./select-option.model";
 
-export class references {
+export class References {
   totalTime: number;
   churchName: string;
   mainPastorName: string;
   leavingReason: string;
 
-  constructor(props: references) {
+  constructor(props: References) {
     this.totalTime = props.totalTime;
     this.churchName = props.churchName;
     this.mainPastorName = props.mainPastorName;
     this.leavingReason = props.leavingReason;
   }
 
-  static empty(): references {
+  static empty(): References {
     return {
       totalTime: 0,
       churchName: '',
@@ -27,7 +27,7 @@ export class references {
 
 export class MemberReference {
     id: number;
-    references: references[];
+    references: References[];
     reasonsForCongregating: string;
 
     constructor(props: MemberReference) {
