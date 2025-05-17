@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import { basicInfo, basicInfoFailure, basicInfoSuccess, list, listFailure, listSuccess, selectedMemberId } from '../actions/members.action';
-import { MemberBasicInfo, MemberError, MemberListItem } from '../../models/member.model';
+import { basicInfo, basicInfoFailure, basicInfoSuccess, generalInfo, generalInfoFailure, generalInfoSuccess, list, listFailure, listSuccess, selectedMemberId } from '../actions/members.action';
+import { MemberBasicInfo, MemberError, MemberGeneralInfo, MemberListItem } from '../../models/member.model';
 
 export interface MemberState {
   memberList?: MemberListItem[];
@@ -8,6 +8,7 @@ export interface MemberState {
   error?: MemberError;
   selectedMemberId: number;
   memberBasicInfo: MemberBasicInfo;
+  memberGeneralInfo: MemberGeneralInfo;
 }
 
 export const initialState: MemberState = {
@@ -15,6 +16,7 @@ export const initialState: MemberState = {
   isLoading: false,
   selectedMemberId: -1,
   memberBasicInfo: new MemberBasicInfo(),
+  memberGeneralInfo: new MemberGeneralInfo(),
 };
 
 export const memberReducer = createReducer(
@@ -41,6 +43,15 @@ export const memberReducer = createReducer(
     return { ...state, memberBasicInfo: props };
   }),
   on(basicInfoFailure, (state, props) => {
+    return state;
+  }),
+  on(generalInfo, (state, props) => {
+    return state;
+  }),
+  on(generalInfoSuccess, (state, props) => {
+    return { ...state, memberGeneralInfo: props };
+  }),
+  on(generalInfoFailure, (state, props) => {
     return state;
   }),
 );

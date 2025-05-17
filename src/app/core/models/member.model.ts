@@ -70,4 +70,21 @@ export class MemberError {
   }
 }
 
+export class MemberGeneralInfo {
+  id: number = 0;
+  memberId: number = 0;
+  conversionDate: Date | null  = new Date(0);
+  conversionPlace: string | null  = '';
+  baptismDate: Date | null  = new Date(0);
+  baptismPlace: string | null  = '';
+  baptismHolySpiritDate: Date | null  = new Date(0);
+  baptismHolySpiritPlace: string | null  = '';
+  baptismPastorName: string | null  = '';
+  baptismDenomination: string | null  = '';
+  activeMemberSince: Date | null  = new Date(0);
+  leavingReason: string | null  = '';
+  leavingReasonDescription: string | null  = '';
+  leavingDate: Date | null = new Date(0);
+  acceptanceComment: string | null = '';
+}
 
