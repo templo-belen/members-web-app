@@ -1,1 +1,82 @@
-<p>general-info-member-details works!</p>
+<form clrForm [formGroup]="generalInfoForm" (ngSubmit)="onSubmit()" clrLayout="horizontal" clrLabelSize="3">
+  <div class="clr-row">
+    <div class="clr-col-6">
+      <clr-date-container>
+        <label>Fecha de conversión</label>
+        <input type="date" autocomplete="off" clrDate formControlName="conversionDate" />
+      </clr-date-container>
+
+      <clr-input-container>
+        <label>Lugar de conversión</label>
+        <input clrInput formControlName="conversionPlace" />
+      </clr-input-container>
+
+      <clr-date-container>
+        <label>Fecha de bautizo en agua</label>
+        <input type="date" autocomplete="off" clrDate formControlName="baptismDate" />
+      </clr-date-container>
+
+      <clr-input-container>
+        <label>Lugar de bautizo en agua</label>
+        <input clrInput formControlName="baptismPlace" />
+      </clr-input-container>
+
+      <clr-date-container>
+        <label>Fecha de bautizo del Espiritu Santo</label>
+        <input type="date" autocomplete="off" clrDate formControlName="baptismHolySpiritDate" />
+      </clr-date-container>
+
+      <clr-input-container>
+        <label>Lugar de bautizo del Espiritu Santo</label>
+        <input clrInput formControlName="baptismHolySpiritPlace" />
+      </clr-input-container>
+
+      <clr-input-container>
+        <label>Nombre del pastor que lo bautizó</label>
+        <input clrInput formControlName="baptismPastorName" />
+      </clr-input-container>
+
+      <clr-input-container>
+        <label>Denominación del bautizo</label>
+        <input clrInput formControlName="baptismDenomination" />
+      </clr-input-container>
+
+      <clr-date-container>
+        <label>Miembro activo desde</label>
+        <input type="date" autocomplete="off" clrDate formControlName="activeMemberSince" />
+      </clr-date-container>
+
+      <clr-textarea-container>
+        <label>¿Cómo aceptó al Señor?</label>
+        <textarea clrTextarea formControlName="acceptanceComment"></textarea>
+      </clr-textarea-container>
+    </div>
+
+    <div class="clr-col-6">
+      <clr-select-container>
+        <label>Motivo del retiro de Templo Belén</label>
+        <select clrSelect formControlName="leavingReason">
+          <!-- TODO: load dynamically with enums -->
+          <!-- https://github.com/templo-belen/members-web-app/issues/35 -->
+          <option value="cambio_iglesia">Cambió de iglesia</option>
+          <option value="cambio_residencia">Cambió de residencia</option>
+          <option value="personales">Personales</option>
+          <option value="enfermedad">Enfermedad</option>
+          <option value="muerte">Muerte</option>
+          <option value="cambio_creencia">Cambió de creencia</option>
+          <option value="otro">Otro</option>
+        </select>
+      </clr-select-container>
+
+      <clr-input-container>
+        <label>Descripción del retiro de Templo Belén</label>
+        <input clrInput formControlName="leavingReasonDescription" />
+      </clr-input-container>
+
+      <clr-date-container>
+        <label>Fecha del retiro de Templo Belén</label>
+        <input type="date" autocomplete="off" clrDate formControlName="leavingDate" />
+      </clr-date-container>
+    </div>
+  </div>
+</form>
