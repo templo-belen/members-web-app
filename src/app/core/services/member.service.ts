@@ -67,7 +67,7 @@ export class MemberService {
     return this._store.select(selectMemberGeneralInfo);
   }
 
-    public fetchMemberReferences() {
+  public fetchMemberReferences() {
     return this._store.select(selectMemberReferences);
   }
 
