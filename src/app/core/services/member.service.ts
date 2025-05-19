@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { basicInfo, generalInfo, list, selectedMemberId } from '../state/actions/members.action';
-import { selectIsLoading, selectMemberBasicInfo, selectMemberGeneralInfo, selectMemberList, selectMemberListError, selectSelectedMemberId } from '../state/selector/member.selector';
+import { basicInfo, generalInfo, list, selectedMemberId, references } from '../state/actions/members.action';
+import { selectIsLoading, selectMemberBasicInfo, selectMemberGeneralInfo, selectMemberList, selectMemberListError, selectMemberReferences, selectSelectedMemberId } from '../state/selector/member.selector';
 
 @Injectable({
   providedIn: 'root'
@@ -66,4 +66,13 @@ export class MemberService {
   public fetchMemberGeneralInfo() {
     return this._store.select(selectMemberGeneralInfo);
   }
+
+  public fetchMemberReferences() {
+    return this._store.select(selectMemberReferences);
+  }
+
+  public dispatchMemberReferences(memberId: number){
+      return this._store.dispatch(references({ memberId }));
+    }  
 }
+

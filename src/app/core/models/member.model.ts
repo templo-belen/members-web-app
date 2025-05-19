@@ -70,6 +70,22 @@ export class MemberError {
   }
 }
 
+export class MemberReferences {
+  references: MemberReference[] = [];
+  reasonsForCongregating: string = '';
+}
+
+export class MemberReference { 
+  id: number = 0;
+  totalTime: number = 0;
+  churchName: string = '';
+  mainPastorName: string = '';
+  leavingReason: string = '';
+} 
+
+
+
+
 export class MemberGeneralInfo {
   id: number = 0;
   memberId: number = 0;

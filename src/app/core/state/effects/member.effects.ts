@@ -1,10 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { basicInfoFailure, basicInfoSuccess, generalInfoSuccess, listFailure, listSuccess, MembersAction } from '../actions/members.action';
+import { basicInfoFailure, basicInfoSuccess, generalInfoSuccess, listFailure, listSuccess, MembersAction, referencesFailure, referencesSuccess } from '../actions/members.action';
 import { exhaustMap, map } from 'rxjs';
 import { MemberApiService } from '../../services/member.api.service';
 import { MemberListResponseModel } from '../../models/api-response.model';
-import { MemberBasicInfo, MemberGeneralInfo } from '../../models/member.model';
+import { MemberBasicInfo, MemberGeneralInfo, MemberReferences } from '../../models/member.model';
 
 @Injectable()
 export class MemberEffects {
@@ -65,5 +65,20 @@ export class MemberEffects {
       })
     )
   });
+   doMemberReferences$ = createEffect(() => {
+    return this._actions$.pipe(
+      ofType(MembersAction.References),
+      exhaustMap(({ memberId }) => {
+        return this._memberApiService.referencesById(memberId).pipe(map(response => {
+          if (response instanceof MemberReferences) {
+            const success = referencesSuccess(response);
+            return success;
+          } else {
+            return referencesFailure({ code: response.code, msg: response.msg });
+          }
+        }),
+        );
+      })
+    )
+  });
 }
-
