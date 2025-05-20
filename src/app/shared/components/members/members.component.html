@@ -1,3 +1,11 @@
+<div class="new-member-button">
+  <button class="btn btn-primary" (click)="openNewMemberWizard()">
+    <cds-icon shape="plus"></cds-icon>
+    Crear Membresía
+  </button>
+</div>
+<app-new-member-wizard #newMemberWizard></app-new-member-wizard>
+
 <app-members-list [membersList]="membersList" [isLoading]="isLoading" [openModal]="openModal"></app-members-list>
 <clr-modal [(clrModalOpen)]="isModalOpen" [clrModalSize]="'full-screen'" [clrModalClosable]="false">
   <div class="modal-body">

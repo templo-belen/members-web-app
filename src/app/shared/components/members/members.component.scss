@@ -2,3 +2,9 @@
   height: 100%;
   overflow: hidden;
 }
+
+.new-member-button {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}

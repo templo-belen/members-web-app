@@ -1,0 +1,33 @@
+<clr-wizard [(clrWizardOpen)]="wizardOpen" [clrWizardSize]="wizardSize" [clrWizardClosable]="false">
+  <clr-wizard-title>Creación de Membresía</clr-wizard-title>
+
+  <clr-wizard-button [type]="'cancel'">Cancelar</clr-wizard-button>
+  <clr-wizard-button [type]="'previous'">Atrás</clr-wizard-button>
+  <clr-wizard-button [type]="'next'">Guardar y continuar</clr-wizard-button>
+  <clr-wizard-button [type]="'finish'">Guardar y finalizar</clr-wizard-button>
+
+  <clr-wizard-page [clrWizardPageNextDisabled]="!basicInfo.memberForm.valid" (clrWizardPageNext)="saveBasicInfo()">
+    <ng-template clrPageTitle>Datos Personales</ng-template>
+    <app-basic-info-member-details #basicInfo></app-basic-info-member-details>
+  </clr-wizard-page>
+
+  <clr-wizard-page [clrWizardPageNextDisabled]="false" (clrWizardPageNext)="saveFamilyInfo()">
+    <ng-template clrPageTitle>Datos Familiares</ng-template>
+    <app-family-info-member-details #familyInfo></app-family-info-member-details>
+  </clr-wizard-page>
+
+  <clr-wizard-page [clrWizardPageNextDisabled]="!generalInfo.generalInfoForm.valid" (clrWizardPageNext)="saveGeneralInfo()">
+    <ng-template clrPageTitle>Datos Generales</ng-template>
+    <app-general-info-member-details #generalInfo></app-general-info-member-details>
+  </clr-wizard-page>
+
+  <clr-wizard-page [clrWizardPageNextDisabled]="!references.memberForm.valid" (clrWizardPageNext)="saveReferences()">
+    <ng-template clrPageTitle>Referencias</ng-template>
+    <app-references-member-details #references></app-references-member-details>
+  </clr-wizard-page>
+
+  <clr-wizard-page [clrWizardPageNextDisabled]="false" (clrWizardPageNext)="saveDewInfo()">
+    <ng-template clrPageTitle>DEW</ng-template>
+    <app-dew-info-member-details #dewInfo></app-dew-info-member-details>
+  </clr-wizard-page>
+</clr-wizard>

@@ -37,6 +37,16 @@ export const memberReducer = createReducer(
     return { ...state, memberList: memberList, isLoading: false, error: { msg: props.msg, code: props.code } };
   }),
   on(selectedMemberId, (state, { memberId }) => {
+    if (memberId <= 0) {
+      return {
+        ...state,
+        selectedMemberId: 0,
+        memberBasicInfo: new MemberBasicInfo(),
+        memberGeneralInfo: new MemberGeneralInfo(),
+        memberReferences: new MemberReferences(),
+      };
+    }
+
     return { ...state, selectedMemberId: memberId };
   }),
   on(basicInfo, (state, props) => {
