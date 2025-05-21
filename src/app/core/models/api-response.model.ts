@@ -34,3 +34,14 @@ export class ErrorResponseModel {
     this.msg = props.msg;
   }
 }
+export class MemberDewInfoResponseModel {
+  id: number = 0;
+  memberId: number = 0;
+  ministrationDate: string | null = '';
+  worker1: string | null = '';
+  worker2: string | null = '';
+  isSharingTestimony: boolean = false;
+  isPubilshingTestimony: boolean = false;
+  isPubilshingTestimonyName: boolean = false;
+  isAgreedShareTestimony: boolean = false;
+}

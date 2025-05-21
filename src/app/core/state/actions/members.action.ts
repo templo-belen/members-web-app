@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { MemberBasicInfo, MemberGeneralInfo, MemberReferences } from '../../models/member.model'
+import { MemberBasicInfo, MemberGeneralInfo, MemberReferences, MemberDewInfo } from '../../models/member.model'
 import { ErrorResponseModel, MemberListResponseModel } from '../../models/api-response.model';
 
 export enum MembersAction {
@@ -20,6 +20,10 @@ export enum MembersAction {
   References = '[Member] References',
   ReferencesSuccess = '[Member] References Success',
   ReferencesFailure = '[Member] References Failure',
+
+  DewInfo = '[Member] Dew Info',
+  DewInfoSuccess = '[Member] Dew Info Success',
+  DewInfoFailure = '[Member] Dew Info Failure',
 }
 
 export const list = createAction(MembersAction.List);
@@ -39,3 +43,8 @@ export const generalInfoFailure = createAction(MembersAction.GeneralInfoFailure,
 export const references = createAction(MembersAction.References, props<{ memberId: number }>());
 export const referencesSuccess = createAction(MembersAction.ReferencesSuccess, props<MemberReferences>());
 export const referencesFailure = createAction(MembersAction.ReferencesFailure, props<ErrorResponseModel>());
+
+
+export const dewInfo = createAction(MembersAction.DewInfo, props<{ memberId: number }>());
+export const dewInfoSuccess = createAction(MembersAction.DewInfoSuccess, props<MemberDewInfo>());
+export const dewInfoFailure = createAction(MembersAction.DewInfoFailure, props<ErrorResponseModel>());
