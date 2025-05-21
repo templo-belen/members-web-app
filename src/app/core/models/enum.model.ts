@@ -1,8 +1,8 @@
 export class EnumOption {
-  name: string = "";
-  value: string = "";
+    name: string = "";
+    value: string = "";
 }
 
-export class EnumResponseModel{
-  [key: string]: EnumOption[]
+export class EnumResponseModel {
+    [key: string]: EnumOption[]
 }
