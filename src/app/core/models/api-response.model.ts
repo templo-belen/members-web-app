@@ -16,16 +16,6 @@ export class LoginResponseModel {
   }
 }
 
-export class LoginErrorResponseModel {
-  code: number;
-  msg: string;
-
-  constructor(props: ({ code: number, msg: string })) {
-    this.code = props.code;
-    this.msg = props.msg;
-  }
-
-}
 
 export class MemberListResponseModel {
   memberList: MemberListItem[];
@@ -35,7 +25,7 @@ export class MemberListResponseModel {
   }
 }
 
-export class MemberErrorResponseModel {
+export class ErrorResponseModel {
   code: number;
   msg: string;
 

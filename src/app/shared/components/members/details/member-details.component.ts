@@ -1,8 +1,9 @@
-import {Component, Input} from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, RouterModule} from '@angular/router';
 import {ClrVerticalNavModule} from '@clr/angular';
 import {editModeSubject} from '../../../../core/subjects/members.subjects';
 import {CommonModule} from '@angular/common';
+import {EnumService} from '../../../../core/services/enum.service';
 
 @Component({
   selector: 'app-member-details',
@@ -10,7 +11,7 @@ import {CommonModule} from '@angular/common';
   templateUrl: './member-details.component.html',
   styleUrl: './member-details.component.scss',
 })
-export class MemberDetailsComponent {
+export class MemberDetailsComponent implements OnInit {
   @Input({ required: true }) closeModal!: () => void;
   @Input({ required: true }) memberName!: string;
   @Input({ required: true }) memberId!: number;
@@ -18,8 +19,19 @@ export class MemberDetailsComponent {
   isEditable = false;
   currentTabTitle = 'Datos Personales';
 
+  private _enumService = inject(EnumService);
+
+  ENUMS_FOR_MEMBERS_LIST: string[] =  [
+    'gender', 'blood-type', 'role', 'cell-leadership', 'leadership', 'marital-status',
+    'housing', 'leaving-reason',
+  ];
+
   constructor(private router: Router, private route: ActivatedRoute) {
     editModeSubject.subscribe(mode => this.isEditable = mode);
+  }
+
+  ngOnInit() : void {
+    this._enumService.dispatchEnumMap(this.ENUMS_FOR_MEMBERS_LIST);
   }
 
   toggleEditMode() {

@@ -1,17 +1,26 @@
-import { APP_INITIALIZER, ApplicationConfig, importProvidersFrom, inject, isDevMode, provideAppInitializer, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  inject,
+  isDevMode,
+  provideAppInitializer,
+  provideZoneChangeDetection
+} from '@angular/core';
+import {provideRouter} from '@angular/router';
 
-import { routes } from './app.routes';
-import { provideState, provideStore } from '@ngrx/store';
-import { provideHttpClient } from '@angular/common/http';
-import { provideEffects } from '@ngrx/effects';
-import { UserEffects } from './core/state/effects/user.effects';
-import { MemberEffects } from './core/state/effects/member.effects';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { ClarityModule, ClrCommonStringsService } from '@clr/angular';
-import { userReducer } from './core/state/reducers/user.reducer';
-import { memberReducer } from './core/state/reducers/member.reducer';
-import { provideStoreDevtools } from '@ngrx/store-devtools';
+import {routes} from './app.routes';
+import {provideState, provideStore} from '@ngrx/store';
+import {provideHttpClient} from '@angular/common/http';
+import {provideEffects} from '@ngrx/effects';
+import {UserEffects} from './core/state/effects/user.effects';
+import {MemberEffects} from './core/state/effects/member.effects';
+import {provideAnimations} from '@angular/platform-browser/animations';
+import {ClarityModule, ClrCommonStringsService} from '@clr/angular';
+import {userReducer} from './core/state/reducers/user.reducer';
+import {memberReducer} from './core/state/reducers/member.reducer';
+import {provideStoreDevtools} from '@ngrx/store-devtools';
+import {enumReducer} from './core/state/reducers/enum.reducer';
+import {EnumEffects} from './core/state/effects/enum.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -31,8 +40,10 @@ export const appConfig: ApplicationConfig = {
     }),
     provideEffects(UserEffects),
     provideEffects(MemberEffects),
+    provideEffects(EnumEffects),
     provideState({ name: 'user', reducer: userReducer }),
     provideState({ name: 'member', reducer: memberReducer }),
+    provideState({name : 'enum', reducer: enumReducer}),
     ClrCommonStringsService,
     provideAppInitializer(() => {
       // Use inject() to get the service inside the initializer function
