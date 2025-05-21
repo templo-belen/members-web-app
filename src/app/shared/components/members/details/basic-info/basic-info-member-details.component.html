@@ -3,7 +3,7 @@
     <div class="clr-col-2">
       <div class="profile-container">
         <div class="profile-picture">
-          <img [src]="'no_image.png'" alt="Profile picture" />
+          <img [src]="'no_image.png'" alt="Imagen de perfil" />
         </div>
         <div *ngIf="isEditable" class="file-input-wrapper">
           <clr-file-input-container clrButtonLabel="Seleccionar imagen" class="image-upload-box"  *ngIf="isEditable"  >
@@ -78,20 +78,20 @@
 
       <clr-radio-container>
         <label>Género</label>
-        <clr-radio-wrapper>
-          <input type="radio" clrRadio value="Masculino" formControlName="gender" />
-          <label>Masculino</label>
-        </clr-radio-wrapper>
-        <clr-radio-wrapper>
-          <input type="radio" clrRadio value="Femenino" formControlName="gender" />
-          <label>Femenino</label>
+        <clr-radio-wrapper *ngFor="let gender of memberEnums['gender'] || []">
+          <input type="radio" clrRadio value="{{ gender.name }}" formControlName="gender" />
+          <label>{{ gender.value }}</label>
         </clr-radio-wrapper>
       </clr-radio-container>
 
-      <clr-input-container>
+      <clr-select-container>
         <label>RH</label>
-        <input clrInput formControlName="rh" />
-      </clr-input-container>
+        <select clrSelect formControlName="rh">
+          <option [ngValue]="null"></option>
+          <option *ngFor="let bloodType of memberEnums['blood-type'] || []" value="{{ bloodType.name }}">{{ bloodType.value }}</option>
+        </select>
+      </clr-select-container>
+
     </div>
 
     <div class="clr-col-5">
@@ -135,30 +135,39 @@
         <input clrInput formControlName="name" />
       </clr-input-container>
 
-      <clr-input-container>
+      <clr-select-container>
         <label>Rol actual</label>
-        <input clrInput formControlName="currentRole" />
-      </clr-input-container>
+        <select clrSelect formControlName="currentRole">
+          <option *ngFor="let role of memberEnums['role'] || []" value="{{ role.name }}">{{ role.value }}</option>
+        </select>
+
+      </clr-select-container>
 
       <clr-date-container>
         <label>Fecha de compromiso</label>
         <input clrDate formControlName="commitmentDate" />
       </clr-date-container>
 
-      <clr-input-container>
-        <label>Liderazgo celular</label>
-        <input clrInput formControlName="cellLeadership" />
-      </clr-input-container>
+      <clr-select-container>
+        <label>Liderazgo de célula</label>
+        <select clrSelect formControlName="cellLeadership">
+          <option *ngFor="let cellLeadership of memberEnums['cell-leadership'] || []"
+                  value="{{ cellLeadership.name }}">{{ cellLeadership.value }}</option>
+        </select>
+      </clr-select-container>
 
       <clr-input-container>
         <label>Pastor de zona</label>
         <input clrInput formControlName="zonePastor" />
       </clr-input-container>
 
-      <clr-input-container>
+      <clr-select-container>
         <label>Liderazgo</label>
-        <input clrInput formControlName="leadership" />
-      </clr-input-container>
+        <select clrSelect formControlName="leadership">
+          <option *ngFor="let leadership of memberEnums['leadership'] || []" value="{{ leadership.name }}">
+            {{ leadership.value }}</option>
+        </select>
+      </clr-select-container>
 
       <clr-input-container>
         <label>Estado</label>
