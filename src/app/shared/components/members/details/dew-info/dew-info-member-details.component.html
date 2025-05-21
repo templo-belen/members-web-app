@@ -1,1 +1,38 @@
-<p>dew-info-member-details works!</p>
+<form clrForm [formGroup]="dewInfoForm" (ngSubmit)="onSubmit()" clrLayout="horizontal" clrLabelSize="3">
+  <div class="clr-row">
+    <div class="clr-col-sm-12 clr-col-md-6 clr-col-lg-4">
+      <clr-date-container >
+        <label class="fit-content-label">Fecha de ministracion</label>
+        <input type="date" autocomplete="off" clrDate formControlName="ministrationDate" class="clr-col-lg-auto"/>
+      </clr-date-container>
+    </div>
+    <div class="clr-col-sm-12 clr-col-md-6 clr-col-lg-4 full-width-input">
+      <clr-input-container>
+        <label class="fit-content-label">Obrero 1</label>
+        <input clrInput formControlName="worker1" />
+      </clr-input-container>
+    </div>
+    <div class="clr-col-sm-12 clr-col-md-6 clr-col-lg-4 full-width-input">
+      <clr-input-container>
+        <label class="fit-content-label">Obrero 2</label>
+        <input clrInput formControlName="worker2" />
+      </clr-input-container>
+    </div>
+  </div>
+  <div class="clr-row" style="margin-top:50px">
+    <div class="clr-col-sm-12">
+      <clr-toggle-wrapper>
+        <label>Estoy dispuesto a compartir este testimonio</label>
+        <input type="checkbox" clrCheckbox formControlName="isSharingTestimony" />
+      </clr-toggle-wrapper>
+      <clr-toggle-wrapper>
+        <label>Pubilcar este testimonio para animar a otros</label>
+        <input type="checkbox" clrCheckbox formControlName="isPubilshingTestimony" />
+      </clr-toggle-wrapper>
+      <clr-toggle-wrapper>
+        <label>Compartir sin mencionar mi nombre</label>
+        <input type="checkbox" clrCheckbox formControlName="isPubilshingTestimonyName" />
+      </clr-toggle-wrapper>
+    </div>
+  </div>
+</form>

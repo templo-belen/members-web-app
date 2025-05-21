@@ -1,10 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { basicInfoFailure, basicInfoSuccess, generalInfoSuccess, listFailure, listSuccess, MembersAction, referencesFailure, referencesSuccess } from '../actions/members.action';
+import { basicInfoFailure, basicInfoSuccess, dewInfoFailure, dewInfoSuccess, generalInfoSuccess, listFailure, listSuccess, MembersAction, referencesFailure, referencesSuccess } from '../actions/members.action';
 import { exhaustMap, map } from 'rxjs';
 import { MemberApiService } from '../../services/member.api.service';
 import { MemberListResponseModel } from '../../models/api-response.model';
-import { MemberBasicInfo, MemberGeneralInfo, MemberReferences } from '../../models/member.model';
+import { MemberBasicInfo, MemberDewInfo, MemberGeneralInfo, MemberReferences } from '../../models/member.model';
 
 @Injectable()
 export class MemberEffects {
@@ -65,7 +65,7 @@ export class MemberEffects {
       })
     )
   });
-   doMemberReferences$ = createEffect(() => {
+  doMemberReferences$ = createEffect(() => {
     return this._actions$.pipe(
       ofType(MembersAction.References),
       exhaustMap(({ memberId }) => {
@@ -75,6 +75,22 @@ export class MemberEffects {
             return success;
           } else {
             return referencesFailure({ code: response.code, msg: response.msg });
+          }
+        }),
+        );
+      })
+    )
+  });
+  doGetDewMemberInfo$ = createEffect(() => {
+    return this._actions$.pipe(
+      ofType(MembersAction.DewInfo),
+      exhaustMap(({ memberId }) => {
+        return this._memberApiService.dewInfoById(memberId).pipe(map(response => {
+          if (response instanceof MemberDewInfo) {
+            const success = dewInfoSuccess(response);
+            return success;
+          } else {
+            return dewInfoFailure({ code: response.code, msg: response.msg });
           }
         }),
         );

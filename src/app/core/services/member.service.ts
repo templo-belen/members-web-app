@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { basicInfo, generalInfo, list, selectedMemberId, references } from '../state/actions/members.action';
-import { selectIsLoading, selectMemberBasicInfo, selectMemberGeneralInfo, selectMemberList, selectMemberListError, selectMemberReferences, selectSelectedMemberId } from '../state/selector/member.selector';
+import { basicInfo, generalInfo, list, selectedMemberId, references, dewInfo } from '../state/actions/members.action';
+import { selectIsLoading, selectMemberBasicInfo, selectMemberDewInfo, selectMemberGeneralInfo, selectMemberList, selectMemberListError, selectMemberReferences, selectSelectedMemberId } from '../state/selector/member.selector';
 
 @Injectable({
   providedIn: 'root'
@@ -71,8 +71,18 @@ export class MemberService {
     return this._store.select(selectMemberReferences);
   }
 
-  public dispatchMemberReferences(memberId: number){
-      return this._store.dispatch(references({ memberId }));
-    }  
+  public dispatchMemberReferences(memberId: number) {
+    return this._store.dispatch(references({ memberId }));
+  }
+  public dispatchMemberDewInfo(memberId: number) {
+    if (memberId < 1) {
+      return;
+    }
+    this._store.dispatch(dewInfo({ memberId }));
+  }
+
+  public fetchMemberDewInfo() {
+    return this._store.select(selectMemberDewInfo);
+  }
 }
 
