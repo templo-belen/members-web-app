@@ -5,6 +5,8 @@ import {CommonModule} from '@angular/common';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {MemberService} from '../../../../../core/services/member.service';
 import {editModeSubject} from '../../../../../core/subjects/members.subjects';
+import {EnumService} from '../../../../../core/services/enum.service';
+import {EnumResponseModel} from '../../../../../core/models/enum.model';
 
 @Component({
   selector: 'app-basic-info-member-details',
@@ -15,9 +17,11 @@ import {editModeSubject} from '../../../../../core/subjects/members.subjects';
 export class BasicInfoMemberDetailsComponent implements OnInit {
 
   private _memberService = inject(MemberService);
+  private _enumService = inject(EnumService);
 
   memberForm: FormGroup;
   isEditable: boolean = false;
+  memberEnums: EnumResponseModel = {}
 
   constructor(private fb: FormBuilder) {
     this.memberForm = this.buildForm(new MemberBasicInfo());
@@ -25,13 +29,12 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
   }
 
   buildForm(memberBasicInfo: MemberBasicInfo): FormGroup {
-    const form = this.fb.group({
+    return this.fb.group({
       ...memberBasicInfo,
       preachingPoint: this.fb.group(memberBasicInfo.preachingPoint!),
       zonePastor: this.fb.group(memberBasicInfo.zonePastor!),
       file: new FormControl<FileList | undefined>(undefined),  //TODO evaluar si formara parte del modelo
     });
-    return form;
   }
 
   ngOnInit(): void {
@@ -48,6 +51,12 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
       this.memberForm = this.buildForm(memberBasicInfo);
       this.setFormEditable();
     });
+
+    // Enums
+    this._enumService.fetchEnumMap().subscribe(enumMap => {
+      this.memberEnums = enumMap;
+    });
+
     this.memberForm.disable();
   }
 

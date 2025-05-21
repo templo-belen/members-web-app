@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { MemberBasicInfo, MemberGeneralInfo, MemberReferences } from '../../models/member.model'
-import { MemberErrorResponseModel, MemberListResponseModel } from '../../models/api-response.model';
+import { MemberBasicInfo, MemberGeneralInfo, MemberReferences, MemberDewInfo } from '../../models/member.model'
+import { ErrorResponseModel, MemberListResponseModel } from '../../models/api-response.model';
 
 export enum MembersAction {
   List = '[Member] List',
@@ -20,22 +20,31 @@ export enum MembersAction {
   References = '[Member] References',
   ReferencesSuccess = '[Member] References Success',
   ReferencesFailure = '[Member] References Failure',
+
+  DewInfo = '[Member] Dew Info',
+  DewInfoSuccess = '[Member] Dew Info Success',
+  DewInfoFailure = '[Member] Dew Info Failure',
 }
 
 export const list = createAction(MembersAction.List);
 export const listSuccess = createAction(MembersAction.ListSuccess, props<MemberListResponseModel>());
-export const listFailure = createAction(MembersAction.ListFailure, props<MemberErrorResponseModel>());
+export const listFailure = createAction(MembersAction.ListFailure, props<ErrorResponseModel>());
 
 export const selectedMemberId = createAction(MembersAction.SelectedMemberId, props<{ memberId: number }>());
 
 export const basicInfo = createAction(MembersAction.BasicInfo, props<{ memberId: number }>());
 export const basicInfoSuccess = createAction(MembersAction.BasicInfoSuccess, props<MemberBasicInfo>());
-export const basicInfoFailure = createAction(MembersAction.BasicInfoFailure, props<MemberErrorResponseModel>());
+export const basicInfoFailure = createAction(MembersAction.BasicInfoFailure, props<ErrorResponseModel>());
 
 export const generalInfo = createAction(MembersAction.GeneralInfo, props<{ memberId: number }>());
 export const generalInfoSuccess = createAction(MembersAction.GeneralInfoSuccess, props<MemberGeneralInfo>());
-export const generalInfoFailure = createAction(MembersAction.GeneralInfoFailure, props<MemberErrorResponseModel>());
+export const generalInfoFailure = createAction(MembersAction.GeneralInfoFailure, props<ErrorResponseModel>());
 
 export const references = createAction(MembersAction.References, props<{ memberId: number }>());
 export const referencesSuccess = createAction(MembersAction.ReferencesSuccess, props<MemberReferences>());
-export const referencesFailure = createAction(MembersAction.ReferencesFailure, props<MemberErrorResponseModel>());
+export const referencesFailure = createAction(MembersAction.ReferencesFailure, props<ErrorResponseModel>());
+
+
+export const dewInfo = createAction(MembersAction.DewInfo, props<{ memberId: number }>());
+export const dewInfoSuccess = createAction(MembersAction.DewInfoSuccess, props<MemberDewInfo>());
+export const dewInfoFailure = createAction(MembersAction.DewInfoFailure, props<ErrorResponseModel>());

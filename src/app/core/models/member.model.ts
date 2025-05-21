@@ -75,13 +75,13 @@ export class MemberReferences {
   reasonsForCongregating: string = '';
 }
 
-export class MemberReference { 
+export class MemberReference {
   id: number = 0;
   totalTime: number = 0;
   churchName: string = '';
   mainPastorName: string = '';
   leavingReason: string = '';
-} 
+}
 
 
 
@@ -89,18 +89,30 @@ export class MemberReference {
 export class MemberGeneralInfo {
   id: number = 0;
   memberId: number = 0;
-  conversionDate: Date | null  = new Date(0);
-  conversionPlace: string | null  = '';
-  baptismDate: Date | null  = new Date(0);
-  baptismPlace: string | null  = '';
-  baptismHolySpiritDate: Date | null  = new Date(0);
-  baptismHolySpiritPlace: string | null  = '';
-  baptismPastorName: string | null  = '';
-  baptismDenomination: string | null  = '';
-  activeMemberSince: Date | null  = new Date(0);
-  leavingReason: string | null  = '';
-  leavingReasonDescription: string | null  = '';
+  conversionDate: Date | null = new Date(0);
+  conversionPlace: string | null = '';
+  baptismDate: Date | null = new Date(0);
+  baptismPlace: string | null = '';
+  baptismHolySpiritDate: Date | null = new Date(0);
+  baptismHolySpiritPlace: string | null = '';
+  baptismPastorName: string | null = '';
+  baptismDenomination: string | null = '';
+  activeMemberSince: Date | null = new Date(0);
+  leavingReason: string | null = '';
+  leavingReasonDescription: string | null = '';
   leavingDate: Date | null = new Date(0);
   acceptanceComment: string | null = '';
+}
+
+export class MemberDewInfo {
+  id: number = 0;
+  memberId: number = 0;
+  ministrationDate: Date | null = new Date(0);
+  worker1: string | null = '';
+  worker2: string | null = '';
+  isSharingTestimony: boolean = false;
+  isPubilshingTestimony: boolean = false;
+  isPubilshingTestimonyName: boolean = false;
+  isAgreedShareTestimony: boolean = false;
 }
 

@@ -16,16 +16,6 @@ export class LoginResponseModel {
   }
 }
 
-export class LoginErrorResponseModel {
-  code: number;
-  msg: string;
-
-  constructor(props: ({ code: number, msg: string })) {
-    this.code = props.code;
-    this.msg = props.msg;
-  }
-
-}
 
 export class MemberListResponseModel {
   memberList: MemberListItem[];
@@ -35,7 +25,7 @@ export class MemberListResponseModel {
   }
 }
 
-export class MemberErrorResponseModel {
+export class ErrorResponseModel {
   code: number;
   msg: string;
 
@@ -43,4 +33,15 @@ export class MemberErrorResponseModel {
     this.code = props.code;
     this.msg = props.msg;
   }
+}
+export class MemberDewInfoResponseModel {
+  id: number = 0;
+  memberId: number = 0;
+  ministrationDate: string | null = '';
+  worker1: string | null = '';
+  worker2: string | null = '';
+  isSharingTestimony: boolean = false;
+  isPubilshingTestimony: boolean = false;
+  isPubilshingTestimonyName: boolean = false;
+  isAgreedShareTestimony: boolean = false;
 }
