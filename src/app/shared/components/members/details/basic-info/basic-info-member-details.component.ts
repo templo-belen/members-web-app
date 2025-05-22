@@ -2,7 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {ClarityModule} from '@clr/angular';
 import {MemberBasicInfo} from '../../../../../core/models/member.model';
 import {CommonModule} from '@angular/common';
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MemberService} from '../../../../../core/services/member.service';
 import {editModeSubject} from '../../../../../core/subjects/members.subjects';
 import {EnumService} from '../../../../../core/services/enum.service';
@@ -29,12 +29,19 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
   }
 
   buildForm(memberBasicInfo: MemberBasicInfo): FormGroup {
-    return this.fb.group({
+    const form = this.fb.group({
       ...memberBasicInfo,
       preachingPoint: this.fb.group(memberBasicInfo.preachingPoint!),
       zonePastor: this.fb.group(memberBasicInfo.zonePastor!),
       file: new FormControl<FileList | undefined>(undefined),  //TODO evaluar si formara parte del modelo
     });
+
+    const phoneRegex = /^(\+\d{1,3})?(\s\(\d{3}\)\s|\s?\d{3}[\s-]?)\d{3}[\s-]?\d{4,6}$/;
+    form.get('phoneNumber')?.addValidators(Validators.pattern(phoneRegex));
+    form.get('cellphoneNumber')?.addValidators(Validators.pattern(phoneRegex));
+    form.get('email')?.addValidators(Validators.email);
+
+    return form;
   }
 
   ngOnInit(): void {
