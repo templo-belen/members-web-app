@@ -1,0 +1,13 @@
+<clr-modal [(clrModalOpen)]="opened" [clrModalClosable]="false" [clrModalSize]="'md'">
+  <h3 class="modal-title">{{ title }}</h3>
+  <div class="modal-body">
+    <!-- TODO: add an icon depending on the type of dialog (info, warning, danger, etc) -->
+    <p *ngFor="let text of paragraphs">
+      {{ text }}
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="onConfirm()">Sí</button>
+    <button type="button" class="btn btn-secondary" (click)="onDecline()">No</button>
+  </div>
+</clr-modal>

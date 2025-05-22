@@ -19,12 +19,12 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
   private _memberService = inject(MemberService);
   private _enumService = inject(EnumService);
 
-  memberForm: FormGroup;
+  basicInfoForm: FormGroup;
   isEditable: boolean = false;
   memberEnums: EnumResponseModel = {}
 
   constructor(private fb: FormBuilder) {
-    this.memberForm = this.buildForm(new MemberBasicInfo());
+    this.basicInfoForm = this.buildForm(new MemberBasicInfo());
     this.setFormEditable();
   }
 
@@ -48,7 +48,7 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
     });
 
     this._memberService.fetchMemberBasicInfo().subscribe(memberBasicInfo => {
-      this.memberForm = this.buildForm(memberBasicInfo);
+      this.basicInfoForm = this.buildForm(memberBasicInfo);
       this.setFormEditable();
     });
 
@@ -57,7 +57,7 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
       this.memberEnums = enumMap;
     });
 
-    this.memberForm.disable();
+    this.basicInfoForm.disable();
   }
 
   onFileSelected(event: any) {
@@ -74,9 +74,9 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
 
   setFormEditable() {
     if (this.isEditable) {
-      this.memberForm.enable();
+      this.basicInfoForm.enable();
     } else {
-      this.memberForm.disable();
+      this.basicInfoForm.disable();
     }
   }
 }

@@ -17,11 +17,11 @@ export class ReferencesMemberDetailsComponent implements OnInit {
   private _memberService = inject(MemberService);
 
   isEditable: boolean = false;
-  memberForm: FormGroup;
+  referencesForm: FormGroup;
   memberReferences: MemberReferences | null = null;
 
   constructor(private fb: FormBuilder) {
-    this.memberForm = this.buildForm(new MemberReferences());
+    this.referencesForm = this.buildForm(new MemberReferences());
     this.setFormEditable();
   }
 
@@ -36,11 +36,11 @@ export class ReferencesMemberDetailsComponent implements OnInit {
     });
 
     this._memberService.fetchMemberReferences().subscribe((memberReferences) => {
-      this.memberForm = this.buildForm(memberReferences);
+      this.referencesForm = this.buildForm(memberReferences);
       this.setFormEditable();
     });
 
-    this.memberForm.disable();
+    this.referencesForm.disable();
   }
 
   buildForm(memberReferences: MemberReferences): FormGroup {
@@ -65,9 +65,9 @@ export class ReferencesMemberDetailsComponent implements OnInit {
 
   setFormEditable(): void {
     if (this.isEditable) {
-      this.memberForm.enable();
+      this.referencesForm.enable();
     } else {
-      this.memberForm.disable();
+      this.referencesForm.disable();
     }
   }
 
@@ -76,7 +76,7 @@ export class ReferencesMemberDetailsComponent implements OnInit {
   }
 
   get referencesArray(): FormArray {
-    return this.memberForm.get('references') as FormArray;
+    return this.referencesForm.get('references') as FormArray;
   }
 
   addReference(): void {
