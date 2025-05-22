@@ -40,6 +40,6 @@
 
 <app-confirmation-dialog
   [(opened)]="confirmationOpen"
-  [paragraphs]="['¿Está seguro de que desea cancelar?', 'Se perderán los cambios que haya guardado.']"
+  [paragraphs]="['¿Está seguro de que desea cancelar?', 'Se perderán los cambios que no haya guardado.']"
   (confirm)="onCancelConfirmed()"
 />
