@@ -4,6 +4,7 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {CommonModule} from '@angular/common';
 import {UserService} from '../../../core/services/user.service';
 import {toSignal} from '@angular/core/rxjs-interop';
+import {LoginError} from '../../../core/models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -13,9 +14,9 @@ import {toSignal} from '@angular/core/rxjs-interop';
 })
 export class LoginComponent {
   private _authService = inject(UserService);
-  private _error = toSignal(this._authService.fetchCurrentLoginError());
-  public hasError = computed(() => this._error()?.code !== 200)
-  public errorMsg: Signal<string | undefined> = computed(() => this._error()?.msg);
+  private _error = this._authService.fetchCurrentLoginError();
+  public hasError = computed(() => LoginError.isValid(this._error()) && this._error()!.code !== 200);
+  public errorMsg: Signal<string | undefined> = computed(() => this.hasError() ? this._error()!.msg : '');
 
   form = new FormGroup({
     username: new FormControl('', [Validators.required]),
@@ -24,14 +25,6 @@ export class LoginComponent {
 
   public isInvalid(): boolean {
     return !this.form.valid;
-  }
-
-  public getErrorMsg(): string {
-    return this.errorMsg()!;
-  }
-
-  public getHasError(): boolean {
-    return this.hasError()!;
   }
 
   onSubmit() {
