@@ -1,5 +1,13 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { MemberBasicInfo, MemberDewInfo, MemberError, MemberGeneralInfo, MemberListItem, MemberReferences } from '../../models/member.model';
+import {
+  MemberBasicInfo,
+  MemberDewInfo,
+  MemberError,
+  MemberGeneralInfo,
+  MemberFormValues,
+  MemberListItem,
+  MemberReferences
+} from '../../models/member.model';
 import { MemberState } from '../reducers/member.reducer';
 
 const selectMemberState = createFeatureSelector<MemberState>('member');
@@ -56,5 +64,12 @@ export const selectMemberDewInfo = createSelector(
   selectMemberState,
   (state): MemberDewInfo => {
     return state.memberDewInfo ?? new MemberDewInfo()
+  }
+);
+
+export const selectMemberFormValues = createSelector(
+  selectMemberState,
+  (state): MemberFormValues => {
+    return state.memberFormValues ?? new MemberFormValues()
   }
 );

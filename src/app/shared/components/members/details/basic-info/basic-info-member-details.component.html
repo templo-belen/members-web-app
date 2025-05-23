@@ -78,7 +78,7 @@
 
       <clr-radio-container>
         <label>Género</label>
-        <clr-radio-wrapper *ngFor="let gender of memberEnums['gender'] || []">
+        <clr-radio-wrapper *ngFor="let gender of memberFormValues.enums['gender'] || []">
           <input type="radio" clrRadio value="{{ gender.name }}" formControlName="gender" />
           <label>{{ gender.value }}</label>
         </clr-radio-wrapper>
@@ -86,9 +86,10 @@
 
       <clr-select-container>
         <label>RH</label>
-        <select clrSelect formControlName="rh">
+        <select clrSelect formControlName="rh" class="clr-w-100">
           <option [ngValue]="null"></option>
-          <option *ngFor="let bloodType of memberEnums['blood-type'] || []" value="{{ bloodType.name }}">{{ bloodType.value }}</option>
+          <option *ngFor="let bloodType of memberFormValues.enums['blood-type'] || []"
+                  value="{{ bloodType.name }}">{{ bloodType.value }}</option>
         </select>
       </clr-select-container>
 
@@ -130,17 +131,18 @@
         <input clrInput formControlName="eps" />
       </clr-input-container>
 
-      <clr-input-container formGroupName="preachingPoint">
+      <clr-select-container>
         <label>Punto de predicación</label>
-        <input clrInput formControlName="name" />
-      </clr-input-container>
+        <select clrSelect formControlName="preachingPoint" class="clr-w-100">
+          <option *ngFor="let point of memberFormValues.preachingPoints || []" [value]="point.id">{{ point.name }}</option>
+        </select>
+      </clr-select-container>
 
       <clr-select-container>
         <label>Rol actual</label>
-        <select clrSelect formControlName="currentRole">
-          <option *ngFor="let role of memberEnums['role'] || []" value="{{ role.name }}">{{ role.value }}</option>
+        <select clrSelect formControlName="currentRole" class="clr-w-100">
+          <option *ngFor="let role of memberFormValues.enums['role'] || []" value="{{ role.name }}">{{ role.value }}</option>
         </select>
-
       </clr-select-container>
 
       <clr-date-container>
@@ -150,29 +152,28 @@
 
       <clr-select-container>
         <label>Liderazgo de célula</label>
-        <select clrSelect formControlName="cellLeadership">
-          <option *ngFor="let cellLeadership of memberEnums['cell-leadership'] || []"
+        <select clrSelect formControlName="cellLeadership" class="clr-w-100">
+          <option *ngFor="let cellLeadership of memberFormValues.enums['cell-leadership'] || []"
                   value="{{ cellLeadership.name }}">{{ cellLeadership.value }}</option>
         </select>
       </clr-select-container>
 
-      <clr-input-container>
+      <clr-select-container>
         <label>Pastor de zona</label>
-        <input clrInput formControlName="zonePastor" />
-      </clr-input-container>
+        <select clrSelect formControlName="zonePastor" class="clr-w-100">
+          <option [ngValue]="null"></option>
+          <option *ngFor="let pastor of memberFormValues.zonePastors || []" [value]="pastor.id">{{ pastor.names }} {{ pastor.surnames }}</option>
+        </select>
+      </clr-select-container>
 
       <clr-select-container>
         <label>Liderazgo</label>
-        <select clrSelect formControlName="leadership">
-          <option *ngFor="let leadership of memberEnums['leadership'] || []" value="{{ leadership.name }}">
+        <select clrSelect formControlName="leadership" class="clr-w-100">
+          <option *ngFor="let leadership of memberFormValues.enums['leadership'] || []" value="{{ leadership.name }}">
             {{ leadership.value }}</option>
         </select>
       </clr-select-container>
 
-      <clr-input-container>
-        <label>Estado</label>
-        <input clrInput formControlName="status" />
-      </clr-input-container>
     </div>
   </div>
 

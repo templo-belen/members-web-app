@@ -3,10 +3,9 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ClrFormsModule } from '@clr/angular';
 import { MemberService } from '../../../../../core/services/member.service';
-import { MemberGeneralInfo } from '../../../../../core/models/member.model';
+import { MemberFormValues, MemberGeneralInfo } from '../../../../../core/models/member.model';
 import { editModeSubject } from '../../../../../core/subjects/members.subjects';
-import {EnumResponseModel} from '../../../../../core/models/enum.model';
-import {EnumService} from '../../../../../core/services/enum.service';
+import { EnumResponseModel } from '../../../../../core/models/enum.model';
 
 @Component({
   selector: 'app-general-info-member-details',
@@ -17,11 +16,14 @@ import {EnumService} from '../../../../../core/services/enum.service';
 export class GeneralInfoMemberDetailsComponent {
 
   private _memberService = inject(MemberService);
-  private _enumService = inject(EnumService);
 
   generalInfoForm: FormGroup;
   isEditable: boolean = false;
-  memberEnums: EnumResponseModel = {}
+  memberFormValues: MemberFormValues = {
+    enums: new EnumResponseModel,
+    zonePastors: [],
+    preachingPoints: []
+  }
 
   constructor(private fb: FormBuilder) {
     this.generalInfoForm = this.buildForm(new MemberGeneralInfo());
@@ -29,8 +31,7 @@ export class GeneralInfoMemberDetailsComponent {
   }
 
   buildForm(memberGeneralInfo: MemberGeneralInfo): FormGroup {
-    const form = this.fb.group({ ...memberGeneralInfo });
-    return form;
+    return this.fb.group({ ...memberGeneralInfo });
   }
 
   ngOnInit(): void {
@@ -49,8 +50,8 @@ export class GeneralInfoMemberDetailsComponent {
     });
 
     // Enums
-    this._enumService.fetchEnumMap().subscribe(enumMap => {
-      this.memberEnums = enumMap;
+    this._memberService.fetchMemberFormValues().subscribe(memberFormValues => {
+      this.memberFormValues = memberFormValues;
     });
   }
 
