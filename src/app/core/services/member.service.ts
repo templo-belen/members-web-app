@@ -1,6 +1,14 @@
 import { inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { basicInfo, generalInfo, list, references, selectedMemberId, dewInfo } from '../state/actions/members.action';
+import {
+  basicInfo,
+  generalInfo,
+  list,
+  references,
+  selectedMemberId,
+  dewInfo,
+  memberFormValues
+} from '../state/actions/members.action';
 import {
   selectIsLoading,
   selectMemberBasicInfo,
@@ -9,7 +17,7 @@ import {
   selectMemberListError,
   selectMemberReferences,
   selectSelectedMemberId,
-  selectMemberDewInfo
+  selectMemberDewInfo, selectMemberFormValues
 } from '../state/selector/member.selector';
 
 @Injectable({
@@ -82,6 +90,14 @@ export class MemberService {
 
   public fetchMemberDewInfo() {
     return this._store.select(selectMemberDewInfo);
+  }
+
+  public dispatchMemberFormValues() {
+    this._store.dispatch(memberFormValues());
+  }
+
+  public fetchMemberFormValues() {
+    return this._store.select(selectMemberFormValues);
   }
 }
 

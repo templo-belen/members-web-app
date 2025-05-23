@@ -1,10 +1,27 @@
-import { inject, Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { basicInfoFailure, basicInfoSuccess, dewInfoFailure, dewInfoSuccess, generalInfoSuccess, listFailure, listSuccess, MembersAction, referencesFailure, referencesSuccess } from '../actions/members.action';
-import { exhaustMap, map } from 'rxjs';
-import { MemberApiService } from '../../services/member.api.service';
-import { MemberListResponseModel } from '../../models/api-response.model';
-import { MemberBasicInfo, MemberDewInfo, MemberGeneralInfo, MemberReferences } from '../../models/member.model';
+import {inject, Injectable} from '@angular/core';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
+import {
+  basicInfoFailure,
+  basicInfoSuccess,
+  dewInfoFailure,
+  dewInfoSuccess,
+  generalInfoSuccess, memberFormValues, memberFormValuesFailure, memberFormValuesSuccess,
+  listFailure,
+  listSuccess,
+  MembersAction,
+  referencesFailure,
+  referencesSuccess
+} from '../actions/members.action';
+import {exhaustMap, map} from 'rxjs';
+import {MemberApiService} from '../../services/member.api.service';
+import {MemberListResponseModel} from '../../models/api-response.model';
+import {
+  MemberBasicInfo,
+  MemberDewInfo,
+  MemberGeneralInfo,
+  MemberFormValues,
+  MemberReferences
+} from '../../models/member.model';
 
 @Injectable()
 export class MemberEffects {
@@ -21,8 +38,7 @@ export class MemberEffects {
               .pipe(
                 map(response => {
                   if (response instanceof MemberListResponseModel) {
-                    const success = listSuccess(response);
-                    return success;
+                    return listSuccess(response);
                   } else {
                     return listFailure({ code: response.code, msg: response.msg });
                   }
@@ -38,8 +54,7 @@ export class MemberEffects {
       exhaustMap(({ memberId }) => {
         return this._memberApiService.basicInfoById(memberId).pipe(map(response => {
           if (response instanceof MemberBasicInfo) {
-            const success = basicInfoSuccess(response);
-            return success;
+            return basicInfoSuccess(response);
           } else {
             return basicInfoFailure({ code: response.code, msg: response.msg });
           }
@@ -55,8 +70,7 @@ export class MemberEffects {
       exhaustMap(({ memberId }) => {
         return this._memberApiService.generalInfoById(memberId).pipe(map(response => {
           if (response instanceof MemberGeneralInfo) {
-            const success = generalInfoSuccess(response);
-            return success;
+            return generalInfoSuccess(response);
           } else {
             return basicInfoFailure({ code: response.code, msg: response.msg });
           }
@@ -71,8 +85,7 @@ export class MemberEffects {
       exhaustMap(({ memberId }) => {
         return this._memberApiService.referencesById(memberId).pipe(map(response => {
           if (response instanceof MemberReferences) {
-            const success = referencesSuccess(response);
-            return success;
+            return referencesSuccess(response);
           } else {
             return referencesFailure({ code: response.code, msg: response.msg });
           }
@@ -87,8 +100,7 @@ export class MemberEffects {
       exhaustMap(({ memberId }) => {
         return this._memberApiService.dewInfoById(memberId).pipe(map(response => {
           if (response instanceof MemberDewInfo) {
-            const success = dewInfoSuccess(response);
-            return success;
+            return dewInfoSuccess(response);
           } else {
             return dewInfoFailure({ code: response.code, msg: response.msg });
           }
@@ -97,4 +109,24 @@ export class MemberEffects {
       })
     )
   });
+
+  doMemberFormValues$ = createEffect(
+    () => {
+      return this._actions$
+        .pipe(
+          ofType(MembersAction.MemberFormValues),
+          exhaustMap(() => {
+            return this._memberApiService.memberFormValues()
+              .pipe(
+                map(response => {
+                  if (response instanceof MemberFormValues) {
+                    return memberFormValuesSuccess(response);
+                  } else {
+                    return memberFormValuesFailure({ code: response.code, msg: response.msg });
+                  }
+                }),
+              );
+          })
+        )
+    });
 }

@@ -3,7 +3,7 @@ import {ActivatedRoute, Router, RouterModule} from '@angular/router';
 import {ClrVerticalNavModule} from '@clr/angular';
 import {editModeSubject} from '../../../../core/subjects/members.subjects';
 import {CommonModule} from '@angular/common';
-import {EnumService} from '../../../../core/services/enum.service';
+import {MemberService} from '../../../../core/services/member.service';
 
 @Component({
   selector: 'app-member-details',
@@ -19,19 +19,14 @@ export class MemberDetailsComponent implements OnInit {
   isEditable = false;
   currentTabTitle = 'Datos Personales';
 
-  private _enumService = inject(EnumService);
-
-  ENUMS_FOR_MEMBERS_LIST: string[] =  [
-    'gender', 'blood-type', 'role', 'cell-leadership', 'leadership', 'marital-status',
-    'housing', 'leaving-reason',
-  ];
+  private _memberService = inject(MemberService);
 
   constructor(private router: Router, private route: ActivatedRoute) {
     editModeSubject.subscribe(mode => this.isEditable = mode);
   }
 
   ngOnInit() : void {
-    this._enumService.dispatchEnumMap(this.ENUMS_FOR_MEMBERS_LIST);
+    this._memberService.dispatchMemberFormValues();
   }
 
   toggleEditMode() {
