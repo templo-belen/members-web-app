@@ -1,4 +1,4 @@
-<form clrForm [formGroup]="memberForm" (ngSubmit)="onSubmit()" clrLayout="horizontal" clrLabelSize="3">
+<form clrForm [formGroup]="basicInfoForm" (ngSubmit)="onSubmit()" clrLayout="horizontal" clrLabelSize="3">
   <div class="clr-row">
     <div class="clr-col-2">
       <div class="profile-container">
@@ -28,22 +28,22 @@
     <div class="clr-col-5">
       <clr-input-container>
         <label>Número de documento</label>
-        <input clrInput formControlName="idNumber" />
+        <input clrInput formControlName="idNumber" required />
       </clr-input-container>
 
       <clr-input-container>
         <label>Nombres</label>
-        <input clrInput formControlName="names" />
+        <input clrInput formControlName="names" required />
       </clr-input-container>
 
       <clr-input-container>
         <label>Apellidos</label>
-        <input clrInput formControlName="surnames" />
+        <input clrInput formControlName="surnames" required />
       </clr-input-container>
 
       <clr-date-container>
         <label>Fecha de nacimiento</label>
-        <input type="date" autocomplete="off" clrDate formControlName="birthdate" />
+        <input type="date" autocomplete="off" clrDate formControlName="birthdate" required />
       </clr-date-container>
 
       <clr-input-container>
@@ -63,17 +63,17 @@
 
       <clr-input-container>
         <label>Teléfono</label>
-        <input clrInput formControlName="phoneNumber" />
+        <input type="tel" clrInput formControlName="phoneNumber" />
       </clr-input-container>
 
       <clr-input-container>
         <label>Celular</label>
-        <input clrInput formControlName="cellphoneNumber" />
+        <input type="tel" clrInput formControlName="cellphoneNumber" />
       </clr-input-container>
 
       <clr-input-container>
         <label>Email</label>
-        <input clrInput formControlName="email" type="email" />
+        <input type="email" clrInput formControlName="email" type="email" />
       </clr-input-container>
 
       <clr-radio-container>

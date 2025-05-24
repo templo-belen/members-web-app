@@ -1,15 +1,22 @@
-import {Component, computed, inject, OnInit, Signal} from '@angular/core';
+import {Component, computed, inject, OnInit, Signal, ViewChild} from '@angular/core';
 import {MembersListComponent} from './list/list.members.component';
 import {MemberService} from '../../../core/services/member.service';
 import {toSignal} from '@angular/core/rxjs-interop';
-import {ClrModalModule} from '@clr/angular';
+import {ClrModalModule, ClrWizard} from '@clr/angular';
 import {CommonModule} from '@angular/common';
 import {MemberDetailsComponent} from './details/member-details.component';
 import {ActivatedRoute, Router} from '@angular/router';
+import { NewMemberWizardComponent } from './new-member-wizard/new-member-wizard.component';
 
 @Component({
   selector: 'app-members',
-  imports: [MembersListComponent, ClrModalModule, CommonModule, MemberDetailsComponent],
+  imports: [
+    MembersListComponent,
+    ClrModalModule,
+    CommonModule,
+    MemberDetailsComponent,
+    NewMemberWizardComponent,
+  ],
   templateUrl: './members.component.html',
   styleUrl: './members.component.scss',
   standalone: true
@@ -30,6 +37,8 @@ export class MembersComponent implements OnInit {
 
   private _router = inject(Router);
   private _route = inject(ActivatedRoute);
+
+  @ViewChild('newMemberWizard') newMemberWizard: NewMemberWizardComponent | undefined;
 
   public getErrorMsg(): string {
     return this.errorMsg()!;
@@ -55,6 +64,10 @@ export class MembersComponent implements OnInit {
 
   ngOnInit(): void {
     this._memberService.dispatchList();
+  }
+
+  openNewMemberWizard() {
+    this.newMemberWizard?.open();
   }
 
 }

@@ -2,7 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {ClarityModule} from '@clr/angular';
 import {MemberBasicInfo, MemberFormValues} from '../../../../../core/models/member.model';
 import {CommonModule} from '@angular/common';
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MemberService} from '../../../../../core/services/member.service';
 import {editModeSubject} from '../../../../../core/subjects/members.subjects';
 import {EnumResponseModel} from '../../../../../core/models/enum.model';
@@ -17,7 +17,7 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
 
   private _memberService = inject(MemberService);
 
-  memberForm: FormGroup;
+  basicInfoForm: FormGroup;
   isEditable: boolean = false;
   memberFormValues: MemberFormValues = {
     enums: new EnumResponseModel,
@@ -26,18 +26,25 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
   }
 
   constructor(private fb: FormBuilder) {
-    this.memberForm = this.buildForm(new MemberBasicInfo());
+    this.basicInfoForm = this.buildForm(new MemberBasicInfo());
     this.setFormEditable();
   }
 
   buildForm(memberBasicInfo: MemberBasicInfo): FormGroup {
-    return this.fb.group({
+    const form = this.fb.group({
       ...memberBasicInfo,
       file: new FormControl<FileList | undefined>(undefined),  //TODO evaluar si formara parte del modelo
       preachingPoint: [memberBasicInfo.preachingPoint?.id!],
       zonePastor: [memberBasicInfo.zonePastor?.id!],
 
     });
+
+    const phoneRegex = /^(\+\d{1,3})?(\s\(\d{3}\)\s|\s?\d{3}[\s-]?)\d{3}[\s-]?\d{4,6}$/;
+    form.get('phoneNumber')?.addValidators(Validators.pattern(phoneRegex));
+    form.get('cellphoneNumber')?.addValidators(Validators.pattern(phoneRegex));
+    form.get('email')?.addValidators(Validators.email);
+
+    return form;
   }
 
   ngOnInit(): void {
@@ -51,7 +58,7 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
     });
 
     this._memberService.fetchMemberBasicInfo().subscribe(memberBasicInfo => {
-      this.memberForm = this.buildForm(memberBasicInfo);
+      this.basicInfoForm = this.buildForm(memberBasicInfo);
       this.setFormEditable();
     });
 
@@ -60,7 +67,7 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
       this.memberFormValues = memberFormValues;
     });
 
-    this.memberForm.disable();
+    this.basicInfoForm.disable();
   }
 
   onFileSelected(event: any) {
@@ -77,9 +84,9 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
 
   setFormEditable() {
     if (this.isEditable) {
-      this.memberForm.enable();
+      this.basicInfoForm.enable();
     } else {
-      this.memberForm.disable();
+      this.basicInfoForm.disable();
     }
   }
 }
