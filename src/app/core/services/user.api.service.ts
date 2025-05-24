@@ -38,7 +38,7 @@ export class UserApiService {
         }),
         catchError(error => {
           return of(new ErrorResponseModel({msg: error.error.detail, code: error.status}));
-        });
+        }));
   }
 
   public logout() {
