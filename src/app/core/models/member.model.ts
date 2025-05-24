@@ -1,4 +1,5 @@
 import { SelectOption } from "./select-option.model";
+import {EnumResponseModel} from './enum.model';
 
 export class MemberListItem {
   id: number = 0;
@@ -83,9 +84,6 @@ export class MemberReference {
   leavingReason: string = '';
 }
 
-
-
-
 export class MemberGeneralInfo {
   id: number = 0;
   memberId: number = 0;
@@ -111,8 +109,13 @@ export class MemberDewInfo {
   worker1: string | null = '';
   worker2: string | null = '';
   isSharingTestimony: boolean = false;
-  isPubilshingTestimony: boolean = false;
-  isPubilshingTestimonyName: boolean = false;
+  isPublishingTestimony: boolean = false;
+  isPublishingTestimonyName: boolean = false;
   isAgreedShareTestimony: boolean = false;
 }
 
+export class MemberFormValues {
+  enums: EnumResponseModel = {};
+  zonePastors: MemberNames[]  = [];
+  preachingPoints: SelectOption[] = [];
+}

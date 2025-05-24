@@ -1,11 +1,10 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ClarityModule} from '@clr/angular';
-import {MemberBasicInfo} from '../../../../../core/models/member.model';
+import {MemberBasicInfo, MemberFormValues} from '../../../../../core/models/member.model';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MemberService} from '../../../../../core/services/member.service';
 import {editModeSubject} from '../../../../../core/subjects/members.subjects';
-import {EnumService} from '../../../../../core/services/enum.service';
 import {EnumResponseModel} from '../../../../../core/models/enum.model';
 
 @Component({
@@ -17,11 +16,14 @@ import {EnumResponseModel} from '../../../../../core/models/enum.model';
 export class BasicInfoMemberDetailsComponent implements OnInit {
 
   private _memberService = inject(MemberService);
-  private _enumService = inject(EnumService);
 
   basicInfoForm: FormGroup;
   isEditable: boolean = false;
-  memberEnums: EnumResponseModel = {}
+  memberFormValues: MemberFormValues = {
+    enums: new EnumResponseModel,
+    zonePastors: [],
+    preachingPoints: []
+  }
 
   constructor(private fb: FormBuilder) {
     this.basicInfoForm = this.buildForm(new MemberBasicInfo());
@@ -31,9 +33,10 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
   buildForm(memberBasicInfo: MemberBasicInfo): FormGroup {
     const form = this.fb.group({
       ...memberBasicInfo,
-      preachingPoint: this.fb.group(memberBasicInfo.preachingPoint!),
-      zonePastor: this.fb.group(memberBasicInfo.zonePastor!),
       file: new FormControl<FileList | undefined>(undefined),  //TODO evaluar si formara parte del modelo
+      preachingPoint: [memberBasicInfo.preachingPoint?.id!],
+      zonePastor: [memberBasicInfo.zonePastor?.id!],
+
     });
 
     const phoneRegex = /^(\+\d{1,3})?(\s\(\d{3}\)\s|\s?\d{3}[\s-]?)\d{3}[\s-]?\d{4,6}$/;
@@ -60,8 +63,8 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
     });
 
     // Enums
-    this._enumService.fetchEnumMap().subscribe(enumMap => {
-      this.memberEnums = enumMap;
+    this._memberService.fetchMemberFormValues().subscribe(memberFormValues => {
+      this.memberFormValues = memberFormValues;
     });
 
     this.basicInfoForm.disable();

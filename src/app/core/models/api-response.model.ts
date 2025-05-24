@@ -41,7 +41,7 @@ export class MemberDewInfoResponseModel {
   worker1: string | null = '';
   worker2: string | null = '';
   isSharingTestimony: boolean = false;
-  isPubilshingTestimony: boolean = false;
-  isPubilshingTestimonyName: boolean = false;
+  isPublishingTestimony: boolean = false;
+  isPublishingTestimonyName: boolean = false;
   isAgreedShareTestimony: boolean = false;
 }

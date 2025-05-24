@@ -1,6 +1,32 @@
 import { createReducer, on } from '@ngrx/store';
-import { basicInfo, basicInfoFailure, basicInfoSuccess, dewInfo, dewInfoFailure, dewInfoSuccess, generalInfo, generalInfoFailure, generalInfoSuccess, list, listFailure, listSuccess, references, referencesFailure, referencesSuccess, selectedMemberId } from '../actions/members.action';
-import { MemberBasicInfo, MemberDewInfo, MemberError, MemberGeneralInfo, MemberListItem, MemberReferences } from '../../models/member.model';
+import {
+  basicInfo,
+  basicInfoFailure,
+  basicInfoSuccess,
+  dewInfo,
+  dewInfoFailure,
+  dewInfoSuccess,
+  generalInfo,
+  generalInfoFailure,
+  generalInfoSuccess,
+  memberFormValues, memberFormValuesFailure, memberFormValuesSuccess,
+  list,
+  listFailure,
+  listSuccess,
+  references,
+  referencesFailure,
+  referencesSuccess,
+  selectedMemberId
+} from '../actions/members.action';
+import {
+  MemberBasicInfo,
+  MemberDewInfo,
+  MemberError,
+  MemberGeneralInfo,
+  MemberFormValues,
+  MemberListItem,
+  MemberReferences
+} from '../../models/member.model';
 
 export interface MemberState {
   memberList?: MemberListItem[];
@@ -11,6 +37,7 @@ export interface MemberState {
   memberGeneralInfo: MemberGeneralInfo;
   memberReferences: MemberReferences;
   memberDewInfo: MemberDewInfo;
+  memberFormValues: MemberFormValues;
 
 }
 
@@ -21,7 +48,9 @@ export const initialState: MemberState = {
   memberBasicInfo: new MemberBasicInfo(),
   memberGeneralInfo: new MemberGeneralInfo(),
   memberReferences: new MemberReferences(),
-  memberDewInfo: new MemberDewInfo()
+  memberDewInfo: new MemberDewInfo(),
+  memberFormValues: new MemberFormValues(),
+
 };
 
 export const memberReducer = createReducer(
@@ -86,5 +115,16 @@ export const memberReducer = createReducer(
   }),
   on(dewInfoFailure, (state, props) => {
     return { ...state, error: { msg: props.msg, code: props.code } };
-  })
+  }),
+
+  // All data for init member forms
+  on(memberFormValues, (state) => {
+    return state;
+  }),
+  on(memberFormValuesSuccess, (state, props) => {
+    return { ...state, memberFormValues: props };
+  }),
+  on(memberFormValuesFailure, (state, props) => {
+    return { ...state, error: { msg: props.msg, code: props.code } };
+  }),
 );
