@@ -2,19 +2,23 @@ export class LoginError {
   msg: string;
   code: number;
 
-  constructor(props: ({ msg: string, code: number })) {
-    this.msg = props.msg;
-    this.code = props.code;
+  constructor(msg: string, code: number) {
+    this.msg = msg;
+    this.code = code;
+  }
+
+  static isValid(error: LoginError | undefined): boolean {
+    return error !== undefined && error.code !== undefined && error.msg !== undefined;
   }
 }
 
 export class UserModel {
-  userId: number;
   username: string;
+  fullname: string;
 
-  constructor(props: ({ userId: number, username: string })) {
-    this.userId = props.userId;
+  constructor(props: ({ username: string, fullname: string })) {
     this.username = props.username;
+    this.fullname = props.fullname;
   }
 
 }

@@ -25,8 +25,8 @@ export class UserEffects {
                 map(response => {
                   if (response instanceof LoginResponseModel) {
                     const success = loginSuccess({
-                      userId: response.userId,
                       username: response.username,
+                      fullname: response.full_name,
                       token: response.token
                     });
                     this._router.navigate(['/app/members']).then();
