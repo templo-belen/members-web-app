@@ -7,34 +7,49 @@
   <clr-datagrid>
   <clr-dg-column class="icon-column"></clr-dg-column>
     <clr-dg-column>
-      <ng-container *clrDgHideableColumn="{ hidden: false }">Cedula</ng-container>
+      <ng-container *clrDgHideableColumn="{ hidden: false }">Nro. de Documento</ng-container>
     </clr-dg-column>
     <clr-dg-column>
-      <ng-container *clrDgHideableColumn="{ hidden: false }">Nombre</ng-container>
+      <ng-container *clrDgHideableColumn="{ hidden: false }">Nombres</ng-container>
     </clr-dg-column>
     <clr-dg-column>
       <ng-container *clrDgHideableColumn="{ hidden: false }">Fecha de nacimiento</ng-container>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'birthCountry'">
-      <ng-container  *clrDgHideableColumn="{ hidden: false }">Pais de nacimiento</ng-container>
+      <ng-container  *clrDgHideableColumn="{ hidden: false }">País de nacimiento</ng-container>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'residenceCountry'">
-      <ng-container  *clrDgHideableColumn="{ hidden: false }">Pais de residencia</ng-container>
+      <ng-container  *clrDgHideableColumn="{ hidden: false }">País de residencia</ng-container>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'occupation'">
-      <ng-container  *clrDgHideableColumn="{ hidden: false }">Ocupacion</ng-container>
+      <ng-container  *clrDgHideableColumn="{ hidden: false }">Ocupación</ng-container>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'currentRole'">
-      <ng-container *clrDgHideableColumn="{ hidden: false }">Rol en la Igelsia</ng-container>
+      <ng-container *clrDgHideableColumn="{ hidden: false }">Rol en la Iglesia</ng-container>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'zonePastor'">
       <ng-container  *clrDgHideableColumn="{ hidden: false }">Pastor de zona</ng-container>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'isPastor'">
-      <ng-container  *clrDgHideableColumn="{ hidden: false }">Es Pastor?</ng-container>
+      <clr-dg-filter [clrDgFilter]="pastorFilter">
+        <clr-check-icon-filter
+          #pastorFilter
+          [field]="'isPastor'"
+          [label]="'¿Es Pastor?'">
+        </clr-check-icon-filter>
+      </clr-dg-filter>
+      <ng-container *clrDgHideableColumn="{ hidden: false }">¿Es Pastor?</ng-container>
     </clr-dg-column>
+
     <clr-dg-column [clrDgField]="'isCellLeader'">
-      <ng-container *clrDgHideableColumn="{ hidden: false }">Es lider de celula?</ng-container>
+      <clr-dg-filter [clrDgFilter]="cellLeaderFilter">
+        <clr-check-icon-filter
+          #cellLeaderFilter
+          [field]="'isCellLeader'"
+          [label]="'¿Es Líder de célula?'">
+        </clr-check-icon-filter>
+      </clr-dg-filter>
+      <ng-container *clrDgHideableColumn="{ hidden: false }">¿Es Líder de célula?</ng-container>
     </clr-dg-column>
 
     <clr-dg-row *clrDgItems="let member of membersList()">
@@ -46,19 +61,23 @@
           </clr-dg-cell>
       <clr-dg-cell>{{ member.idNumber }}</clr-dg-cell>
       <clr-dg-cell>{{ member.names + " " + member.surnames }}</clr-dg-cell>
-      <clr-dg-cell>{{ member.birthdate | date }}</clr-dg-cell>
+      <clr-dg-cell>{{ member.birthdate | date:'dd/MM/yyyy' }}</clr-dg-cell>
       <clr-dg-cell>{{ member.birthCountry}}</clr-dg-cell>
       <clr-dg-cell>{{ member.residenceCountry}}</clr-dg-cell>
       <clr-dg-cell>{{ member.occupation}}</clr-dg-cell>
       <clr-dg-cell>{{ member.currentRole}}</clr-dg-cell>
       <clr-dg-cell>{{ member.zonePastor}}</clr-dg-cell>
-      <clr-dg-cell>{{ member.isPastor }}</clr-dg-cell>
-      <clr-dg-cell>{{ member.isCellLeader }}</clr-dg-cell>
+      <clr-dg-cell class="item-center">
+        <cds-icon shape="check-circle" solid="true" size="md" status="success" *ngIf="member.isPastor" aria-label="Pastor"></cds-icon>
+      </clr-dg-cell>
+      <clr-dg-cell class="item-center">
+        <cds-icon shape="check-circle" solid="true" size="md" status="success" *ngIf="member.isCellLeader" aria-label="Líder de célula"></cds-icon>
+      </clr-dg-cell>
     </clr-dg-row>
 
     <clr-dg-footer>
       <clr-dg-pagination #pagination [clrDgPageSize]="20">
-        <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]">Miembros por pagina</clr-dg-page-size>
+        <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]">Miembros por página</clr-dg-page-size>
         {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} de
         {{ pagination.totalItems }} miembros
       </clr-dg-pagination>
