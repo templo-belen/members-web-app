@@ -56,6 +56,23 @@ export class MemberEffects {
           if (response instanceof MemberBasicInfo) {
             return basicInfoSuccess(response);
           } else {
+            console.log("Error", response);
+            return basicInfoFailure({ code: response.code, msg: response.msg });
+          }
+        }),
+        );
+      })
+    )
+  });
+
+  doMemberBasicInfoCreate$ = createEffect(() => {
+    return this._actions$.pipe(
+      ofType(MembersAction.BasicInfoCreate),
+      exhaustMap(memberBasicInfo => {
+        return this._memberApiService.createBasicInfo(memberBasicInfo).pipe(map(response => {
+          if (response instanceof MemberBasicInfo) {
+            return basicInfoSuccess(response);
+          } else {
             return basicInfoFailure({ code: response.code, msg: response.msg });
           }
         }),

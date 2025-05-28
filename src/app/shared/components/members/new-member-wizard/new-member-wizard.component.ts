@@ -1,4 +1,4 @@
-import { Component, inject, Input, ViewChild } from '@angular/core';
+import { Component, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { ClrWizard, ClrWizardModule } from '@clr/angular';
 import { DewInfoMemberDetailsComponent } from '../details/dew-info/dew-info-member-details.component';
 import { ReferencesMemberDetailsComponent } from '../details/references/references-member-details.component';
@@ -24,7 +24,7 @@ import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmat
   templateUrl: './new-member-wizard.component.html',
   styleUrl: './new-member-wizard.component.scss'
 })
-export class NewMemberWizardComponent {
+export class NewMemberWizardComponent implements OnInit {
 
   private _memberService = inject(MemberService);
 
@@ -40,6 +40,14 @@ export class NewMemberWizardComponent {
   wizardOpen = false;
   confirmationOpen = false;
 
+  ngOnInit() {
+    this._memberService.fetchMemberBasicInfo().subscribe(memberBasicInfo => {
+      if (memberBasicInfo.id > 0) {
+        this.wizard?.forceNext();
+      }
+    });
+  }
+
   open() {
     this._memberService.dispatchSelectedMemberId(0);
     editModeSubject.next(true);
@@ -47,8 +55,7 @@ export class NewMemberWizardComponent {
   }
 
   saveBasicInfo() {
-    // TODO: save basic info
-    // https://github.com/templo-belen/members-web-app/issues/49
+    this.basicInfo?.onSubmit();
   }
 
   saveFamilyInfo() {

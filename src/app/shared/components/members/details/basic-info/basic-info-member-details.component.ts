@@ -17,6 +17,7 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
 
   private _memberService = inject(MemberService);
 
+  memberId: number = 0;
   basicInfoForm: FormGroup;
   isEditable: boolean = false;
   memberFormValues: MemberFormValues = {
@@ -34,9 +35,6 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
     const form = this.fb.group({
       ...memberBasicInfo,
       file: new FormControl<FileList | undefined>(undefined),  //TODO evaluar si formara parte del modelo
-      preachingPoint: [memberBasicInfo.preachingPoint?.id!],
-      zonePastor: [memberBasicInfo.zonePastor?.id!],
-
     });
 
     const phoneRegex = /^(\+\d{1,3})?(\s\(\d{3}\)\s|\s?\d{3}[\s-]?)\d{3}[\s-]?\d{4,6}$/;
@@ -58,6 +56,7 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
     });
 
     this._memberService.fetchMemberBasicInfo().subscribe(memberBasicInfo => {
+      this.memberId = memberBasicInfo.id;
       this.basicInfoForm = this.buildForm(memberBasicInfo);
       this.setFormEditable();
     });
@@ -75,7 +74,15 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
   }
 
   onSubmit() {
+    if (!this.basicInfoForm.valid) {
+      return;
+    }
 
+    if (this.memberId === 0) {
+      this._memberService.dispatchMemberBasicInfoCreate(this.formToModel());
+    } else {
+      // TODO: implement update logic
+    }
   }
 
   toggleEditMode() {
@@ -88,5 +95,9 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
     } else {
       this.basicInfoForm.disable();
     }
+  }
+
+  formToModel(): MemberBasicInfo {
+    return Object.assign(new MemberBasicInfo(), this.basicInfoForm.value);
   }
 }

@@ -7,7 +7,8 @@ import {
   references,
   selectedMemberId,
   dewInfo,
-  memberFormValues
+  memberFormValues,
+  basicInfoCreate
 } from '../state/actions/members.action';
 import {
   selectIsLoading,
@@ -19,6 +20,7 @@ import {
   selectSelectedMemberId,
   selectMemberDewInfo, selectMemberFormValues
 } from '../state/selector/member.selector';
+import { MemberBasicInfo } from '../models/member.model';
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +62,10 @@ export class MemberService {
       return;
     }
     this._store.dispatch(basicInfo({ memberId }));
+  }
+
+  public dispatchMemberBasicInfoCreate(member: MemberBasicInfo) {
+    this._store.dispatch(basicInfoCreate(member));
   }
 
   public dispatchMemberGeneralInfo(memberId: number) {

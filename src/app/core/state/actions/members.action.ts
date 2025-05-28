@@ -18,6 +18,7 @@ export enum MembersAction {
   BasicInfo = '[Member] Basic Info',
   BasicInfoSuccess = '[Member] Basic Info Success',
   BasicInfoFailure = '[Member] Basic Info Failure',
+  BasicInfoCreate = '[Member] Basic Info Create',
 
   GeneralInfo = '[Member] General Info',
   GeneralInfoSuccess = '[Member] General Info Success',
@@ -46,6 +47,7 @@ export const selectedMemberId = createAction(MembersAction.SelectedMemberId, pro
 export const basicInfo = createAction(MembersAction.BasicInfo, props<{ memberId: number }>());
 export const basicInfoSuccess = createAction(MembersAction.BasicInfoSuccess, props<MemberBasicInfo>());
 export const basicInfoFailure = createAction(MembersAction.BasicInfoFailure, props<ErrorResponseModel>());
+export const basicInfoCreate = createAction(MembersAction.BasicInfoCreate, props<MemberBasicInfo>());
 
 export const generalInfo = createAction(MembersAction.GeneralInfo, props<{ memberId: number }>());
 export const generalInfoSuccess = createAction(MembersAction.GeneralInfoSuccess, props<MemberGeneralInfo>());
