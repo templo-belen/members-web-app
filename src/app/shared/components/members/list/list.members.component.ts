@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Signal } from '@angular/core';
-import { ClrDatagridModule, ClrIconModule, ClrProgressBarModule } from '@clr/angular';
+import { ClrDatagridModule, ClrIconModule, ClrProgressBarModule} from '@clr/angular';
 import { MemberListItem } from '../../../../core/models/member.model';
+import { CheckIconFilter } from '../../filters/grid.boolean.filter'
 
 @Component({
   selector: 'app-members-list',
-  imports: [ClrDatagridModule, ClrIconModule, CommonModule, ClrProgressBarModule],
+  imports: [ClrDatagridModule, ClrIconModule, CommonModule, ClrProgressBarModule, CheckIconFilter],
   templateUrl: './list.members.component.html',
   styleUrl: './list.members.component.scss',
   standalone: true
