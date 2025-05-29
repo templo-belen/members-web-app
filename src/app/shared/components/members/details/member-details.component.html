@@ -1,51 +1,73 @@
 <div class="details-main-container">
   <header class="header">
     <div class="details-header">
-      <span class="title">{{memberName}}</span>
+      <span class="title">{{ memberName() }}</span>
       <button type="button" class="btn btn-outline" (click)="handleClose()">Cerrar</button>
     </div>
   </header>
-<div class="content-container">
+  <div class="content-container">
     <clr-vertical-nav>
-      <a clrVerticalNavLink [routerLink]="['./basic-info']" routerLinkActive="active" (click)="onLinkClick($event, './basic-info')" [class.disabled]="isEditable">
-        <cds-icon clrVerticalNavIcon shape="user" ></cds-icon>
+      <a clrVerticalNavLink (click)="select('basicInfo')">
+        <cds-icon clrVerticalNavIcon shape="user"></cds-icon>
         Datos Personales
       </a>
-      <a clrVerticalNavLink [routerLink]="['./family-info']" routerLinkActive="active" (click)="onLinkClick($event, './family-info')" [class.disabled]="isEditable">
+      <a clrVerticalNavLink (click)="select('familyInfo')">
         <cds-icon clrVerticalNavIcon shape="home"></cds-icon>
         Datos Familiares
       </a>
-      <a clrVerticalNavLink [routerLink]="['./general-info']" routerLinkActive="active" (click)="onLinkClick($event, './general-info')" [class.disabled]="isEditable">
+      <a clrVerticalNavLink (click)="select('generalInfo')">
         <cds-icon clrVerticalNavIcon shape="details"></cds-icon>
         Datos Generales
       </a>
-      <a clrVerticalNavLink [routerLink]="['./references']" routerLinkActive="active" (click)="onLinkClick($event, './references')" [class.disabled]="isEditable">
+      <a clrVerticalNavLink (click)="select('references')">
         <cds-icon clrVerticalNavIcon shape="book"></cds-icon>
         Referencias
       </a>
-      <a clrVerticalNavLink [routerLink]="['./dew-info']" routerLinkActive="active" (click)="onLinkClick($event, './dew-info')" [class.disabled]="isEditable">
+      <a clrVerticalNavLink (click)="select('dewInfo')">
         <cds-icon clrVerticalNavIcon shape="world"></cds-icon>
         DEW
       </a>
     </clr-vertical-nav>
-  <div class="details-content-area">
+    <div class="details-content-area">
       <div class="clr-row">
-        <div class="clr-col-2">
-          <div cds-text="subsection bold">{{ currentTabTitle }}</div>
-        </div>
+        <div cds-text="subsection bold">{{ currentTabTitle }}</div>
+      </div>
+      <div class="clr-row">
         <!-- Edit member button -->
-        <div class="clr-col-8 edit-member-button" *ngIf="!isEditable">
+        <div class="clr-col-12 edit-member-button" *ngIf="!isEditable">
           <button role="button" (click)="toggleEditMode()" class="btn btn-secondary">
             <cds-icon shape="pencil"></cds-icon>
           </button>
         </div>
         <!-- Save / Cancel buttons -->
-        <div class="clr-col-8 edit-member-actions" *ngIf="isEditable">
+        <div class="clr-col-12 edit-member-actions" *ngIf="isEditable">
           <button type="submit" class="btn btn-primary">Guardar</button>
           <button type="button" class="btn btn-secondary" (click)="toggleEditMode()">Cancelar</button>
         </div>
       </div>
-
-    <router-outlet></router-outlet>
+      <div class="clr-row">
+        <div class="clr-col-12">
+          @switch (selected) {
+            @case ("basicInfo") {
+              <app-basic-info-member-details/>
+            }
+            @case ("familyInfo") {
+              <app-family-info-member-details/>
+            }
+            @case ("generalInfo") {
+              <app-general-info-member-details/>
+            }
+            @case ("references") {
+              <app-references-member-details/>
+            }
+            @case ("dewInfo") {
+              <app-dew-info-member-details/>
+            }
+          }
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+
+

@@ -10,6 +10,6 @@
 <clr-modal [(clrModalOpen)]="isModalOpen" [clrModalSize]="'full-screen'" [clrModalClosable]="false">
   <div class="modal-body">
     <app-member-details [memberName]="selectedMemberName" [memberId]="selectedMemberId"
-      [closeModal]="closeModal"></app-member-details>
+      (closeModal)="closeModal()"></app-member-details>
   </div>
 </clr-modal>
