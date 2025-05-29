@@ -16,7 +16,8 @@ import {
   references,
   referencesFailure,
   referencesSuccess,
-  selectedMemberId
+  selectedMemberId,
+  basicInfoCreate
 } from '../actions/members.action';
 import {
   MemberBasicInfo,
@@ -87,6 +88,9 @@ export const memberReducer = createReducer(
     return { ...state, memberBasicInfo: props };
   }),
   on(basicInfoFailure, (state, props) => {
+    return state;
+  }),
+  on(basicInfoCreate, (state, props) => {
     return state;
   }),
   on(generalInfo, (state, props) => {

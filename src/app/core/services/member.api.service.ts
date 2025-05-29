@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, map, Observable, of} from 'rxjs';
 import {ErrorResponseModel, MemberDewInfoResponseModel, MemberListResponseModel} from '../models/api-response.model';
 import {
@@ -44,6 +44,20 @@ export class MemberApiService {
         }),
         catchError(error => {
           return of(new ErrorResponseModel({ msg: error.error.msg, code: error.status }));
+        }));
+  }
+
+  public createBasicInfo(body: MemberBasicInfo): Observable<MemberBasicInfo | ErrorResponseModel> {
+    const token = localStorage.getItem("token");
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+
+    return this._http.post<MemberBasicInfo>(`${this._baseUrl}/members`, body, { observe: "response", headers: headers })
+      .pipe(
+        map(response => {
+          return Object.assign(new MemberBasicInfo(), response.body!);
+        }),
+        catchError(error => {
+          return of(new ErrorResponseModel({msg: error.error.detail, code: error.status}));
         }));
   }
 

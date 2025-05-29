@@ -30,8 +30,7 @@
         <label>Número de documento</label>
         <input clrInput formControlName="idNumber" required />
       </clr-input-container>
-
-      <clr-input-container>
+143      <clr-input-container>
         <label>Nombres</label>
         <input clrInput formControlName="names" required />
       </clr-input-container>
@@ -87,7 +86,7 @@
       <clr-select-container>
         <label>RH</label>
         <select clrSelect formControlName="rh" class="clr-w-100">
-          <option [ngValue]="null"></option>
+          <option [ngValue]="null">-- Seleccione una opción --</option>
           <option *ngFor="let bloodType of memberFormValues.enums['blood-type'] || []"
                   value="{{ bloodType.name }}">{{ bloodType.value }}</option>
         </select>
@@ -134,13 +133,15 @@
       <clr-select-container>
         <label>Punto de predicación</label>
         <select clrSelect formControlName="preachingPoint" class="clr-w-100">
+          <option [ngValue]="null">-- Seleccione una opción --</option>
           <option *ngFor="let point of memberFormValues.preachingPoints || []" [value]="point.id">{{ point.name }}</option>
         </select>
       </clr-select-container>
 
       <clr-select-container>
         <label>Rol actual</label>
-        <select clrSelect formControlName="currentRole" class="clr-w-100">
+        <select clrSelect formControlName="currentRole" class="clr-w-100" required >
+          <option [ngValue]="null">-- Seleccione una opción --</option>
           <option *ngFor="let role of memberFormValues.enums['role'] || []" value="{{ role.name }}">{{ role.value }}</option>
         </select>
       </clr-select-container>
@@ -152,7 +153,8 @@
 
       <clr-select-container>
         <label>Liderazgo de célula</label>
-        <select clrSelect formControlName="cellLeadership" class="clr-w-100">
+        <select clrSelect formControlName="cellLeadership" class="clr-w-100" required>
+          <option [ngValue]="null">-- Seleccione una opción --</option>
           <option *ngFor="let cellLeadership of memberFormValues.enums['cell-leadership'] || []"
                   value="{{ cellLeadership.name }}">{{ cellLeadership.value }}</option>
         </select>
@@ -161,14 +163,15 @@
       <clr-select-container>
         <label>Pastor de zona</label>
         <select clrSelect formControlName="zonePastor" class="clr-w-100">
-          <option [ngValue]="null"></option>
+          <option [ngValue]="null">-- Seleccione una opción --</option>
           <option *ngFor="let pastor of memberFormValues.zonePastors || []" [value]="pastor.id">{{ pastor.names }} {{ pastor.surnames }}</option>
         </select>
       </clr-select-container>
 
       <clr-select-container>
         <label>Liderazgo</label>
-        <select clrSelect formControlName="leadership" class="clr-w-100">
+        <select clrSelect formControlName="leadership" class="clr-w-100" required >
+          <option [ngValue]="null">-- Seleccione una opción --</option>
           <option *ngFor="let leadership of memberFormValues.enums['leadership'] || []" value="{{ leadership.name }}">
             {{ leadership.value }}</option>
         </select>
