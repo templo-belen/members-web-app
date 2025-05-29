@@ -60,22 +60,22 @@ export class NewMemberWizardComponent implements OnInit {
 
   saveFamilyInfo() {
     // TODO: save family info
-    // https://github.com/templo-belen/members-web-app/issues/49
+    // https://github.com/templo-belen/members-web-app/issues/61
   }
 
   saveGeneralInfo() {
     // TODO: save general info
-    // https://github.com/templo-belen/members-web-app/issues/49
+    // https://github.com/templo-belen/members-web-app/issues/58
   }
 
   saveReferences() {
     // TODO: save references
-    // https://github.com/templo-belen/members-web-app/issues/49
+    // https://github.com/templo-belen/members-web-app/issues/59
   }
 
   saveDewInfo() {
     // TODO: save DEW info
-    // https://github.com/templo-belen/members-web-app/issues/49
+    // https://github.com/templo-belen/members-web-app/issues/60
   }
 
   onCancel() {
