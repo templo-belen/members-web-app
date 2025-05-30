@@ -114,6 +114,27 @@ export class MemberDewInfo {
   isAgreedShareTestimony: boolean = false;
 }
 
+export class MemberFamilyData {
+  memberId:number = 0;
+  maritalStatus: SelectOption | null = { id: 0, name: '' };
+  fathersName: string | null = '';
+  mothersName: string | null = '';
+  spouseName: string | null = '';
+  spouseOccupation: string | null = '';
+  marriageRegistrationNumber: string | null = '';
+  housingType:SelectOption | null = { id: 0, name: '' };
+}
+export class MemberChildrenInfo{
+  memberId:number = 0;
+  childName: string='';
+  childOccupation: string | null = '';
+}
+
+export class MemberFamilyInfo{
+  familyData: MemberFamilyData | null = null;
+  childrenDataList:MemberChildrenInfo[] = [];
+}
+
 export class MemberFormValues {
   enums: EnumResponseModel = {};
   zonePastors: MemberNames[]  = [];

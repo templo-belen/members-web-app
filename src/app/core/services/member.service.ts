@@ -7,7 +7,7 @@ import {
   references,
   selectedMemberId,
   dewInfo,
-  memberFormValues
+  memberFormValues, familyInfo
 } from '../state/actions/members.action';
 import {
   selectIsLoading,
@@ -17,7 +17,7 @@ import {
   selectMemberListError,
   selectMemberReferences,
   selectSelectedMemberId,
-  selectMemberDewInfo, selectMemberFormValues
+  selectMemberDewInfo, selectMemberFormValues, selectMemberFamilyInfo
 } from '../state/selector/member.selector';
 
 @Injectable({
@@ -98,6 +98,17 @@ export class MemberService {
 
   public fetchMemberFormValues() {
     return this._store.select(selectMemberFormValues);
+  }
+
+  public dispatchMemberFamilyInfo(memberId: number) {
+    if (memberId < 1) {
+      return;
+    }
+    this._store.dispatch(familyInfo({ memberId }));
+  }
+
+  public fetchMemberFamilyInfo() {
+    return this._store.select(selectMemberFamilyInfo);
   }
 }
 

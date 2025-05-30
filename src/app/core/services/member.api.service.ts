@@ -4,7 +4,7 @@ import {catchError, map, Observable, of} from 'rxjs';
 import {ErrorResponseModel, MemberDewInfoResponseModel, MemberListResponseModel} from '../models/api-response.model';
 import {
   MemberBasicInfo,
-  MemberDewInfo,
+  MemberDewInfo, MemberFamilyInfo,
   MemberFormValues,
   MemberGeneralInfo,
   MemberListItem,
@@ -82,6 +82,18 @@ export class MemberApiService {
           return of(new ErrorResponseModel({ msg: error.error.msg, code: error.status }));
         }));
   }
+
+  public familyInfoById(memberId: number): Observable<MemberFamilyInfo | ErrorResponseModel> {
+    return this._http.get<MemberFamilyInfo>(`${this._membersAPIUrl}/${memberId}/family-data`, { observe: "response" })
+      .pipe(
+        map(response => {
+          return Object.assign(new MemberFamilyInfo(), response.body!);
+        }),
+        catchError(error => {
+          return of(new ErrorResponseModel({ msg: error.error.msg, code: error.status }));
+        }));
+  }
+
 
   public memberFormValues(): Observable<MemberFormValues | ErrorResponseModel> {
     return this._http.get<MemberFormValues>(`${this._membersAPIUrl}/init-form`, { observe: "response" })

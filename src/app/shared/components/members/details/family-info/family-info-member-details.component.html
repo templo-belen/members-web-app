@@ -1,1 +1,107 @@
-<p>family-info-member-details works!</p>
+<form clrForm [formGroup]="familyInfoForm" (ngSubmit)="onSubmit()" clrLayout="horizontal" clrLabelSize="3">
+  <div class="clr-row">
+    <div class="clr-col-sm-12 clr-col-md-6 clr-col-lg-4">
+      <clr-select-container>
+        <label>Estado civil</label>
+        <select clrSelect formControlName="familyData.maritalStatus" class="clr-w-100">
+          <option [ngValue]="null"></option>
+          <option *ngFor="let maritalStatus of memberFormValues.enums['marital-status'] || []"
+                  value="{{ maritalStatus.name }}">{{ maritalStatus.value }}
+          </option>
+        </select>
+      </clr-select-container>
+      <clr-input-container>
+        <label class="fit-content-label">Nombre del conyugue</label>
+        <input clrInput formControlName="familyData.spouseName"/>
+      </clr-input-container>
+      <clr-input-container>
+        <label class="fit-content-label">Ocupacion del conyugue</label>
+        <input clrInput formControlName="familyData.spouseOccupation"/>
+      </clr-input-container>
+      <clr-input-container>
+        <label class="fit-content-label">Nro. registro de matrimonio</label>
+        <input clrInput formControlName="familyData.marriageRegistrationNumber"/>
+      </clr-input-container>
+    </div>
+    <div class="clr-col-sm-12 clr-col-md-6 clr-col-lg-4">
+      <clr-input-container>
+        <label class="fit-content-label">Nombre del padre</label>
+        <input clrInput formControlName="familyData.fathersName"/>
+      </clr-input-container>
+      <clr-input-container>
+        <label class="fit-content-label">Nombre de la madre</label>
+        <input clrInput formControlName="familyData.mothersName"/>
+      </clr-input-container>
+      <clr-select-container>
+        <label>Tipo de vivienda</label>
+        <select clrSelect formControlName="familyData.housingType" class="clr-w-100">
+          <option [ngValue]="null"></option>
+          <option *ngFor="let housingEnum of memberFormValues.enums['housing'] || []"
+                  value="{{ housingEnum.name }}">{{ housingEnum.value }}
+          </option>
+        </select>
+      </clr-select-container>
+    </div>
+  </div>
+  <div class="clr-row mt-4">
+    <div class="clr-col-12">
+      <table class="table">
+        <thead>
+        <tr>
+          <th class="left">Nombre Completo hijo</th>
+          <th class="left">Ocupacion Hijo</th>
+          <th class="left" *ngIf="isEditable"></th>
+        </tr>
+        </thead>
+        <tbody formArrayName="childrenDataList">
+        <tr
+          *ngFor="let child of childrenArray.controls; let i = index"
+          [formGroupName]="i"
+        >
+          <td>
+            <input
+              type="text"
+              formControlName="childName"
+              [readonly]="!isEditable"
+              class="clr-input"
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              formControlName="childOccupation"
+              [readonly]="!isEditable"
+              class="clr-input"
+            />
+          </td>
+          <td *ngIf="isEditable">
+            <button
+              type="button"
+              class="btn btn-icon btn-sm"
+              (click)="removeChild(i)"
+            >
+              <cds-icon shape="trash"></cds-icon>
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="childrenArray.controls.length === 0">
+          <td colspan="5" class="text-center">
+            El miembro no tiene hijos registrados
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="isEditable" class="mt-2">
+        <button
+          type="button"
+          class="btn btn-sm btn-icon"
+          (click)="addChild()"
+        >
+          <cds-icon shape="plus"></cds-icon>
+          Añadir hijo
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

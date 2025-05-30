@@ -6,7 +6,7 @@ import {
   MemberGeneralInfo,
   MemberFormValues,
   MemberListItem,
-  MemberReferences
+  MemberReferences, MemberFamilyInfo
 } from '../../models/member.model';
 import { MemberState } from '../reducers/member.reducer';
 
@@ -71,5 +71,12 @@ export const selectMemberFormValues = createSelector(
   selectMemberState,
   (state): MemberFormValues => {
     return state.memberFormValues ?? new MemberFormValues()
+  }
+);
+
+export const selectMemberFamilyInfo = createSelector(
+  selectMemberState,
+  (state): MemberFamilyInfo => {
+    return state.memberFamilyInfo ?? new MemberFamilyInfo()
   }
 );

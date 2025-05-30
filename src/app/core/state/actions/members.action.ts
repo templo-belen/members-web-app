@@ -4,7 +4,7 @@ import {
   MemberGeneralInfo,
   MemberReferences,
   MemberDewInfo,
-  MemberFormValues
+  MemberFormValues, MemberFamilyInfo
 } from '../../models/member.model'
 import { ErrorResponseModel, MemberListResponseModel } from '../../models/api-response.model';
 
@@ -35,6 +35,10 @@ export enum MembersAction {
   MemberFormValuesSuccess = '[Member] Member Form Values Success',
   MemberFormValuesFailure = '[Member] Member Form Values Failure',
 
+  FamilyInfo = '[Member] Family Info',
+  FamilyInfoSuccess = '[Member] Family Info Success',
+  FamilyInfoFailure = '[Member] Family Info Failure',
+
 }
 
 export const list = createAction(MembersAction.List);
@@ -63,3 +67,7 @@ export const dewInfoFailure = createAction(MembersAction.DewInfoFailure, props<E
 export const memberFormValues = createAction(MembersAction.MemberFormValues);
 export const memberFormValuesSuccess = createAction(MembersAction.MemberFormValuesSuccess, props<MemberFormValues>());
 export const memberFormValuesFailure = createAction(MembersAction.MemberFormValuesFailure, props<ErrorResponseModel>());
+
+export const familyInfo = createAction(MembersAction.FamilyInfo, props<{ memberId: number }>());
+export const familyInfoSuccess = createAction(MembersAction.FamilyInfoSuccess, props<MemberFamilyInfo>());
+export const familyInfoFailure = createAction(MembersAction.FamilyInfoFailure, props<ErrorResponseModel>());

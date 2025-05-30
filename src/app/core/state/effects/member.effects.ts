@@ -10,7 +10,7 @@ import {
   listSuccess,
   MembersAction,
   referencesFailure,
-  referencesSuccess
+  referencesSuccess, familyInfoSuccess, familyInfoFailure
 } from '../actions/members.action';
 import {exhaustMap, map} from 'rxjs';
 import {MemberApiService} from '../../services/member.api.service';
@@ -20,7 +20,7 @@ import {
   MemberDewInfo,
   MemberGeneralInfo,
   MemberFormValues,
-  MemberReferences
+  MemberReferences, MemberFamilyInfo
 } from '../../models/member.model';
 
 @Injectable()
@@ -106,6 +106,22 @@ export class MemberEffects {
             return dewInfoFailure({ code: response.code, msg: response.msg });
           }
         }),
+        );
+      })
+    )
+  });
+
+  doMemberFamilyInfo$ = createEffect(() => {
+    return this._actions$.pipe(
+      ofType(MembersAction.FamilyInfo),
+      exhaustMap(({ memberId }) => {
+        return this._memberApiService.familyInfoById(memberId).pipe(map(response => {
+            if (response instanceof MemberFamilyInfo) {
+              return familyInfoSuccess(response);
+            } else {
+              return familyInfoFailure({ code: response.code, msg: response.msg });
+            }
+          }),
         );
       })
     )

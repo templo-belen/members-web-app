@@ -16,7 +16,7 @@ import {
   references,
   referencesFailure,
   referencesSuccess,
-  selectedMemberId
+  selectedMemberId, familyInfo, familyInfoSuccess, familyInfoFailure
 } from '../actions/members.action';
 import {
   MemberBasicInfo,
@@ -25,7 +25,7 @@ import {
   MemberGeneralInfo,
   MemberFormValues,
   MemberListItem,
-  MemberReferences
+  MemberReferences, MemberFamilyInfo
 } from '../../models/member.model';
 
 export interface MemberState {
@@ -38,6 +38,7 @@ export interface MemberState {
   memberReferences: MemberReferences;
   memberDewInfo: MemberDewInfo;
   memberFormValues: MemberFormValues;
+  memberFamilyInfo: MemberFamilyInfo;
 
 }
 
@@ -50,7 +51,7 @@ export const initialState: MemberState = {
   memberReferences: new MemberReferences(),
   memberDewInfo: new MemberDewInfo(),
   memberFormValues: new MemberFormValues(),
-
+  memberFamilyInfo: new MemberFamilyInfo()
 };
 
 export const memberReducer = createReducer(
@@ -125,6 +126,17 @@ export const memberReducer = createReducer(
     return { ...state, memberFormValues: props };
   }),
   on(memberFormValuesFailure, (state, props) => {
+    return { ...state, error: { msg: props.msg, code: props.code } };
+  }),
+
+  // Family Info
+  on(familyInfo, (state, props) => {
+    return state;
+  }),
+  on(familyInfoSuccess, (state, props) => {
+    return { ...state, memberFamilyInfo: props };
+  }),
+  on(familyInfoFailure, (state, props) => {
     return { ...state, error: { msg: props.msg, code: props.code } };
   }),
 );
