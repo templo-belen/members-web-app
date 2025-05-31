@@ -114,6 +114,13 @@ export class MemberDewInfo {
   isAgreedShareTestimony: boolean = false;
 }
 
+export class Member {
+  memberBasicInfo : MemberBasicInfo = new MemberBasicInfo();
+  memberReferences: MemberReferences = new MemberReferences();
+  memberInfo: MemberGeneralInfo = new MemberGeneralInfo();
+  dewInfo: MemberDewInfo = new MemberDewInfo();
+}
+
 export class MemberFormValues {
   enums: EnumResponseModel = {};
   zonePastors: MemberNames[]  = [];

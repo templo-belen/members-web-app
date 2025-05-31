@@ -1,4 +1,4 @@
-import {inject, Injectable} from '@angular/core';
+import {inject, Injectable, Signal} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {
   basicInfoCreate,
@@ -43,6 +43,10 @@ export class MemberService {
     return this._store.select(selectSelectedMemberId);
   }
 
+  public selectedMemberId(): Signal<number> {
+    return this._store.selectSignal(selectSelectedMemberId);
+  }
+
   public fetchCurrentMemberListError() {
     return this._store.select(selectMemberListError);
   }
@@ -53,6 +57,10 @@ export class MemberService {
 
   public fetchMemberBasicInfo() {
     return this._store.select(selectMemberBasicInfo);
+  }
+
+  public selectMemberBasicInfo() {
+    return this._store.selectSignal(selectMemberBasicInfo);
   }
 
   public dispatchMember(memberId: number) {
@@ -84,6 +92,10 @@ export class MemberService {
 
   public fetchMemberFormValues() {
     return this._store.select(selectMemberFormValues);
+  }
+
+  public selectMemberFormValues() {
+    return this._store.selectSignal(selectMemberFormValues);
   }
 }
 

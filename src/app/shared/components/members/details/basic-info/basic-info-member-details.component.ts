@@ -13,32 +13,39 @@ import { EnumResponseModel } from '../../../../../core/models/enum.model';
   templateUrl: './basic-info-member-details.component.html',
   styleUrl: './basic-info-member-details.component.scss',
 })
-export class BasicInfoMemberDetailsComponent implements OnInit {
-
+export class BasicInfoMemberDetailsComponent {
   private _memberService = inject(MemberService);
+  private _formBuilder = inject(FormBuilder);
 
-  @ViewChild('formElement') formElement!: ElementRef<HTMLFormElement>;
+  model = output<MemberBasicInfo>();
+  isEditable = input.required<boolean>();
+  memberId = this._memberService.selectedMemberId();
+  inputModel = input.required<MemberBasicInfo>();
+  basicInfo = computed(() => {
+    this._memberService.dispatchMemberBasicInfo(this.memberId());
+    return this._memberService.selectMemberBasicInfo();
+  });
+  value = computed(() => this.basicInfo());
+  memberFormValues = this._memberService.selectMemberFormValues()
 
-  memberId: number = 0;
-  basicInfoForm: FormGroup;
-  isEditable: boolean = false;
-  memberFormValues: MemberFormValues = {
-    enums: new EnumResponseModel,
-    zonePastors: [],
-    preachingPoints: []
+  form: FormGroup;
+
+
+  constructor() {
+    this.form = this.buildForm(new MemberBasicInfo());
+
+    effect(() => {
+      if (this.isEditable()) {
+        this.form.enable();
+      } else {
+        this.form.disable();
+      }
+    });
   }
 
-  // TODO: replace with key in the HTML when applying i18n.
-  requiredFieldError = 'Este campo es obligatorio';
-  invalidFormatError = 'El formato es incorrecto';
-
-  constructor(private fb: FormBuilder) {
-    this.basicInfoForm = this.buildForm(new MemberBasicInfo());
-    this.setFormEditable();
-  }
 
   buildForm(memberBasicInfo: MemberBasicInfo): FormGroup {
-    const form = this.fb.group({
+    const form = this._formBuilder.group({
       ...memberBasicInfo,
       file: new FormControl<FileList | undefined>(undefined),  //TODO evaluar si formara parte del modelo
     });
@@ -57,27 +64,8 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
     form.get('cellphoneNumber')?.addValidators(Validators.pattern(phoneRegex));
     form.get('email')?.addValidators(Validators.email);
 
+
     return form;
-  }
-
-  ngOnInit(): void {
-    editModeSubject.subscribe(mode => {
-      this.isEditable = mode;
-      this.setFormEditable();
-    });
-
-    this._memberService.fetchMemberBasicInfo().subscribe(memberBasicInfo => {
-      this.memberId = memberBasicInfo.id;
-      this.basicInfoForm = this.buildForm(memberBasicInfo);
-      this.setFormEditable();
-    });
-
-    // Enums
-    this._memberService.fetchMemberFormValues().subscribe(memberFormValues => {
-      this.memberFormValues = memberFormValues;
-    });
-
-    this.basicInfoForm.disable();
   }
 
   onFileSelected(event: any) {
@@ -85,46 +73,6 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
   }
 
   onSubmit() {
-    this.triggerFocusAndBlurEvents();
 
-    if (!this.basicInfoForm.valid) {
-      return;
-    }
-
-    if (this.memberId === 0) {
-      this._memberService.dispatchMemberBasicInfoCreate(this.formToModel());
-    } else {
-      // TODO: implement update logic
-    }
-  }
-
-  // Trick for triggering all error messages
-  private triggerFocusAndBlurEvents() {
-    const elements = this.formElement
-      .nativeElement
-      .querySelectorAll('input, select');
-
-    elements.forEach((element: any) => {
-      if (element.focus && element.blur) {
-        element.focus();
-        element.blur();
-      }
-    });
-  }
-
-  toggleEditMode() {
-    editModeSubject.next(!this.isEditable);
-  }
-
-  setFormEditable() {
-    if (this.isEditable) {
-      this.basicInfoForm.enable();
-    } else {
-      this.basicInfoForm.disable();
-    }
-  }
-
-  formToModel(): MemberBasicInfo {
-    return Object.assign(new MemberBasicInfo(), this.basicInfoForm.value);
   }
 }

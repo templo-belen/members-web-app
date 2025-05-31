@@ -6,6 +6,7 @@ import {ClrModalModule} from '@clr/angular';
 import {CommonModule} from '@angular/common';
 import {MemberDetailsComponent} from './details/member-details.component';
 import {NewMemberWizardComponent} from './new-member-wizard/new-member-wizard.component';
+import {ShowcaseComponent} from './showcase/showcase.component';
 
 @Component({
   selector: 'app-members',
@@ -13,8 +14,8 @@ import {NewMemberWizardComponent} from './new-member-wizard/new-member-wizard.co
     MembersListComponent,
     ClrModalModule,
     CommonModule,
-    MemberDetailsComponent,
     NewMemberWizardComponent,
+    ShowcaseComponent,
   ],
   templateUrl: './members.component.html',
   styleUrl: './members.component.scss',

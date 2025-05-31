@@ -1,14 +1,14 @@
-import { Component, inject, input, OnInit, output } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { ClrVerticalNavModule } from '@clr/angular';
-import { editModeSubject } from '../../../../core/subjects/members.subjects';
-import { CommonModule } from '@angular/common';
-import { MemberService } from '../../../../core/services/member.service';
-import { BasicInfoMemberDetailsComponent } from './basic-info/basic-info-member-details.component';
-import { FamilyInfoMemberDetailsComponent } from './family-info/family-info-member-details.component';
-import { GeneralInfoMemberDetailsComponent } from './general-info/general-info-member-details.component';
-import { ReferencesMemberDetailsComponent } from './references/references-member-details.component';
-import { DewInfoMemberDetailsComponent } from './dew-info/dew-info-member-details.component';
+import { Component, computed, inject, input, OnInit, output} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {ClrVerticalNavModule} from '@clr/angular';
+import {CommonModule} from '@angular/common';
+import {MemberService} from '../../../../core/services/member.service';
+import {BasicInfoMemberDetailsComponent} from './basic-info/basic-info-member-details.component';
+import {FamilyInfoMemberDetailsComponent} from './family-info/family-info-member-details.component';
+import {GeneralInfoMemberDetailsComponent} from './general-info/general-info-member-details.component';
+import {ReferencesMemberDetailsComponent} from './references/references-member-details.component';
+import {DewInfoMemberDetailsComponent} from './dew-info/dew-info-member-details.component';
+import {Member, MemberBasicInfo} from '../../../../core/models/member.model';
 
 @Component({
   selector: 'app-member-details',
@@ -17,19 +17,14 @@ import { DewInfoMemberDetailsComponent } from './dew-info/dew-info-member-detail
   styleUrl: './member-details.component.scss',
 })
 export class MemberDetailsComponent implements OnInit {
-  closeModal = output<void>();
-  memberId = input.required<number>();
-  memberName = input.required<string>();
-
-  isEditable = false;
-  selected = "basicInfo";
-  currentTabTitle = 'Datos Personales';
-
   private _memberService = inject(MemberService);
 
-  constructor() {
-    editModeSubject.subscribe(mode => this.isEditable = mode);
-  }
+  member = output<Member>();
+  operation = input.required<string>();
+  isEditable = input.required<boolean>();
+  selected = input<string>();
+  memberId = this._memberService.selectedMemberId();
+  basicInfo = computed(() => this._buildBasicInfo());
 
   ngOnInit(): void {
     this._memberService.dispatchMemberFormValues();
@@ -40,17 +35,13 @@ export class MemberDetailsComponent implements OnInit {
 
   }
 
-  toggleEditMode() {
-    editModeSubject.next(!this.isEditable);
+  private _buildBasicInfo(): MemberBasicInfo {
+    if (this.operation()  === 'CREATE') {
+      return new MemberBasicInfo();
+    }
+    const selectedBasicInfo = this._memberService.selectMemberBasicInfo();
+    return selectedBasicInfo();
   }
 
-  handleClose() {
-    this.closeModal.emit();
-    this.currentTabTitle = 'Datos Personales';
-    editModeSubject.next(false);
-  }
-
-  select(option: string) {
-    this.selected = option;
-  }
+  protected readonly MemberBasicInfo = MemberBasicInfo;
 }
