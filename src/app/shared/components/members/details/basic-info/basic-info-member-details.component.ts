@@ -1,11 +1,9 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, computed, effect, inject, input, output} from '@angular/core';
 import {ClarityModule} from '@clr/angular';
-import {MemberBasicInfo, MemberFormValues} from '../../../../../core/models/member.model';
+import {MemberBasicInfo} from '../../../../../core/models/member.model';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MemberService} from '../../../../../core/services/member.service';
-import {editModeSubject} from '../../../../../core/subjects/members.subjects';
-import {EnumResponseModel} from '../../../../../core/models/enum.model';
 
 @Component({
   selector: 'app-basic-info-member-details',
@@ -13,25 +11,39 @@ import {EnumResponseModel} from '../../../../../core/models/enum.model';
   templateUrl: './basic-info-member-details.component.html',
   styleUrl: './basic-info-member-details.component.scss',
 })
-export class BasicInfoMemberDetailsComponent implements OnInit {
-
+export class BasicInfoMemberDetailsComponent {
   private _memberService = inject(MemberService);
+  private _formBuilder = inject(FormBuilder);
 
-  basicInfoForm: FormGroup;
-  isEditable: boolean = false;
-  memberFormValues: MemberFormValues = {
-    enums: new EnumResponseModel,
-    zonePastors: [],
-    preachingPoints: []
+  model = output<MemberBasicInfo>();
+  isEditable = input.required<boolean>();
+  memberId = this._memberService.selectedMemberId();
+  inputModel = input.required<MemberBasicInfo>();
+  basicInfo = computed(() => {
+    this._memberService.dispatchMemberBasicInfo(this.memberId());
+    return this._memberService.selectMemberBasicInfo();
+  });
+  value = computed(() => this.basicInfo());
+  memberFormValues = this._memberService.selectMemberFormValues()
+
+  form: FormGroup;
+
+
+  constructor() {
+    this.form = this.buildForm(new MemberBasicInfo());
+
+    effect(() => {
+      if (this.isEditable()) {
+        this.form.enable();
+      } else {
+        this.form.disable();
+      }
+    });
   }
 
-  constructor(private fb: FormBuilder) {
-    this.basicInfoForm = this.buildForm(new MemberBasicInfo());
-    this.setFormEditable();
-  }
 
   buildForm(memberBasicInfo: MemberBasicInfo): FormGroup {
-    const form = this.fb.group({
+    const form = this._formBuilder.group({
       ...memberBasicInfo,
       file: new FormControl<FileList | undefined>(undefined),  //TODO evaluar si formara parte del modelo
       preachingPoint: [memberBasicInfo.preachingPoint?.id!],
@@ -44,30 +56,8 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
     form.get('cellphoneNumber')?.addValidators(Validators.pattern(phoneRegex));
     form.get('email')?.addValidators(Validators.email);
 
+
     return form;
-  }
-
-  ngOnInit(): void {
-    editModeSubject.subscribe(mode => {
-      this.isEditable = mode;
-      this.setFormEditable();
-    });
-
-    this._memberService.fetchSelectedMemberId().subscribe(memberId => {
-      this._memberService.dispatchMemberBasicInfo(memberId);
-    });
-
-    this._memberService.fetchMemberBasicInfo().subscribe(memberBasicInfo => {
-      this.basicInfoForm = this.buildForm(memberBasicInfo);
-      this.setFormEditable();
-    });
-
-    // Enums
-    this._memberService.fetchMemberFormValues().subscribe(memberFormValues => {
-      this.memberFormValues = memberFormValues;
-    });
-
-    this.basicInfoForm.disable();
   }
 
   onFileSelected(event: any) {
@@ -76,17 +66,5 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
 
   onSubmit() {
 
-  }
-
-  toggleEditMode() {
-    editModeSubject.next(!this.isEditable);
-  }
-
-  setFormEditable() {
-    if (this.isEditable) {
-      this.basicInfoForm.enable();
-    } else {
-      this.basicInfoForm.disable();
-    }
   }
 }

@@ -1,0 +1,46 @@
+.details-header {
+  display: flex;
+  flex: 0 0 auto;
+  min-width: calc(204*(1rem/var(--cds-global-base)));
+  padding: 0 var(--cds-global-space-7);
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.details-main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--clr-global-app-background);
+}
+
+.details-content-area {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 1.2rem 1.2rem 1.2rem 1.2rem;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.edit-member-button {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.edit-member-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+clr-vertical-nav a.disabled,
+clr-vertical-nav a.disabled cds-icon {
+  pointer-events: none;
+  opacity: 0.5;
+}
