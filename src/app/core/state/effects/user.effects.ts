@@ -29,7 +29,7 @@ export class UserEffects {
                       fullname: response.full_name,
                       token: response.token
                     });
-                    this._router.navigate(['/members']).then();
+                    this._router.navigate(['/app']).then();
                     return success;
                   } else {
                     return loginFailure({code: response.code, msg: response.msg});
