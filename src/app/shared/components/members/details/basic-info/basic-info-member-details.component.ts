@@ -14,56 +14,26 @@ import {ComponentModel, DetailComponent} from '../detail.interface';
 })
 export class BasicInfoMemberDetailsComponent implements DetailComponent {
   private _memberService = inject(MemberService);
-<<<<<<< feature/controller-implementation
   private _formBuilder = inject(FormBuilder);
 
   model = output<MemberBasicInfo>();
   isEditable = input.required<boolean>();
+  memberId = this._memberService.selectedMemberId();
   inputModel = input.required<MemberBasicInfo>();
-  basicInfo = this._memberService.fetchCurrentMemberBasicInfo();
+  basicInfo = computed(() => {
+    this._memberService.dispatchMemberBasicInfo(this.memberId());
+    return this._memberService.selectMemberBasicInfo();
+  });
+  value = computed(() => this.basicInfo());
   memberFormValues = this._memberService.selectMemberFormValues()
-  requiredFieldError: string = 'Este campo es obligatorio';
-  invalidFormatError: string = 'El formato es incorrecto';
 
-  form: FormGroup = this.buildForm(this.basicInfo());
-=======
-  private _fb = inject(FormBuilder);
-
-  @ViewChild('formElement') formElement!: ElementRef<HTMLFormElement>;
-
-  memberId = 0;
-  basicInfoForm: FormGroup;
-  isEditable = false;
-  memberFormValues: MemberFormValues = {
-    enums: new EnumResponseModel,
-    zonePastors: [],
-    preachingPoints: []
-  }
-
-  // TODO: replace with key in the HTML when applying i18n.
-  requiredFieldError = 'Este campo es obligatorio';
-  invalidFormatError = 'El formato es incorrecto';
-
-  constructor() {
-    this.basicInfoForm = this.buildForm(new MemberBasicInfo());
-    this.setFormEditable();
-  }
-
-  buildForm(memberBasicInfo: MemberBasicInfo): FormGroup {
-    const form = this._fb.group({
-      ...memberBasicInfo,
-      file: new FormControl<FileList | undefined>(undefined),  //TODO evaluar si formara parte del modelo
-    });
->>>>>>> master
+  form: FormGroup;
 
 
   constructor() {
+    this.form = this.buildForm(new MemberBasicInfo());
+
     effect(() => {
-      if (this.inputModel!) {
-        this.form.patchValue({...this.inputModel()});
-        console.log(`values: ${JSON.stringify(this.form.value)}`);
-      }
-
       if (this.isEditable()) {
         this.form.enable();
       } else {
@@ -72,45 +42,29 @@ export class BasicInfoMemberDetailsComponent implements DetailComponent {
     });
   }
 
-<<<<<<< feature/controller-implementation
-  getForm(): FormGroup {
-    return this.form;
-  }
 
-  getComponentModel(): ComponentModel {
-    return this.inputModel();
-=======
-  onSubmit() {
-    this.triggerFocusAndBlurEvents();
-
-    if (!this.basicInfoForm.valid) {
-      return;
-    }
-
-    if (this.memberId === 0) {
-      this._memberService.dispatchMemberBasicInfoCreate(this.formToModel());
-    } else {
-      // TODO: implement update logic
-    }
->>>>>>> master
-  }
-
-  buildForm(basicInfo: MemberBasicInfo): FormGroup {
-    const phoneRegex = /^(\+\d{1,3})?(\s\(\d{3}\)\s|\s?\d{3}[\s-]?)\d{3}[\s-]?\d{4,6}$/;
-    return this._formBuilder.group({
-      ...basicInfo,
-      idNumber: new FormControl('', [Validators.required]),
-      names: new FormControl('', [Validators.required]),
-      surnames: new FormControl('', [Validators.required]),
-      currentRole: new FormControl('', [Validators.required]),
-      cellLeadership: new FormControl('', [Validators.required]),
-      commitmentDate: new FormControl('', [Validators.required]),
-      leadership: new FormControl('', [Validators.required]),
-      phoneNumber: new FormControl('', [Validators.pattern(phoneRegex)]),
-      cellphoneNumber: new FormControl('', [Validators.pattern(phoneRegex)]),
-      email: new FormControl('', [Validators.email]),
+  buildForm(memberBasicInfo: MemberBasicInfo): FormGroup {
+    const form = this._formBuilder.group({
+      ...memberBasicInfo,
       file: new FormControl<FileList | undefined>(undefined),  //TODO evaluar si formara parte del modelo
     });
+
+    // Required fields
+    form.get('idNumber')?.addValidators(Validators.required);
+    form.get('names')?.addValidators(Validators.required);
+    form.get('surnames')?.addValidators(Validators.required);
+    form.get('currentRole')?.addValidators(Validators.required);
+    form.get('cellLeadership')?.addValidators(Validators.required);
+    form.get('leadership')?.addValidators(Validators.required);
+
+    // Additional validations
+    const phoneRegex = /^(\+\d{1,3})?(\s\(\d{3}\)\s|\s?\d{3}[\s-]?)\d{3}[\s-]?\d{4,6}$/;
+    form.get('phoneNumber')?.addValidators(Validators.pattern(phoneRegex));
+    form.get('cellphoneNumber')?.addValidators(Validators.pattern(phoneRegex));
+    form.get('email')?.addValidators(Validators.email);
+
+
+    return form;
   }
 
   onFileSelected(event: any) {
@@ -118,6 +72,6 @@ export class BasicInfoMemberDetailsComponent implements DetailComponent {
   }
 
   onSubmit() {
-    this.model.emit({...this.form.value});
+
   }
 }
