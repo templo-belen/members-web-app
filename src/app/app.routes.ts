@@ -11,4 +11,8 @@ export const routes: Routes = [
     component: LayoutComponent,
     canActivate: [AuthGuard],
   },
+  // Always keep at last route
+  // TODO: define a 404 page
+  // https://github.com/templo-belen/members-web-app/issues/63
+  { path: '**', redirectTo: 'app', pathMatch: 'full' }
 ];
