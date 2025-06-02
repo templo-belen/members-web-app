@@ -5,7 +5,7 @@ import {MembersComponent} from '../members/members.component';
 
 @Component({
   selector: 'app-layout',
-  imports: [RouterModule, ClarityModule],
+  imports: [RouterModule, ClarityModule, MembersComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })
