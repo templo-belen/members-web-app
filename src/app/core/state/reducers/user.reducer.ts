@@ -1,5 +1,5 @@
 import {createReducer, on} from '@ngrx/store';
-import {login, loginFailure, loginSuccess} from '../actions/user.action';
+import {login, loginFailure, loginSuccess, logoutSuccess} from '../actions/user.action';
 import {LoginError, UserModel} from '../../models/user.model';
 
 export interface UserState {
@@ -29,5 +29,9 @@ export const userReducer = createReducer(
     const currentUser: UserModel = {username: '', fullname: ''};
     const error: LoginError = {msg: props.msg, code: props.code};
     return {...state, currentUser: currentUser, isLoading: false, error: error};
-  })
+  }),
+  on(logoutSuccess, (state) => {
+    const currentUser: UserModel = {username: '', fullname: ''};
+    return {...state, currentUser: currentUser, error: {msg: '', code: 200}, isLoading: false};
+  }),
 );

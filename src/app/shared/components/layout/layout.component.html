@@ -8,6 +8,17 @@
     </div>
     <div class="header-nav">
     </div>
+    <div class="header-actions">
+      <clr-dropdown>
+        <button class="nav-text" clrDropdownTrigger>
+          {{ currentUser().fullname }}
+          <cds-icon shape="angle" direction="down"></cds-icon>
+        </button>
+        <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+          <span clrDropdownItem (click)="logout()">Cerrar sesión</span>
+        </clr-dropdown-menu>
+      </clr-dropdown>
+    </div>
   </clr-header>
   <main class="content">
     <router-outlet />

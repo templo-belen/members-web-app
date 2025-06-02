@@ -40,15 +40,6 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
   buildForm(memberBasicInfo: MemberBasicInfo): FormGroup {
     const form = this.fb.group({
       ...memberBasicInfo,
-      idNumber: new FormControl(memberBasicInfo.idNumber),
-      names: new FormControl(memberBasicInfo.names),
-      surnames: new FormControl(memberBasicInfo.surnames),
-      currentRole: new FormControl(memberBasicInfo.currentRole),
-      cellLeadership: new FormControl(memberBasicInfo.cellLeadership),
-      leadership: new FormControl(memberBasicInfo.leadership),
-      email: new FormControl(memberBasicInfo.email),
-      phoneNumber: new FormControl(memberBasicInfo.phoneNumber),
-      cellphoneNumber: new FormControl(memberBasicInfo.cellphoneNumber),
       file: new FormControl<FileList | undefined>(undefined),  //TODO evaluar si formara parte del modelo
     });
 

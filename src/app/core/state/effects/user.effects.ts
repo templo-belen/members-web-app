@@ -1,8 +1,8 @@
 import {inject, Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {UserApiService} from '../../services/user.api.service';
-import {loginFailure, loginSuccess, UserAction} from '../actions/user.action';
-import {exhaustMap, map} from 'rxjs';
+import {loginFailure, loginSuccess, logoutSuccess, UserAction} from '../actions/user.action';
+import {exhaustMap, map, of} from 'rxjs';
 import {LoginRequestModel} from '../../models/api-request.model';
 import {LoginResponseModel} from '../../models/api-response.model';
 import {Router} from '@angular/router';
@@ -39,4 +39,18 @@ export class UserEffects {
           })
         )
     });
+
+    doLogout$ = createEffect(() => {
+      return this._actions$
+        .pipe(
+          ofType(UserAction.Logout),
+          exhaustMap(() => {
+            localStorage.removeItem('token');
+            this._router.navigate(['/']).then();
+            return of(logoutSuccess());
+          })
+        )
+    });
 }
+
+

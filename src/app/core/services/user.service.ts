@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {Store} from '@ngrx/store';
-import {login} from '../state/actions/user.action';
+import {login, logout} from '../state/actions/user.action';
 import {selectCurrentUser, selectLoginError} from '../state/selector/user.selector';
 import {LoginError} from '../models/user.model';
 import {jwtDecode, JwtPayload} from 'jwt-decode';
@@ -15,6 +15,10 @@ export class UserService {
 
   public dispatchLogin(username: string, password: string) {
     this._store.dispatch(login({username: username, password: password}));
+  }
+
+  public dispatchLogout() {
+    this._store.dispatch(logout());
   }
 
   public fetchCurrentUser() {

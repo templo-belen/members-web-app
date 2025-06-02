@@ -1,14 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, inject, Signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ClarityModule } from '@clr/angular';
-import {MembersComponent} from '../members/members.component';
+import { UserService } from '../../../core/services/user.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { UserModel } from '../../../core/models/user.model';
 
 @Component({
   selector: 'app-layout',
-  imports: [RouterModule, ClarityModule, MembersComponent],
+  imports: [RouterModule, ClarityModule],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })
 export class LayoutComponent {
 
+  private _userService = inject(UserService);
+
+  currentUser: Signal<UserModel> = toSignal(this._userService.fetchCurrentUser(), { initialValue: new UserModel({ username: '', fullname: '' }) });
+
+  logout() {
+    this._userService.dispatchLogout();
+  }
 }
