@@ -1,5 +1,4 @@
 import {inject, Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, map, Observable, of} from 'rxjs';
 import {ErrorResponseModel, MemberDewInfoResponseModel, MemberListResponseModel} from '../models/api-response.model';
 import {
@@ -11,13 +10,14 @@ import {
   MemberReferences
 } from '../models/member.model';
 import {environment} from '../../../environments/environment';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MemberApiService {
 
-  private _http = inject(HttpClient);
+  private _apiService = inject(ApiService);
   private _baseUrl = environment.backendBaseUrl;
   private _membersAPIUrl = `${this._baseUrl}/members`;
 
@@ -25,7 +25,7 @@ export class MemberApiService {
   }
 
   public list(): Observable<MemberListResponseModel | ErrorResponseModel> {
-    return this._http.get<MemberListItem[]>(`${this._membersAPIUrl}`, { observe: "response" })
+    return this._apiService.sendAuthenticatedGet<MemberListItem[]>(`${this._membersAPIUrl}`)
       .pipe(
         map(response => {
           return new MemberListResponseModel({ memberList: response.body! });
@@ -37,7 +37,7 @@ export class MemberApiService {
   }
 
   public basicInfoById(memberId: number): Observable<MemberBasicInfo | ErrorResponseModel> {
-    return this._http.get<MemberBasicInfo>(`${this._membersAPIUrl}/${memberId}`, { observe: "response" })
+    return this._apiService.sendAuthenticatedGet<MemberBasicInfo>(`${this._membersAPIUrl}/${memberId}`)
       .pipe(
         map(response => {
           return Object.assign(new MemberBasicInfo(), response.body!);
@@ -48,10 +48,7 @@ export class MemberApiService {
   }
 
   public createBasicInfo(body: MemberBasicInfo): Observable<MemberBasicInfo | ErrorResponseModel> {
-    const token = localStorage.getItem("token");
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
-
-    return this._http.post<MemberBasicInfo>(`${this._baseUrl}/members`, body, { observe: "response", headers: headers })
+    return this._apiService.sendAuthenticatedPost<MemberBasicInfo>(`${this._baseUrl}/members`, body)
       .pipe(
         map(response => {
           return Object.assign(new MemberBasicInfo(), response.body!);
@@ -62,7 +59,7 @@ export class MemberApiService {
   }
 
   public referencesById(memberId: number): Observable<MemberReferences | ErrorResponseModel> {
-    return this._http.get<MemberReferences>(`${this._membersAPIUrl}/${memberId}/references`, { observe: "response" })
+    return this._apiService.sendAuthenticatedGet<MemberReferences>(`${this._membersAPIUrl}/${memberId}/references`)
       .pipe(
         map(response => {
           return Object.assign(new MemberReferences(), response.body!);
@@ -73,7 +70,7 @@ export class MemberApiService {
   }
 
   public generalInfoById(memberId: number): Observable<MemberGeneralInfo | ErrorResponseModel> {
-    return this._http.get<MemberGeneralInfo>(`${this._membersAPIUrl}/${memberId}/general-data`, { observe: "response" })
+    return this._apiService.sendAuthenticatedGet<MemberGeneralInfo>(`${this._membersAPIUrl}/${memberId}/general-data`)
       .pipe(
         map(response => {
           return Object.assign(new MemberGeneralInfo(), response.body!);
@@ -84,7 +81,7 @@ export class MemberApiService {
   }
 
   public dewInfoById(memberId: number): Observable<MemberDewInfo | ErrorResponseModel> {
-    return this._http.get<MemberDewInfoResponseModel>(`${this._membersAPIUrl}/${memberId}/dew`, { observe: "response" })
+    return this._apiService.sendAuthenticatedGet<MemberDewInfoResponseModel>(`${this._membersAPIUrl}/${memberId}/dew`)
       .pipe(
         map(response => {
           return Object.assign(new MemberDewInfo(), {
@@ -98,7 +95,7 @@ export class MemberApiService {
   }
 
   public memberFormValues(): Observable<MemberFormValues | ErrorResponseModel> {
-    return this._http.get<MemberFormValues>(`${this._membersAPIUrl}/init-form`, { observe: "response" })
+    return this._apiService.sendAuthenticatedGet<MemberFormValues>(`${this._membersAPIUrl}/init-form`)
       .pipe(
         map(response => {
           return Object.assign(new MemberFormValues(), response.body!);
