@@ -1,32 +1,26 @@
-import { createReducer, on } from '@ngrx/store';
+import {createReducer, on} from '@ngrx/store';
 import {
-  basicInfo,
-  basicInfoFailure,
-  basicInfoSuccess,
-  dewInfo,
-  dewInfoFailure,
-  dewInfoSuccess,
-  generalInfo,
-  generalInfoFailure,
-  generalInfoSuccess,
-  memberFormValues, memberFormValuesFailure, memberFormValuesSuccess,
+  basicInfoCreate,
+  basicInfoCreateSuccess,
   list,
   listFailure,
   listSuccess,
-  references,
-  referencesFailure,
-  referencesSuccess,
-  selectedMemberId,
-  basicInfoCreate
+  memberFormValues,
+  memberFormValuesFailure,
+  memberFormValuesSuccess,
+  memberInfo,
+  memberInfoFailure,
+  memberInfoSuccess,
+  selectedMemberId
 } from '../actions/members.action';
 import {
   MemberBasicInfo,
   MemberDewInfo,
   MemberError,
-  MemberGeneralInfo,
   MemberFormValues,
+  MemberGeneralInfo,
   MemberListItem,
-  MemberReferences
+  MemberReferences,
 } from '../../models/member.model';
 
 export interface MemberState {
@@ -81,46 +75,26 @@ export const memberReducer = createReducer(
 
     return { ...state, selectedMemberId: memberId };
   }),
-  on(basicInfo, (state, props) => {
+  on(memberInfo, (state, props) => {
     return state;
   }),
-  on(basicInfoSuccess, (state, props) => {
-    return { ...state, memberBasicInfo: props };
+  on(memberInfoSuccess, (state, props) => {
+    return {
+      ...state,
+      memberBasicInfo: props.personalInformation ?? new MemberBasicInfo(),
+      memberGeneralInfo: props.generalData ?? new MemberGeneralInfo(),
+      memberReferences: props.references ?? new MemberReferences(),
+    };
   }),
-  on(basicInfoFailure, (state, props) => {
+  on(memberInfoFailure, (state, props) => {
     return state;
   }),
   on(basicInfoCreate, (state, props) => {
     return state;
   }),
-  on(generalInfo, (state, props) => {
+  on(basicInfoCreateSuccess, (state, props) => {
     return state;
   }),
-  on(generalInfoSuccess, (state, props) => {
-    return { ...state, memberGeneralInfo: props };
-  }),
-  on(generalInfoFailure, (state, props) => {
-    return state;
-  }),
-  on(references, (state, props) => {
-    return state;
-  }),
-  on(referencesSuccess, (state, props) => {
-    return { ...state, memberReferences: props };
-  }),
-  on(referencesFailure, (state) => {
-    return state;
-  }),
-  on(dewInfo, (state, props) => {
-    return state;
-  }),
-  on(dewInfoSuccess, (state, props) => {
-    return { ...state, memberDewInfo: props };
-  }),
-  on(dewInfoFailure, (state, props) => {
-    return { ...state, error: { msg: props.msg, code: props.code } };
-  }),
-
   // All data for init member forms
   on(memberFormValues, (state) => {
     return state;

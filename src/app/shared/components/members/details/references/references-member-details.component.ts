@@ -18,7 +18,6 @@ export class ReferencesMemberDetailsComponent implements OnInit {
 
   isEditable: boolean = false;
   referencesForm: FormGroup;
-  memberReferences: MemberReferences | null = null;
 
   constructor(private fb: FormBuilder) {
     this.referencesForm = this.buildForm(new MemberReferences());
@@ -29,10 +28,6 @@ export class ReferencesMemberDetailsComponent implements OnInit {
     editModeSubject.subscribe((mode) => {
       this.isEditable = mode;
       this.setFormEditable();
-    });
-
-    this._memberService.fetchSelectedMemberId().subscribe((memberId) => {
-      this._memberService.dispatchMemberReferences(memberId);
     });
 
     this._memberService.fetchMemberReferences().subscribe((memberReferences) => {
