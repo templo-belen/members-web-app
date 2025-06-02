@@ -28,9 +28,7 @@
       <clr-input-container>
         <label [class.clr-required-mark]="isEditable">Número de documento</label>
         <input clrInput formControlName="idNumber" />
-        <clr-control-error>
-          {{ requiredFieldError }}
-        </clr-control-error>
+        <clr-control-error>{{ requiredFieldError }}</clr-control-error>
       </clr-input-container>
       <clr-input-container>
         <label [class.clr-required-mark]="isEditable">Nombres</label>
