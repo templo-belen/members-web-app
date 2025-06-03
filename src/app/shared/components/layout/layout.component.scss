@@ -13,3 +13,7 @@
   overflow: hidden;
   position: relative;
 }
+
+.header-actions > .dropdown > .dropdown-toggle:before {
+  position: initial;
+}

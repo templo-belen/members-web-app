@@ -3,10 +3,20 @@
     <div class="branding">
       <a routerLink="/app">
         <img src="logo.png" alt="Logo" height="32" />
-        <span class="title">Templo Belen</span>
+        <span class="title">Templo Belén</span>
       </a>
     </div>
     <div class="header-nav">
+    </div>
+    <div class="header-actions clr-align-items-center">
+      <clr-dropdown >
+        <button class="nav-text" clrDropdownTrigger [title]="currentUser().fullname">
+          <app-avatar [name]="currentUser().fullname" [size]="40"></app-avatar>
+        </button>
+        <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+          <span clrDropdownItem (click)="logout()">Cerrar sesión</span>
+        </clr-dropdown-menu>
+      </clr-dropdown>
     </div>
   </clr-header>
   <main class="content">
