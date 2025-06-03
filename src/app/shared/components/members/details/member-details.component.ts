@@ -1,14 +1,14 @@
-import {Component, inject, input, OnInit, output} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {ClrVerticalNavModule} from '@clr/angular';
-import {editModeSubject} from '../../../../core/subjects/members.subjects';
-import {CommonModule} from '@angular/common';
-import {MemberService} from '../../../../core/services/member.service';
-import {BasicInfoMemberDetailsComponent} from './basic-info/basic-info-member-details.component';
-import {FamilyInfoMemberDetailsComponent} from './family-info/family-info-member-details.component';
-import {GeneralInfoMemberDetailsComponent} from './general-info/general-info-member-details.component';
-import {ReferencesMemberDetailsComponent} from './references/references-member-details.component';
-import {DewInfoMemberDetailsComponent} from './dew-info/dew-info-member-details.component';
+import { Component, inject, input, OnInit, output } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { ClrVerticalNavModule } from '@clr/angular';
+import { editModeSubject } from '../../../../core/subjects/members.subjects';
+import { CommonModule } from '@angular/common';
+import { MemberService } from '../../../../core/services/member.service';
+import { BasicInfoMemberDetailsComponent } from './basic-info/basic-info-member-details.component';
+import { FamilyInfoMemberDetailsComponent } from './family-info/family-info-member-details.component';
+import { GeneralInfoMemberDetailsComponent } from './general-info/general-info-member-details.component';
+import { ReferencesMemberDetailsComponent } from './references/references-member-details.component';
+import { DewInfoMemberDetailsComponent } from './dew-info/dew-info-member-details.component';
 
 @Component({
   selector: 'app-member-details',
@@ -20,7 +20,6 @@ export class MemberDetailsComponent implements OnInit {
   closeModal = output<void>();
   memberId = input.required<number>();
   memberName = input.required<string>();
-
 
   isEditable = false;
   selected = "basicInfo";
@@ -34,6 +33,11 @@ export class MemberDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this._memberService.dispatchMemberFormValues();
+
+    this._memberService.fetchSelectedMemberId().subscribe(memberId => {
+      this._memberService.dispatchMember(memberId);
+    });
+
   }
 
   toggleEditMode() {
