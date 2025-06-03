@@ -70,6 +70,7 @@ export const memberReducer = createReducer(
         memberBasicInfo: new MemberBasicInfo(),
         memberGeneralInfo: new MemberGeneralInfo(),
         memberReferences: new MemberReferences(),
+        memberDewInfo: new MemberDewInfo(),
       };
     }
 
@@ -84,6 +85,7 @@ export const memberReducer = createReducer(
       memberBasicInfo: props.personalInformation ?? new MemberBasicInfo(),
       memberGeneralInfo: props.generalData ?? new MemberGeneralInfo(),
       memberReferences: props.references ?? new MemberReferences(),
+      memberDewInfo: props.dew ?? new MemberDewInfo(),
     };
   }),
   on(memberInfoFailure, (state, props) => {
