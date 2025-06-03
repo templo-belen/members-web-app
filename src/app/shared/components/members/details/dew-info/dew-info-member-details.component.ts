@@ -36,10 +36,6 @@ export class DewInfoMemberDetailsComponent {
       this.setFormEditable();
     });
 
-    this._memberService.fetchSelectedMemberId().subscribe(memberId => {
-      this._memberService.dispatchMemberDewInfo(memberId);
-    });
-
     this._memberService.fetchMemberDewInfo().subscribe(memberDewInfo => {
       this.dewInfoForm = this.buildForm(memberDewInfo);
       this.setFormEditable();

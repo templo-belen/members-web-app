@@ -1,8 +1,8 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
-import { ClarityModule, ClrForm } from '@clr/angular';
+import { ClarityModule } from '@clr/angular';
 import { MemberBasicInfo, MemberFormValues } from '../../../../../core/models/member.model';
 import { CommonModule } from '@angular/common';
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MemberService } from '../../../../../core/services/member.service';
 import { editModeSubject } from '../../../../../core/subjects/members.subjects';
 import { EnumResponseModel } from '../../../../../core/models/enum.model';
@@ -64,10 +64,6 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
     editModeSubject.subscribe(mode => {
       this.isEditable = mode;
       this.setFormEditable();
-    });
-
-    this._memberService.fetchSelectedMemberId().subscribe(memberId => {
-      this._memberService.dispatchMemberBasicInfo(memberId);
     });
 
     this._memberService.fetchMemberBasicInfo().subscribe(memberBasicInfo => {

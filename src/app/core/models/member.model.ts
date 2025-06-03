@@ -119,3 +119,12 @@ export class MemberFormValues {
   zonePastors: MemberNames[]  = [];
   preachingPoints: SelectOption[] = [];
 }
+
+export class MemberInformation {
+  personalInformation: MemberBasicInfo | null = null;
+  dew: MemberDewInfo | null = null;
+  generalData: MemberGeneralInfo | null = null;
+  familyData: any | null = null;    // TODO cambiar al modelo de family data con tarea https://github.com/templo-belen/members-web-app/issues/15
+  references: MemberReferences | null = null;
+  adn: any | null = null;           // TODO cambiar al modelo de adn con tarea https://github.com/templo-belen/members-web-app/issues/21
+}
