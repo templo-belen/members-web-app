@@ -48,10 +48,7 @@ export class MemberApiService {
   }
 
   public createBasicInfo(body: MemberBasicInfo): Observable<MemberBasicInfo | ErrorResponseModel> {
-    const token = localStorage.getItem("token");
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
-
-    return this._http.post<MemberBasicInfo>(`${this._baseUrl}/members`, body, { observe: "response", headers: headers })
+    return this._http.post<MemberBasicInfo>(`${this._baseUrl}/members`, body, { observe: "response" })
       .pipe(
         map(response => {
           return Object.assign(new MemberBasicInfo(), response.body!);
