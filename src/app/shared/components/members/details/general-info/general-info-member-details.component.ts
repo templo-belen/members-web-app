@@ -40,10 +40,6 @@ export class GeneralInfoMemberDetailsComponent {
       this.setFormEditable();
     });
 
-    this._memberService.fetchSelectedMemberId().subscribe(memberId => {
-      this._memberService.dispatchMemberGeneralInfo(memberId);
-    });
-
     this._memberService.fetchMemberGeneralInfo().subscribe(memberGeneralInfo => {
       this.generalInfoForm = this.buildForm(memberGeneralInfo);
       this.setFormEditable();

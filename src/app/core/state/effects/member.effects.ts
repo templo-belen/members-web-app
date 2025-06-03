@@ -1,27 +1,19 @@
 import {inject, Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {
-  basicInfoFailure,
-  basicInfoSuccess,
-  dewInfoFailure,
-  dewInfoSuccess,
-  generalInfoSuccess, memberFormValues, memberFormValuesFailure, memberFormValuesSuccess,
+  basicInfoCreateSuccess,
   listFailure,
   listSuccess,
-  MembersAction,
-  referencesFailure,
-  referencesSuccess
+  memberFormValuesFailure,
+  memberFormValuesSuccess,
+  memberInfoFailure,
+  memberInfoSuccess,
+  MembersAction
 } from '../actions/members.action';
 import {exhaustMap, map} from 'rxjs';
 import {MemberApiService} from '../../services/member.api.service';
 import {MemberListResponseModel} from '../../models/api-response.model';
-import {
-  MemberBasicInfo,
-  MemberDewInfo,
-  MemberGeneralInfo,
-  MemberFormValues,
-  MemberReferences
-} from '../../models/member.model';
+import {MemberBasicInfo, MemberFormValues, MemberInformation} from '../../models/member.model';
 
 @Injectable()
 export class MemberEffects {
@@ -48,16 +40,16 @@ export class MemberEffects {
         )
     });
 
-  doMemberBasicInfo$ = createEffect(() => {
+  doMemberInfo$ = createEffect(() => {
     return this._actions$.pipe(
-      ofType(MembersAction.BasicInfo),
+      ofType(MembersAction.MemberInfo),
       exhaustMap(({ memberId }) => {
-        return this._memberApiService.basicInfoById(memberId).pipe(map(response => {
-          if (response instanceof MemberBasicInfo) {
-            return basicInfoSuccess(response);
+        return this._memberApiService.getMemberById(memberId).pipe(map(response => {
+          if (response instanceof MemberInformation) {
+            return memberInfoSuccess(response);
           } else {
             console.log("Error", response);
-            return basicInfoFailure({ code: response.code, msg: response.msg });
+            return memberInfoFailure({ code: response.code, msg: response.msg });
           }
         }),
         );
@@ -71,56 +63,9 @@ export class MemberEffects {
       exhaustMap(memberBasicInfo => {
         return this._memberApiService.createBasicInfo(memberBasicInfo).pipe(map(response => {
           if (response instanceof MemberBasicInfo) {
-            return basicInfoSuccess(response);
+            return basicInfoCreateSuccess(response);
           } else {
-            return basicInfoFailure({ code: response.code, msg: response.msg });
-          }
-        }),
-        );
-      })
-    )
-  });
-
-  doMemberGeneralInfo$ = createEffect(() => {
-    return this._actions$.pipe(
-      ofType(MembersAction.GeneralInfo),
-      exhaustMap(({ memberId }) => {
-        return this._memberApiService.generalInfoById(memberId).pipe(map(response => {
-          if (response instanceof MemberGeneralInfo) {
-            return generalInfoSuccess(response);
-          } else {
-            return basicInfoFailure({ code: response.code, msg: response.msg });
-          }
-        }),
-        );
-      })
-    )
-  });
-  doMemberReferences$ = createEffect(() => {
-    return this._actions$.pipe(
-      ofType(MembersAction.References),
-      exhaustMap(({ memberId }) => {
-        return this._memberApiService.referencesById(memberId).pipe(map(response => {
-          if (response instanceof MemberReferences) {
-            return referencesSuccess(response);
-          } else {
-            return referencesFailure({ code: response.code, msg: response.msg });
-          }
-        }),
-        );
-      })
-    )
-  });
-
-  doGetDewMemberInfo$ = createEffect(() => {
-    return this._actions$.pipe(
-      ofType(MembersAction.DewInfo),
-      exhaustMap(({ memberId }) => {
-        return this._memberApiService.dewInfoById(memberId).pipe(map(response => {
-          if (response instanceof MemberDewInfo) {
-            return dewInfoSuccess(response);
-          } else {
-            return dewInfoFailure({ code: response.code, msg: response.msg });
+            return memberInfoFailure({ code: response.code, msg: response.msg });
           }
         }),
         );

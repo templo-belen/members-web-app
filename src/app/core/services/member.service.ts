@@ -1,26 +1,24 @@
-import { inject, Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
+import {inject, Injectable} from '@angular/core';
+import {Store} from '@ngrx/store';
 import {
-  basicInfo,
-  generalInfo,
+  basicInfoCreate,
   list,
-  references,
-  selectedMemberId,
-  dewInfo,
   memberFormValues,
-  basicInfoCreate
+  memberInfo,
+  selectedMemberId
 } from '../state/actions/members.action';
 import {
   selectIsLoading,
   selectMemberBasicInfo,
+  selectMemberDewInfo,
+  selectMemberFormValues,
   selectMemberGeneralInfo,
   selectMemberList,
   selectMemberListError,
   selectMemberReferences,
-  selectSelectedMemberId,
-  selectMemberDewInfo, selectMemberFormValues
+  selectSelectedMemberId
 } from '../state/selector/member.selector';
-import { MemberBasicInfo } from '../models/member.model';
+import {MemberBasicInfo} from '../models/member.model';
 
 @Injectable({
   providedIn: 'root'
@@ -57,22 +55,15 @@ export class MemberService {
     return this._store.select(selectMemberBasicInfo);
   }
 
-  public dispatchMemberBasicInfo(memberId: number) {
+  public dispatchMember(memberId: number) {
     if (memberId < 1) {
       return;
     }
-    this._store.dispatch(basicInfo({ memberId }));
+    this._store.dispatch(memberInfo({ memberId }));
   }
 
   public dispatchMemberBasicInfoCreate(member: MemberBasicInfo) {
     this._store.dispatch(basicInfoCreate(member));
-  }
-
-  public dispatchMemberGeneralInfo(memberId: number) {
-    if (memberId < 1) {
-      return;
-    }
-    this._store.dispatch(generalInfo({ memberId }));
   }
 
   public fetchMemberGeneralInfo() {
@@ -81,17 +72,6 @@ export class MemberService {
 
   public fetchMemberReferences() {
     return this._store.select(selectMemberReferences);
-  }
-
-  public dispatchMemberReferences(memberId: number) {
-    return this._store.dispatch(references({ memberId }));
-  }
-
-  public dispatchMemberDewInfo(memberId: number) {
-    if (memberId < 1) {
-      return;
-    }
-    this._store.dispatch(dewInfo({ memberId }));
   }
 
   public fetchMemberDewInfo() {
