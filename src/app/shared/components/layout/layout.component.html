@@ -12,7 +12,6 @@
       <clr-dropdown >
         <button class="nav-text" clrDropdownTrigger [title]="currentUser().fullname">
           <app-avatar [name]="currentUser().fullname" [size]="40"></app-avatar>
-          <cds-icon shape="angle" direction="down"></cds-icon>
         </button>
         <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
           <span clrDropdownItem (click)="logout()">Cerrar sesión</span>
