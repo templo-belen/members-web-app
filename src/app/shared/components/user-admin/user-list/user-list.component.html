@@ -1,0 +1,25 @@
+<table class="table table-noborder">
+  <thead>
+    <tr>
+      <th>Nombre Completo</th>
+      <th>Nombre de Usuario</th>
+      <th>Rol</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of userList">
+      <td class="left">{{ user.fullname }}</td>
+      <td class="left">{{ user.username }}</td>
+      <td class="left">{{ roles[user.role!] }}</td>
+      <td class="right">
+        <button type="button" class="btn btn-secondary btn-icon" (click)="onEditUser(user)">
+          <cds-icon shape="pencil" />
+        </button>
+        <button type="button" class="btn btn-danger btn-icon">
+          <cds-icon shape="trash" />
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
