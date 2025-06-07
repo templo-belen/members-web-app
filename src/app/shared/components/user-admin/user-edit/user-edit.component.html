@@ -1,0 +1,30 @@
+<form clrForm [formGroup]="userForm" (ngSubmit)="onSubmit()" clrLayout="horizontal">
+  <clr-input-container>
+    <label>Nombre Completo</label>
+    <input clrInput formControlName="fullname" />
+    <clr-control-error>{{ requiredFieldError }}</clr-control-error>
+  </clr-input-container>
+
+  <clr-input-container>
+    <label>Nombre de Usuario</label>
+    <input clrInput formControlName="username" />
+    <clr-control-error>{{ requiredFieldError }}</clr-control-error>
+  </clr-input-container>
+
+  <clr-password-container>
+    <label>Nombre de Usuario</label>
+    <input clrPassword formControlName="password" />
+    <clr-control-error>{{ requiredFieldError }}</clr-control-error>
+  </clr-password-container>
+
+  <clr-select-container>
+    <label>Rol</label>
+    <select clrSelect formControlName="role">
+      <option [value]="null">-- Seleccione una opción --</option>
+      <!-- TODO: replace with actual list -->
+      <option [value]="1">Administrador</option>
+      <option [value]="2">Pastor de Zona</option>
+      <option [value]="3">Solo Lectura</option>
+    </select>
+  </clr-select-container>
+</form>
