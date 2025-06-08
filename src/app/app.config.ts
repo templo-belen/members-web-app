@@ -54,6 +54,8 @@ export const appConfig: ApplicationConfig = {
 
       stringsService.localize({
         "pickColumns": "Administrar columnas",
+        "showColumns": "Mostrar/Ocultar columnas",
+        "selectAll": "Seleccionar todas"
       });
     })
   ]
