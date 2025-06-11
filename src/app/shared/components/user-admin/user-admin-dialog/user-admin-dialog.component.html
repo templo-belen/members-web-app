@@ -1,0 +1,28 @@
+<clr-modal
+    [(clrModalOpen)]="opened"
+    [clrModalSize]="'lg'"
+    [clrModalPreventClose]="true"
+    (clrModalAlternateClose)="closeModal()">
+  
+  <div class="modal-title">
+    Administración de Usuarios
+  </div>
+  <div class="modal-body">
+    <button *ngIf="isEditing" type="button" class="btn btn-icon" (click)="isEditing = false">
+      <cds-icon shape="arrow" direction="left" />
+    </button>
+    <div *ngIf="!isEditing" class="new-user-button">
+      <button type="button" class="btn btn-primary" (click)="onNewUser()">
+        <cds-icon shape="plus" />
+        Crear Usuario
+      </button>
+    </div>
+
+    <app-user-list *ngIf="!isEditing" (editUser)="onEditUser($event)" />
+    <app-user-edit *ngIf="isEditing" [user]="selectedUser" />
+  </div>
+
+  <div *ngIf="isEditing" class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="onSave()">Guardar</button>
+  </div>
+</clr-modal>
