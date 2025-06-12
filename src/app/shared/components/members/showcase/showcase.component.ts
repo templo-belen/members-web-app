@@ -3,7 +3,6 @@ import {ClrIconModule, ClrVerticalNavModule} from '@clr/angular';
 import {NgIf} from '@angular/common';
 import {MemberService} from '../../../../core/services/member.service';
 import {MemberDetailsComponent} from '../details/member-details.component';
-import {basicInfo} from '../../../../core/state/actions/members.action';
 
 @Component({
   selector: 'app-member-showcase',
@@ -41,6 +40,4 @@ export class ShowcaseComponent {
   select(option: string) {
     this.selected = option;
   }
-
-  protected readonly basicInfo = basicInfo;
 }

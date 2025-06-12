@@ -32,7 +32,7 @@ export class MemberService {
   }
 
   public dispatchSelectedMemberId(memberId: number) {
-    this._store.dispatch(selectedMemberId({ memberId }));
+    this._store.dispatch(selectedMemberId({memberId}));
   }
 
   public fetchMemberList() {
@@ -67,7 +67,7 @@ export class MemberService {
     if (memberId < 1) {
       return;
     }
-    this._store.dispatch(memberInfo({ memberId }));
+    this._store.dispatch(memberInfo({memberId}));
   }
 
   public dispatchMemberBasicInfoCreate(member: MemberBasicInfo) {
@@ -96,6 +96,17 @@ export class MemberService {
 
   public selectMemberFormValues() {
     return this._store.selectSignal(selectMemberFormValues);
+  }
+
+  /*public dispatchMemberBasicInfo() {
+    return this._store.select(selectMemberBasicInfo);
+  }*/
+
+  public dispatchMemberBasicInfo(memberId: number) {
+    if (memberId < 1) {
+      return;
+    }
+    //this._store.dispatch(basicInfo({memberId}));
   }
 }
 

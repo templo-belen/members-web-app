@@ -26,18 +26,19 @@
     </div>
     <div class="clr-col-5">
       <clr-input-container>
-        <label [class.clr-required-mark]="isEditable">Número de documento</label>
+        <label [class.clr-required-mark]="isEditable()">Número de documento</label>
         <input clrInput formControlName="idNumber" />
         <clr-control-error>{{ requiredFieldError }}</clr-control-error>
       </clr-input-container>
+
       <clr-input-container>
-        <label [class.clr-required-mark]="isEditable">Nombres</label>
+        <label [class.clr-required-mark]="isEditable()">Nombres</label>
         <input clrInput formControlName="names" />
         <clr-control-error>{{ requiredFieldError }}</clr-control-error>
       </clr-input-container>
 
       <clr-input-container>
-        <label [class.clr-required-mark]="isEditable">Apellidos</label>
+        <label [class.clr-required-mark]="isEditable()">Apellidos</label>
         <input clrInput formControlName="surnames" />
         <clr-control-error>{{ requiredFieldError }}</clr-control-error>
       </clr-input-container>
@@ -144,7 +145,7 @@
       </clr-select-container>
 
       <clr-select-container>
-        <label [class.clr-required-mark]="isEditable">Rol actual</label>
+        <label [class.clr-required-mark]="isEditable()">Rol actual</label>
         <select clrSelect formControlName="currentRole" class="clr-w-100" >
           <option [ngValue]="null">-- Seleccione una opción --</option>
           <option *ngFor="let role of memberFormValues().enums['role'] || []" value="{{ role.name }}">{{ role.value }}</option>
@@ -158,7 +159,7 @@
       </clr-date-container>
 
       <clr-select-container>
-        <label [class.clr-required-mark]="isEditable">Liderazgo de célula</label>
+        <label [class.clr-required-mark]="isEditable()">Liderazgo de célula</label>
         <select clrSelect formControlName="cellLeadership" class="clr-w-100" required>
           <option [ngValue]="null">-- Seleccione una opción --</option>
           <option *ngFor="let cellLeadership of memberFormValues()!.enums['cell-leadership'] || []"
@@ -176,7 +177,7 @@
       </clr-select-container>
 
       <clr-select-container>
-        <label [class.clr-required-mark]="isEditable">Liderazgo</label>
+        <label [class.clr-required-mark]="isEditable()">Liderazgo</label>
         <select clrSelect formControlName="leadership" class="clr-w-100">
           <option [ngValue]="null">-- Seleccione una opción --</option>
           <option *ngFor="let leadership of memberFormValues().enums['leadership'] || []" value="{{ leadership.name }}">

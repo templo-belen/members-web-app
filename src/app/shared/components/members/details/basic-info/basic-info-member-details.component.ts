@@ -1,11 +1,9 @@
-import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
-import { ClarityModule } from '@clr/angular';
-import { MemberBasicInfo, MemberFormValues } from '../../../../../core/models/member.model';
-import { CommonModule } from '@angular/common';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MemberService } from '../../../../../core/services/member.service';
-import { editModeSubject } from '../../../../../core/subjects/members.subjects';
-import { EnumResponseModel } from '../../../../../core/models/enum.model';
+import {Component, computed, effect, inject, input, output} from '@angular/core';
+import {ClarityModule} from '@clr/angular';
+import {MemberBasicInfo} from '../../../../../core/models/member.model';
+import {CommonModule} from '@angular/common';
+import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {MemberService} from '../../../../../core/services/member.service';
 
 @Component({
   selector: 'app-basic-info-member-details',
@@ -27,6 +25,8 @@ export class BasicInfoMemberDetailsComponent {
   });
   value = computed(() => this.basicInfo());
   memberFormValues = this._memberService.selectMemberFormValues()
+  requiredFieldError: string = 'Este campo es obligatorio';
+  invalidFormatError: string = 'El formato es incorrecto';
 
   form: FormGroup;
 
@@ -45,27 +45,20 @@ export class BasicInfoMemberDetailsComponent {
 
 
   buildForm(memberBasicInfo: MemberBasicInfo): FormGroup {
-    const form = this._formBuilder.group({
+    const phoneRegex = /^(\+\d{1,3})?(\s\(\d{3}\)\s|\s?\d{3}[\s-]?)\d{3}[\s-]?\d{4,6}$/;
+    return this._formBuilder.group({
       ...memberBasicInfo,
+      idNumber: new FormControl('', [Validators.required]),
+      names: new FormControl('', [Validators.required]),
+      surnames: new FormControl('', [Validators.required]),
+      currentRole: new FormControl('', [Validators.required]),
+      cellLeadership: new FormControl('', [Validators.required]),
+      leadership: new FormControl('', [Validators.required]),
+      phoneNumber: new FormControl('', [Validators.pattern(phoneRegex)]),
+      cellphoneNumber: new FormControl('', [Validators.pattern(phoneRegex)]),
+      email: new FormControl('', [Validators.email]),
       file: new FormControl<FileList | undefined>(undefined),  //TODO evaluar si formara parte del modelo
     });
-
-    // Required fields
-    form.get('idNumber')?.addValidators(Validators.required);
-    form.get('names')?.addValidators(Validators.required);
-    form.get('surnames')?.addValidators(Validators.required);
-    form.get('currentRole')?.addValidators(Validators.required);
-    form.get('cellLeadership')?.addValidators(Validators.required);
-    form.get('leadership')?.addValidators(Validators.required);
-
-    // Additional validations
-    const phoneRegex = /^(\+\d{1,3})?(\s\(\d{3}\)\s|\s?\d{3}[\s-]?)\d{3}[\s-]?\d{4,6}$/;
-    form.get('phoneNumber')?.addValidators(Validators.pattern(phoneRegex));
-    form.get('cellphoneNumber')?.addValidators(Validators.pattern(phoneRegex));
-    form.get('email')?.addValidators(Validators.email);
-
-
-    return form;
   }
 
   onFileSelected(event: any) {
