@@ -13,9 +13,6 @@ export class EnumApiService {
   private _http = inject(HttpClient);
   private _baseUrl = environment.backendBaseUrl;
 
-  constructor() {
-  }
-
   public enumsByNames(names: string[]): Observable<EnumResponseModel | ErrorResponseModel> {
     let httpParams = new HttpParams();
 

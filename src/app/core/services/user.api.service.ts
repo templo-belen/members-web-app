@@ -13,9 +13,6 @@ export class UserApiService {
   private _http = inject(HttpClient);
   private _baseUrl = environment.backendBaseUrl;
 
-  constructor() {
-  }
-
   public login(parameters: LoginRequestModel): Observable<LoginResponseModel | ErrorResponseModel> {
     const body = new URLSearchParams();
     body.set("username", parameters.username);
@@ -42,6 +39,8 @@ export class UserApiService {
   }
 
   public logout() {
+
+    // TODO ???
 
   }
 }
