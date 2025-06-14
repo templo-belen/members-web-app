@@ -18,22 +18,19 @@ export class BasicInfoMemberDetailsComponent implements DetailComponent {
 
   model = output<MemberBasicInfo>();
   isEditable = input.required<boolean>();
-  memberId = this._memberService.selectedMemberId();
   inputModel = input.required<MemberBasicInfo>();
-  basicInfo = computed(() => {
-    this._memberService.dispatchMemberBasicInfo(this.memberId());
-    return this._memberService.selectMemberBasicInfo();
-  });
-  value = computed(() => this.basicInfo());
+  basicInfo = this._memberService.fetchCurrentMemberBasicInfo();
   memberFormValues = this._memberService.selectMemberFormValues()
 
-  form: FormGroup;
+  form: FormGroup = this.buildForm(this.basicInfo());
 
 
   constructor() {
-    this.form = this.buildForm(new MemberBasicInfo());
-
     effect(() => {
+      if (this.inputModel!) {
+        this.form.patchValue({...this.inputModel()});
+      }
+
       if (this.isEditable()) {
         this.form.enable();
       } else {
@@ -72,6 +69,6 @@ export class BasicInfoMemberDetailsComponent implements DetailComponent {
   }
 
   onSubmit() {
-
+    this.model.emit({...this.form.value});
   }
 }

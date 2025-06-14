@@ -8,7 +8,7 @@ import {FamilyInfoMemberDetailsComponent} from './family-info/family-info-member
 import {GeneralInfoMemberDetailsComponent} from './general-info/general-info-member-details.component';
 import {ReferencesMemberDetailsComponent} from './references/references-member-details.component';
 import {DewInfoMemberDetailsComponent} from './dew-info/dew-info-member-details.component';
-import {Member, MemberBasicInfo} from '../../../../core/models/member.model';
+import {Member} from '../../../../core/models/member.model';
 
 @Component({
   selector: 'app-member-details',
