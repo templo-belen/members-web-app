@@ -2,7 +2,7 @@
   <div class="clr-col-12">
     @switch (selected()) {
       @case ("basicInfo") {
-        <app-basic-info-member-details [inputModel]="selectedMember().memberBasicInfo" [isEditable]="isEditable()"/>
+        <app-basic-info-member-details [inputModel]="selectedMember().memberBasicInfo" (model)="setBasicInfo($event)" [isEditable]="isEditable()"/>
       }
       @case ("familyInfo") {
         <app-family-info-member-details/>

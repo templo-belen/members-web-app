@@ -8,7 +8,7 @@ import {FamilyInfoMemberDetailsComponent} from './family-info/family-info-member
 import {GeneralInfoMemberDetailsComponent} from './general-info/general-info-member-details.component';
 import {ReferencesMemberDetailsComponent} from './references/references-member-details.component';
 import {DewInfoMemberDetailsComponent} from './dew-info/dew-info-member-details.component';
-import {Member} from '../../../../core/models/member.model';
+import {Member, MemberBasicInfo} from '../../../../core/models/member.model';
 
 @Component({
   selector: 'app-member-details',
@@ -20,6 +20,7 @@ export class MemberDetailsComponent {
   private _memberService = inject(MemberService);
 
   member = output<Member>();
+  currentMember = new Member();
   selectedMember = this._memberService.fetchCurrentMember();
   operation = input.required<string>();
   isEditable = input.required<boolean>();
@@ -28,12 +29,20 @@ export class MemberDetailsComponent {
   constructor() {
     effect(() => {
         if (this.operation() === 'PUT') {
-          switch (this.selected()) {
-            case 'basicInfo':
-
-              break;
-          }
+          this._update();
         }
     });
+  }
+
+  public setBasicInfo(input: MemberBasicInfo) {
+    this.currentMember.memberBasicInfo = input;
+  }
+
+  private _update() {
+    switch (this.selected()) {
+      case 'basicInfo':
+
+        break;
+    }
   }
 }
