@@ -1,4 +1,4 @@
-import {Component, computed, effect, inject, input, output} from '@angular/core';
+import {Component, effect, inject, input, output} from '@angular/core';
 import {ClarityModule} from '@clr/angular';
 import {MemberBasicInfo} from '../../../../../core/models/member.model';
 import {CommonModule} from '@angular/common';
@@ -17,24 +17,21 @@ export class BasicInfoMemberDetailsComponent {
 
   model = output<MemberBasicInfo>();
   isEditable = input.required<boolean>();
-  memberId = this._memberService.selectedMemberId();
   inputModel = input.required<MemberBasicInfo>();
-  basicInfo = computed(() => {
-    this._memberService.dispatchMemberBasicInfo(this.memberId());
-    return this._memberService.selectMemberBasicInfo();
-  });
-  value = computed(() => this.basicInfo());
+  basicInfo = this._memberService.fetchCurrentMemberBasicInfo();
   memberFormValues = this._memberService.selectMemberFormValues()
   requiredFieldError: string = 'Este campo es obligatorio';
   invalidFormatError: string = 'El formato es incorrecto';
 
-  form: FormGroup;
+  form: FormGroup = this.buildForm(this.basicInfo());
 
 
   constructor() {
-    this.form = this.buildForm(new MemberBasicInfo());
-
     effect(() => {
+      if (this.inputModel!) {
+        this.form.patchValue({...this.inputModel()});
+      }
+
       if (this.isEditable()) {
         this.form.enable();
       } else {
@@ -43,11 +40,10 @@ export class BasicInfoMemberDetailsComponent {
     });
   }
 
-
-  buildForm(memberBasicInfo: MemberBasicInfo): FormGroup {
+  buildForm(basicInfo: MemberBasicInfo): FormGroup {
     const phoneRegex = /^(\+\d{1,3})?(\s\(\d{3}\)\s|\s?\d{3}[\s-]?)\d{3}[\s-]?\d{4,6}$/;
     return this._formBuilder.group({
-      ...memberBasicInfo,
+      ...basicInfo,
       idNumber: new FormControl('', [Validators.required]),
       names: new FormControl('', [Validators.required]),
       surnames: new FormControl('', [Validators.required]),
@@ -66,6 +62,6 @@ export class BasicInfoMemberDetailsComponent {
   }
 
   onSubmit() {
-
+    this.model.emit({...this.form.value});
   }
 }

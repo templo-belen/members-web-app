@@ -2,7 +2,7 @@
   <div class="clr-col-12">
     @switch (selected()) {
       @case ("basicInfo") {
-        <app-basic-info-member-details [inputModel]="basicInfo()" [isEditable]="isEditable()"/>
+        <app-basic-info-member-details [inputModel]="selectedMember().memberBasicInfo" [isEditable]="isEditable()"/>
       }
       @case ("familyInfo") {
         <app-family-info-member-details/>
@@ -17,7 +17,7 @@
         <app-dew-info-member-details/>
       }
       @default {
-        <app-basic-info-member-details [inputModel]="basicInfo()" [isEditable]="isEditable()"/>
+        <app-basic-info-member-details [inputModel]="selectedMember().memberBasicInfo" [isEditable]="isEditable()"/>
       }
     }
   </div>

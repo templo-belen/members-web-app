@@ -1,7 +1,8 @@
 <div class="details-main-container">
   <header class="header">
     <div class="details-header">
-      <span class="title">{{ memberName() }}</span>
+      <span
+        class="title">{{ selectedMember().memberBasicInfo.names + ' ' + selectedMember().memberBasicInfo.surnames }}</span>
       <button type="button" class="btn btn-outline" (click)="handleClose()">Cerrar</button>
     </div>
   </header>
@@ -40,10 +41,11 @@
           </button>
           <!-- Save / Cancel buttons -->
           <button type="submit" class="btn btn-primary" *ngIf="isEditable">Guardar</button>
-          <button type="button" class="btn btn-secondary" *ngIf="isEditable" (click)="toggleEditMode()">Cancelar</button>
+          <button type="button" class="btn btn-secondary" *ngIf="isEditable" (click)="toggleEditMode()">Cancelar
+          </button>
         </div>
       </div>
-      <app-member-details [selected]="selected"  [operation]="'PUT'" [isEditable]="isEditable" />
+      <app-member-details [selected]="selected" [operation]="'PUT'" [isEditable]="isEditable"/>
     </div>
   </div>
 </div>

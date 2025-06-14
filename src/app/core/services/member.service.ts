@@ -8,6 +8,7 @@ import {
   selectedMemberId
 } from '../state/actions/members.action';
 import {
+  selectCurrentMember, selectCurrentMemberBasicInfo,
   selectIsLoading,
   selectMemberBasicInfo,
   selectMemberDewInfo,
@@ -18,7 +19,7 @@ import {
   selectMemberReferences,
   selectSelectedMemberId
 } from '../state/selector/member.selector';
-import {MemberBasicInfo} from '../models/member.model';
+import {Member, MemberBasicInfo} from '../models/member.model';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +37,7 @@ export class MemberService {
   }
 
   public fetchMemberList() {
-    return this._store.select(selectMemberList);
+    return this._store.selectSignal(selectMemberList);
   }
 
   public fetchSelectedMemberId() {
@@ -52,7 +53,7 @@ export class MemberService {
   }
 
   public fetchIsLoading() {
-    return this._store.select(selectIsLoading);
+    return this._store.selectSignal(selectIsLoading);
   }
 
   public fetchMemberBasicInfo() {
@@ -98,15 +99,12 @@ export class MemberService {
     return this._store.selectSignal(selectMemberFormValues);
   }
 
-  /*public dispatchMemberBasicInfo() {
-    return this._store.select(selectMemberBasicInfo);
-  }*/
+  public fetchCurrentMember(): Signal<Member> {
+    return this._store.selectSignal(selectCurrentMember);
+  }
 
-  public dispatchMemberBasicInfo(memberId: number) {
-    if (memberId < 1) {
-      return;
-    }
-    //this._store.dispatch(basicInfo({memberId}));
+  public fetchCurrentMemberBasicInfo() {
+    return this._store.selectSignal(selectCurrentMemberBasicInfo);
   }
 }
 

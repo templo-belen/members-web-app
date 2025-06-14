@@ -87,7 +87,7 @@ export class NewMemberWizardComponent implements OnInit {
   onCancelConfirmed() {
     this.wizard?.close();
     this.wizard?.reset();
-    this.basicInfo?.form.reset();
+    //this.basicInfo?.form.reset();
     //this.familyInfo?.familyInfoForm.reset();
     this.generalInfo?.generalInfoForm.reset();
     this.references?.referencesForm.reset();

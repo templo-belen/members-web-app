@@ -25,14 +25,14 @@ export class MembersComponent implements OnInit {
   private _memberService = inject(MemberService);
 
   memberDetailsReference: Signal<MemberDetailsComponent> = viewChild.required(MemberDetailsComponent);
-  private readonly _dataList = toSignal(this._memberService.fetchMemberList(), { initialValue: [] });
+  private readonly _dataList = this._memberService.fetchMemberList();
   private readonly _error = toSignal(this._memberService.fetchCurrentMemberListError());
-  private readonly _isLoading = toSignal(this._memberService.fetchIsLoading(), { initialValue: true });
+  private readonly _isLoading = this._memberService.fetchIsLoading();
   public isModalOpen = false;
   public selectedMemberId: number = -1;
   public selectedMemberName: string = '';
   public membersList = this._dataList;
-  public isLoading = this._isLoading;
+  public isLoading = this._isLoading();
   public hasError = computed(() => this._error()?.code !== 200)
   public errorMsg: Signal<string | undefined> = computed(() => this._error()?.msg);
 
@@ -46,10 +46,7 @@ export class MembersComponent implements OnInit {
     return this.hasError()!;
   }
 
-  public openModal = (memberId: number, memberName: string) => {
-    this.selectedMemberId = memberId;
-    this.selectedMemberName = memberName;
-    this._memberService.dispatchSelectedMemberId(this.selectedMemberId);
+  public openModal = () => {
     this.isModalOpen = true;
   }
 

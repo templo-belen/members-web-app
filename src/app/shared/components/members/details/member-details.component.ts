@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, OnInit, output} from '@angular/core';
+import {Component, inject, effect, input, output} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {ClrVerticalNavModule} from '@clr/angular';
 import {CommonModule} from '@angular/common';
@@ -8,7 +8,7 @@ import {FamilyInfoMemberDetailsComponent} from './family-info/family-info-member
 import {GeneralInfoMemberDetailsComponent} from './general-info/general-info-member-details.component';
 import {ReferencesMemberDetailsComponent} from './references/references-member-details.component';
 import {DewInfoMemberDetailsComponent} from './dew-info/dew-info-member-details.component';
-import {Member, MemberBasicInfo} from '../../../../core/models/member.model';
+import {Member} from '../../../../core/models/member.model';
 
 @Component({
   selector: 'app-member-details',
@@ -16,32 +16,24 @@ import {Member, MemberBasicInfo} from '../../../../core/models/member.model';
   templateUrl: './member-details.component.html',
   styleUrl: './member-details.component.scss',
 })
-export class MemberDetailsComponent implements OnInit {
+export class MemberDetailsComponent {
   private _memberService = inject(MemberService);
 
   member = output<Member>();
+  selectedMember = this._memberService.fetchCurrentMember();
   operation = input.required<string>();
   isEditable = input.required<boolean>();
   selected = input<string>();
-  memberId = this._memberService.selectedMemberId();
-  basicInfo = computed(() => this._buildBasicInfo());
 
-  ngOnInit(): void {
-    this._memberService.dispatchMemberFormValues();
+  constructor() {
+    effect(() => {
+        if (this.operation() === 'PUT') {
+          switch (this.selected()) {
+            case 'basicInfo':
 
-    this._memberService.fetchSelectedMemberId().subscribe(memberId => {
-      this._memberService.dispatchMember(memberId);
+              break;
+          }
+        }
     });
-
   }
-
-  private _buildBasicInfo(): MemberBasicInfo {
-    if (this.operation()  === 'CREATE') {
-      return new MemberBasicInfo();
-    }
-    const selectedBasicInfo = this._memberService.selectMemberBasicInfo();
-    return selectedBasicInfo();
-  }
-
-  protected readonly MemberBasicInfo = MemberBasicInfo;
 }
