@@ -137,7 +137,7 @@
 
       <clr-select-container>
         <label>Punto de predicación</label>
-        <select clrSelect formControlName="preachingPoint" class="clr-w-100">
+        <select clrSelect formControlName="preachingPointId" class="clr-w-100">
           <option [ngValue]="null">-- Seleccione una opción --</option>
           <option *ngFor="let point of memberFormValues.preachingPoints || []" [value]="point.id">{{ point.name }}</option>
         </select>
@@ -169,7 +169,7 @@
 
       <clr-select-container>
         <label>Pastor de zona</label>
-        <select clrSelect formControlName="zonePastor" class="clr-w-100">
+        <select clrSelect formControlName="zonePastorId" class="clr-w-100">
           <option [ngValue]="null">-- Seleccione una opción --</option>
           <option *ngFor="let pastor of memberFormValues.zonePastors || []" [value]="pastor.id">{{ pastor.names }} {{ pastor.surnames }}</option>
         </select>

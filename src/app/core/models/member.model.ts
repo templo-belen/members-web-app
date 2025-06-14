@@ -42,11 +42,11 @@ export class MemberBasicInfo {
   eps: string | null = null;
   rh: string | null = null;
   gender: string | null = null;
-  preachingPoint: number | null = null;
+  preachingPointId: number | null = null;
   currentRole: string | null = null;
   commitmentDate: Date | null = new Date(0);
   cellLeadership: string | null = null;
-  zonePastor: number | null = null;
+  zonePastorId: number | null = null;
   leadership: string | null = null;
   status: string | null = '';
   createdAt: Date = new Date(0);
