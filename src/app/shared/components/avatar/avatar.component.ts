@@ -10,8 +10,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./avatar.component.scss']
 })
 export class AvatarComponent {
-  @Input() name: string = '';
-  @Input() size: number = 36;
+  @Input() name = '';
+  @Input() size = 36;
 
   get initials(): string {
     return this.name

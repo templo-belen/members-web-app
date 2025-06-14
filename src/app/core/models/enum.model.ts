@@ -1,6 +1,6 @@
 export class EnumOption {
-    name: string = "";
-    value: string = "";
+    name = "";
+    value = "";
 }
 
 export class EnumResponseModel {

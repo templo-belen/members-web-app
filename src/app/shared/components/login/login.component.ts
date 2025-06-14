@@ -1,10 +1,9 @@
-import {Component, computed, inject, Signal} from '@angular/core';
-import {ClarityModule} from '@clr/angular';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {CommonModule} from '@angular/common';
-import {UserService} from '../../../core/services/user.service';
-import {toSignal} from '@angular/core/rxjs-interop';
-import {LoginError} from '../../../core/models/user.model';
+import { Component, computed, inject, Signal } from '@angular/core';
+import { ClarityModule } from '@clr/angular';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { UserService } from '../../../core/services/user.service';
+import { LoginError } from '../../../core/models/user.model';
 
 @Component({
   selector: 'app-login',

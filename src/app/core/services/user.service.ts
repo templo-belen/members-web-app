@@ -26,13 +26,13 @@ export class UserService {
   }
 
   public fetchCurrentLoginError() {
-    const predicate: { (a: LoginError, b: LoginError): boolean } = (a, b) => {
-      return LoginError.isValid(a) && LoginError.isValid(b) && a.code === b.code && a.msg === b.msg
+    const predicate: (a: LoginError, b: LoginError) => boolean = (a, b) => {
+      return LoginError.isValid(a) && LoginError.isValid(b) && a.code === b.code && a.msg === b.msg;
     };
     return this._store.selectSignal(selectLoginError, {equal: predicate});
   }
 
-  public registerUser(): Observable<any> {
+  public registerUser(): Observable<unknown> {
     return of();
   }
 
@@ -55,6 +55,7 @@ export class UserService {
       return true;
     } catch (error) {
       // Token is invalid or malformed
+      console.log(error);
       return true;
     }
   }

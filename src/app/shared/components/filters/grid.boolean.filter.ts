@@ -4,7 +4,7 @@ import {CommonModule} from '@angular/common';
 import {MemberListItem} from '../../../core/models/member.model';
 
 @Component({
-  selector: 'clr-check-icon-filter',
+  selector: 'app-check-icon-filter',
   template: `
     <clr-toggle-wrapper>
       <input #toggleRef type="checkbox" clrToggle [name]="'filter-' + field" (change)="onToggleChange($event)" />
@@ -22,10 +22,10 @@ import {MemberListItem} from '../../../core/models/member.model';
 })
 export class CheckIconFilter implements ClrDatagridFilterInterface<MemberListItem> {
   @Input() field!: keyof MemberListItem;
-  @Input() label: string = 'Filtrar';
+  @Input() label = 'Filtrar';
   @ViewChild('toggleRef') toggleRef!: ElementRef<HTMLInputElement>;
 
-  changes: any = new EventEmitter<any>(false);
+  changes = new EventEmitter<unknown>(false);
   selected: boolean | null = null;
 
   accepts(item: MemberListItem): boolean {

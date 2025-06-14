@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ClrModalModule } from '@clr/angular';
 import { UserListComponent } from '../user-list/user-list.component';
 import { UserModel } from '../../../../core/models/user.model';
@@ -42,6 +42,6 @@ export class UserAdminDialogComponent {
   }
 
   onSave() {
-
+    // TODO
   }
 }

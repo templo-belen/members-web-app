@@ -31,13 +31,13 @@ export class ErrorResponseModel {
   }
 }
 export class MemberDewInfoResponseModel {
-  id: number = 0;
-  memberId: number = 0;
+  id = 0;
+  memberId = 0;
   ministrationDate: string | null = '';
   worker1: string | null = '';
   worker2: string | null = '';
-  isSharingTestimony: boolean = false;
-  isPublishingTestimony: boolean = false;
-  isPublishingTestimonyName: boolean = false;
-  isAgreedShareTestimony: boolean = false;
+  isSharingTestimony = false;
+  isPublishingTestimony = false;
+  isPublishingTestimonyName = false;
+  isAgreedShareTestimony = false;
 }

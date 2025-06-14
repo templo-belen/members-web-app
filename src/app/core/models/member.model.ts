@@ -2,30 +2,30 @@ import { SelectOption } from "./select-option.model";
 import {EnumResponseModel} from './enum.model';
 
 export class MemberListItem {
-  id: number = 0;
-  idNumber: string = '';
-  surnames: string = '';
-  names: string = '';
+  id = 0;
+  idNumber = '';
+  surnames = '';
+  names = '';
   birthdate: Date = new Date(0);
-  birthCountry: string = '';
-  residenceCountry: string = '';
-  address: string = '';
-  phoneNumber: string = '';
-  cellphoneNumber: string = '';
-  email: string = '';
-  occupation: string = '';
-  zonePastor: string = '';
-  isPastor: boolean = false;
-  isCellLeader: boolean = false;
-  currentRole: string = '';
-  status: string = '';
+  birthCountry = '';
+  residenceCountry = '';
+  address = '';
+  phoneNumber = '';
+  cellphoneNumber = '';
+  email = '';
+  occupation = '';
+  zonePastor = '';
+  isPastor = false;
+  isCellLeader = false;
+  currentRole = '';
+  status = '';
 }
 
 export class MemberBasicInfo {
-  id: number = 0;
-  idNumber: string = '';
-  surnames: string = '';
-  names: string = '';
+  id = 0;
+  idNumber = '';
+  surnames = '';
+  names = '';
   birthdate: Date = new Date(0);
   birthCountry: string | null = null;
   residenceCountry: string | null = null;
@@ -50,15 +50,15 @@ export class MemberBasicInfo {
   leadership: string | null = null;
   status: string | null = '';
   createdAt: Date = new Date(0);
-  createdBy: string = '';
+  createdBy = '';
   updatedAt: Date = new Date(0);
-  updatedBy: string = '';
+  updatedBy = '';
 }
 
 export class MemberNames {
-  id: number = 0;
-  names: string = '';
-  surnames: string = '';
+  id = 0;
+  names = '';
+  surnames = '';
 }
 
 export class MemberError {
@@ -73,20 +73,20 @@ export class MemberError {
 
 export class MemberReferences {
   references: MemberReference[] = [];
-  reasonsForCongregating: string = '';
+  reasonsForCongregating = '';
 }
 
 export class MemberReference {
-  id: number = 0;
-  totalTime: number = 0;
-  churchName: string = '';
-  mainPastorName: string = '';
-  leavingReason: string = '';
+  id = 0;
+  totalTime = 0;
+  churchName = '';
+  mainPastorName = '';
+  leavingReason = '';
 }
 
 export class MemberGeneralInfo {
-  id: number = 0;
-  memberId: number = 0;
+  id = 0;
+  memberId = 0;
   conversionDate: Date | null = new Date(0);
   conversionPlace: string | null = '';
   baptismDate: Date | null = new Date(0);
@@ -103,15 +103,15 @@ export class MemberGeneralInfo {
 }
 
 export class MemberDewInfo {
-  id: number = 0;
-  memberId: number = 0;
+  id = 0;
+  memberId = 0;
   ministrationDate: Date | null = new Date(0);
   worker1: string | null = '';
   worker2: string | null = '';
-  isSharingTestimony: boolean = false;
-  isPublishingTestimony: boolean = false;
-  isPublishingTestimonyName: boolean = false;
-  isAgreedShareTestimony: boolean = false;
+  isSharingTestimony = false;
+  isPublishingTestimony = false;
+  isPublishingTestimonyName = false;
+  isAgreedShareTestimony = false;
 }
 
 export class MemberFormValues {
@@ -124,7 +124,7 @@ export class MemberInformation {
   personalInformation: MemberBasicInfo | null = null;
   dew: MemberDewInfo | null = null;
   generalData: MemberGeneralInfo | null = null;
-  familyData: any | null = null;    // TODO cambiar al modelo de family data con tarea https://github.com/templo-belen/members-web-app/issues/15
+  familyData = '';    // TODO cambiar al modelo de family data con tarea https://github.com/templo-belen/members-web-app/issues/15
   references: MemberReferences | null = null;
-  adn: any | null = null;           // TODO cambiar al modelo de adn con tarea https://github.com/templo-belen/members-web-app/issues/21
+  adn = '';           // TODO cambiar al modelo de adn con tarea https://github.com/templo-belen/members-web-app/issues/21
 }

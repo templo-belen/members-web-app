@@ -76,7 +76,7 @@ export const memberReducer = createReducer(
 
     return { ...state, selectedMemberId: memberId };
   }),
-  on(memberInfo, (state, props) => {
+  on(memberInfo, (state) => {
     return state;
   }),
   on(memberInfoSuccess, (state, props) => {
@@ -88,13 +88,13 @@ export const memberReducer = createReducer(
       memberDewInfo: props.dew ?? new MemberDewInfo(),
     };
   }),
-  on(memberInfoFailure, (state, props) => {
+  on(memberInfoFailure, (state) => {
     return state;
   }),
-  on(basicInfoCreate, (state, props) => {
+  on(basicInfoCreate, (state) => {
     return state;
   }),
-  on(basicInfoCreateSuccess, (state, props) => {
+  on(basicInfoCreateSuccess, (state) => {
     return state;
   }),
   // All data for init member forms

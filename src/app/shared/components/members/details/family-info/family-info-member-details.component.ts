@@ -7,14 +7,14 @@ import { Component } from '@angular/core';
   styleUrl: './family-info-member-details.component.scss'
 })
 export class FamilyInfoMemberDetailsComponent {
-  isEditable: boolean = false;
+  isEditable = false;
 
   setEditMode(mode: boolean) {
     this.isEditable = mode;
     if (mode) {
       // TODO activate form
     } else {
-
+      // TODO ???
     }
   }
 }

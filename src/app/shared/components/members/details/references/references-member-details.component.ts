@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, FormArray } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ClrFormsModule, ClrIconModule } from '@clr/angular';
-import {MemberReferences,MemberReference,} from '../../../../../core/models/member.model';
+import { MemberReference, MemberReferences, } from '../../../../../core/models/member.model';
 import { MemberService } from '../../../../../core/services/member.service';
 import { editModeSubject } from '../../../../../core/subjects/members.subjects';
 
@@ -15,11 +15,12 @@ import { editModeSubject } from '../../../../../core/subjects/members.subjects';
 })
 export class ReferencesMemberDetailsComponent implements OnInit {
   private _memberService = inject(MemberService);
+  private _fb = inject(FormBuilder);
 
-  isEditable: boolean = false;
+  isEditable = false;
   referencesForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor() {
     this.referencesForm = this.buildForm(new MemberReferences());
     this.setFormEditable();
   }
@@ -39,21 +40,21 @@ export class ReferencesMemberDetailsComponent implements OnInit {
   }
 
   buildForm(memberReferences: MemberReferences): FormGroup {
-    const referencesArray = this.fb.array(
+    const referencesArray = this._fb.array(
       (memberReferences.references || []).map((ref) =>
         this.createReferenceGroup(ref)
       )
     );
 
-    return this.fb.group({
+    return this._fb.group({
       references: referencesArray,
       reasonsForCongregating: [memberReferences.reasonsForCongregating || ''],
     });
   }
 
   createForm(): FormGroup {
-    return this.fb.group({
-      references: this.fb.array([]),
+    return this._fb.group({
+      references: this._fb.array([]),
       reasonsForCongregating: [''],
     });
   }
@@ -83,7 +84,7 @@ export class ReferencesMemberDetailsComponent implements OnInit {
   }
 
   createReferenceGroup(reference: MemberReference = new MemberReference()): FormGroup {
-    return this.fb.group({
+    return this._fb.group({
       totalTime: [reference.totalTime || ''],
       churchName: [reference.churchName || ''],
       mainPastorName: [reference.mainPastorName || ''],
@@ -92,5 +93,6 @@ export class ReferencesMemberDetailsComponent implements OnInit {
   }
 
   onSubmit() {
+    // TODO
   }
 }

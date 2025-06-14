@@ -16,12 +16,13 @@ import { EnumResponseModel } from '../../../../../core/models/enum.model';
 export class BasicInfoMemberDetailsComponent implements OnInit {
 
   private _memberService = inject(MemberService);
+  private _fb = inject(FormBuilder);
 
   @ViewChild('formElement') formElement!: ElementRef<HTMLFormElement>;
 
-  memberId: number = 0;
+  memberId = 0;
   basicInfoForm: FormGroup;
-  isEditable: boolean = false;
+  isEditable = false;
   memberFormValues: MemberFormValues = {
     enums: new EnumResponseModel,
     zonePastors: [],
@@ -32,13 +33,13 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
   requiredFieldError = 'Este campo es obligatorio';
   invalidFormatError = 'El formato es incorrecto';
 
-  constructor(private fb: FormBuilder) {
+  constructor() {
     this.basicInfoForm = this.buildForm(new MemberBasicInfo());
     this.setFormEditable();
   }
 
   buildForm(memberBasicInfo: MemberBasicInfo): FormGroup {
-    const form = this.fb.group({
+    const form = this._fb.group({
       ...memberBasicInfo,
       file: new FormControl<FileList | undefined>(undefined),  //TODO evaluar si formara parte del modelo
     });
@@ -78,10 +79,6 @@ export class BasicInfoMemberDetailsComponent implements OnInit {
     });
 
     this.basicInfoForm.disable();
-  }
-
-  onFileSelected(event: any) {
-
   }
 
   onSubmit() {
