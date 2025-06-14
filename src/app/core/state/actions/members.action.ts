@@ -13,6 +13,10 @@ export enum MembersAction {
   MemberInfoSuccess = '[Member] Member Info Success',
   MemberInfoFailure = '[Member] Member Info Failure',
 
+  UpdateMemberBasicInfo = '[Member] Update Basic Info',
+  UpdateMemberBasicInfoSuccess = '[Member] Update Basic Info Success',
+  UpdateMemberBasicInfoFailure = '[Member] Update Basic Info Failure',
+
   BasicInfoCreate = '[Member] Basic Info Create',
   BasicInfoCreateSuccess = '[Member] Basic Info Create Success',
 

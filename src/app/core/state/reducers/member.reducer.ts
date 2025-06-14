@@ -14,6 +14,7 @@ import {
   selectedMemberId
 } from '../actions/members.action';
 import {
+  Member,
   MemberBasicInfo,
   MemberDewInfo,
   MemberError,
@@ -28,6 +29,7 @@ export interface MemberState {
   isLoading: boolean;
   error?: MemberError;
   selectedMemberId: number;
+  selectedMember: Member;
   memberBasicInfo: MemberBasicInfo;
   memberGeneralInfo: MemberGeneralInfo;
   memberReferences: MemberReferences;
@@ -40,6 +42,7 @@ export const initialState: MemberState = {
   memberList: [],
   isLoading: false,
   selectedMemberId: -1,
+  selectedMember: new Member(),
   memberBasicInfo: new MemberBasicInfo(),
   memberGeneralInfo: new MemberGeneralInfo(),
   memberReferences: new MemberReferences(),
@@ -52,17 +55,17 @@ export const memberReducer = createReducer(
   initialState,
   on(list, (state) => {
     const memberList: MemberListItem[] = [];
-    return { ...state, memberList: memberList, isLoading: true };
+    return {...state, memberList: memberList, isLoading: true};
   }),
   on(listSuccess, (state, props) => {
     const memberList: MemberListItem[] = props.memberList;
-    return { ...state, memberList: memberList, isLoading: false };
+    return {...state, memberList: memberList, isLoading: false};
   }),
   on(listFailure, (state, props) => {
     const memberList: MemberListItem[] = [];
-    return { ...state, memberList: memberList, isLoading: false, error: { msg: props.msg, code: props.code } };
+    return {...state, memberList: memberList, isLoading: false, error: {msg: props.msg, code: props.code}};
   }),
-  on(selectedMemberId, (state, { memberId }) => {
+  on(selectedMemberId, (state, {memberId}) => {
     if (memberId <= 0) {
       return {
         ...state,
@@ -74,7 +77,7 @@ export const memberReducer = createReducer(
       };
     }
 
-    return { ...state, selectedMemberId: memberId };
+    return {...state, selectedMemberId: memberId};
   }),
   on(memberInfo, (state, props) => {
     return state;
@@ -82,6 +85,12 @@ export const memberReducer = createReducer(
   on(memberInfoSuccess, (state, props) => {
     return {
       ...state,
+      selectedMember: {
+        memberBasicInfo: props.personalInformation ?? new MemberBasicInfo(),
+        memberReferences: props.references ?? new MemberReferences(),
+        memberInfo: props.generalData ?? new MemberGeneralInfo(),
+        dewInfo: props.dew ?? new MemberDewInfo(),
+      },
       memberBasicInfo: props.personalInformation ?? new MemberBasicInfo(),
       memberGeneralInfo: props.generalData ?? new MemberGeneralInfo(),
       memberReferences: props.references ?? new MemberReferences(),
@@ -102,9 +111,9 @@ export const memberReducer = createReducer(
     return state;
   }),
   on(memberFormValuesSuccess, (state, props) => {
-    return { ...state, memberFormValues: props };
+    return {...state, memberFormValues: props};
   }),
   on(memberFormValuesFailure, (state, props) => {
-    return { ...state, error: { msg: props.msg, code: props.code } };
+    return {...state, error: {msg: props.msg, code: props.code}};
   }),
 );
