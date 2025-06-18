@@ -1,5 +1,4 @@
-import {createAction, props} from '@ngrx/store';
-import {LoginRequestModel, LogOutRequestModel} from '../../models/api-request.model';
+import { createAction, props } from '@ngrx/store';
 
 export enum UserAction {
   Login = '[Login] Login',

@@ -1,9 +1,9 @@
-import {inject, Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {catchError, map, Observable, of} from 'rxjs';
-import {ErrorResponseModel, MemberListResponseModel} from '../models/api-response.model';
-import {MemberBasicInfo, MemberFormValues, MemberInformation, MemberListItem} from '../models/member.model';
-import {environment} from '../../../environments/environment';
+import { inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { catchError, map, Observable, of } from 'rxjs';
+import { ErrorResponseModel, MemberListResponseModel } from '../models/api-response.model';
+import { MemberBasicInfo, MemberFormValues, MemberInformation, MemberListItem } from '../models/member.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +13,6 @@ export class MemberApiService {
   private _http = inject(HttpClient);
   private _baseUrl = environment.backendBaseUrl;
   private _membersAPIUrl = `${this._baseUrl}/members`;
-
-  constructor() {
-  }
 
   public list(): Observable<MemberListResponseModel | ErrorResponseModel> {
     return this._http.get<MemberListItem[]>(`${this._membersAPIUrl}`, { observe: "response" })

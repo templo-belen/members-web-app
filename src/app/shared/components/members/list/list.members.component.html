@@ -32,22 +32,22 @@
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'isPastor'">
       <clr-dg-filter [clrDgFilter]="pastorFilter">
-        <clr-check-icon-filter
+        <app-check-icon-filter
           #pastorFilter
           [field]="'isPastor'"
           [label]="'¿Es Pastor?'">
-        </clr-check-icon-filter>
+        </app-check-icon-filter>
       </clr-dg-filter>
       <ng-container *clrDgHideableColumn="{ hidden: false }">¿Es Pastor?</ng-container>
     </clr-dg-column>
 
     <clr-dg-column [clrDgField]="'isCellLeader'">
       <clr-dg-filter [clrDgFilter]="cellLeaderFilter">
-        <clr-check-icon-filter
+        <app-check-icon-filter
           #cellLeaderFilter
           [field]="'isCellLeader'"
           [label]="'¿Es Líder de célula?'">
-        </clr-check-icon-filter>
+        </app-check-icon-filter>
       </clr-dg-filter>
       <ng-container *clrDgHideableColumn="{ hidden: false }">¿Es Líder de célula?</ng-container>
     </clr-dg-column>
