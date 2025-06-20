@@ -15,7 +15,7 @@ export class MemberApiService {
   private _membersAPIUrl = `${this._baseUrl}/members`;
 
   public list(): Observable<MemberListResponseModel | ErrorResponseModel> {
-    return this._http.get<MemberListItem[]>(`${this._membersAPIUrl}`, { observe: "response" })
+    return this._http.get<MemberListItem[]>(`${this._membersAPIUrl}/`, { observe: "response" })
       .pipe(
         map(response => {
           return new MemberListResponseModel({ memberList: response.body! });
@@ -38,7 +38,7 @@ export class MemberApiService {
   }
 
   public createBasicInfo(body: MemberBasicInfo): Observable<MemberBasicInfo | ErrorResponseModel> {
-    return this._http.post<MemberBasicInfo>(`${this._baseUrl}/members`, body, { observe: "response" })
+    return this._http.post<MemberBasicInfo>(`${this._baseUrl}/members/`, body, { observe: "response" })
       .pipe(
         map(response => {
           return Object.assign(new MemberBasicInfo(), response.body!);
