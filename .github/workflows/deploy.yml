@@ -29,4 +29,4 @@ jobs:
       - name: deploy
         run: |
           npm install -g netlify-cli --force
-          netlify deploy --auth=${{ secrets.NETLIFY_API_TOKEN }} --site=${{ secrets.NETLIFY_SITE_ID }} --context {{ vars.ENV }} --prod
+          netlify deploy --auth=${{ secrets.NETLIFY_API_TOKEN }} --site=${{ secrets.NETLIFY_SITE_ID }} --context=${{ vars.ENV }} --prod
