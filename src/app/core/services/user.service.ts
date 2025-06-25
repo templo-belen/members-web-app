@@ -1,10 +1,10 @@
-import {inject, Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
-import {Store} from '@ngrx/store';
-import {login, logout} from '../state/actions/user.action';
-import {selectCurrentUser, selectLoginError} from '../state/selector/user.selector';
-import {LoginError} from '../models/user.model';
-import {jwtDecode, JwtPayload} from 'jwt-decode';
+import { inject, Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { listRole, login, logout } from '../state/actions/user.action';
+import { selectCurrentUser, selectLoginError, selectRoleList } from '../state/selector/user.selector';
+import { LoginError } from '../models/user.model';
+import { jwtDecode, JwtPayload } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +58,14 @@ export class UserService {
       console.log(error);
       return true;
     }
+  }
+
+  public dispatchRoleList() {
+    this._store.dispatch(listRole());
+  }
+
+  public fetchRoleList() {
+    return this._store.select(selectRoleList);
   }
 
 }

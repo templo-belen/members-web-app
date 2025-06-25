@@ -1,9 +1,10 @@
-import {inject, Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {LoginRequestModel} from '../models/api-request.model';
-import {catchError, map, Observable, of} from 'rxjs';
-import {ErrorResponseModel, LoginResponseModel} from '../models/api-response.model';
-import {environment} from '../../../environments/environment';
+import { inject, Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { LoginRequestModel } from '../models/api-request.model';
+import { catchError, map, Observable, of } from 'rxjs';
+import { ErrorResponseModel, LoginResponseModel } from '../models/api-response.model';
+import { environment } from '../../../environments/environment';
+import { RoleResponseModel } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -42,5 +43,14 @@ export class UserApiService {
 
     // TODO ???
 
+  }
+
+  public listRoles(): Observable<RoleResponseModel[] | ErrorResponseModel> {
+    return this._http.get<RoleResponseModel[]>(`${this._baseUrl}/roles`, {observe: "response"}).pipe(
+      map(response => response.body!),
+      catchError(error =>
+        of(new ErrorResponseModel({msg: error.error.msg, code: error.status}))
+      )
+    );
   }
 }

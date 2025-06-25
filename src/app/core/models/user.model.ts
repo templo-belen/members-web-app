@@ -26,3 +26,9 @@ export class UserModel {
   }
 
 }
+
+export class RoleResponseModel {
+  id?: number | null = null;
+  code: string | null = null;
+  name: string | null = null;
+}

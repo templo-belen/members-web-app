@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { ClrIconModule } from '@clr/angular';
-import { UserModel } from '../../../../core/models/user.model';
+import { RoleResponseModel, UserModel } from '../../../../core/models/user.model';
+import { UserService } from '../../../../core/services/user.service';
 
 @Component({
   selector: 'app-user-list',
@@ -12,12 +13,12 @@ import { UserModel } from '../../../../core/models/user.model';
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss'
 })
-export class UserListComponent {
+export class UserListComponent implements OnInit {
 
+  private _userService = inject(UserService);
   @Output() editUser = new EventEmitter<UserModel>();
 
-  // TODO: replace with actual list
-  roles = [null, 'Administrador', 'Pastor de Zona', 'Sólo Lectura'];
+  roles: RoleResponseModel[] = [];
 
   // TODO: replace with actual list
   userList = [
@@ -77,7 +78,21 @@ export class UserListComponent {
     })
   ];
 
+  ngOnInit(): void {
+    this._userService.dispatchRoleList();
+
+    this._userService.fetchRoleList().subscribe(roleList => {
+      this.roles = roleList;
+    })
+
+  }
+
   onEditUser(userModel: UserModel) {
     this.editUser.emit(userModel);
+  }
+
+  getRoleName(roleId: number): string | null {
+    const role = this.roles.find(r => r.id === roleId);
+    return role ? role.name : '-';
   }
 }

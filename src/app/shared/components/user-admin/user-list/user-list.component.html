@@ -11,7 +11,7 @@
     <tr *ngFor="let user of userList">
       <td class="left">{{ user.fullname }}</td>
       <td class="left">{{ user.username }}</td>
-      <td class="left">{{ roles[user.role!] }}</td>
+      <td class="left">{{ getRoleName(user.role!) }}</td>
       <td class="right">
         <button type="button" class="btn btn-secondary btn-icon" (click)="onEditUser(user)">
           <cds-icon shape="pencil" />

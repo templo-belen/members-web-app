@@ -1,17 +1,27 @@
-import {createReducer, on} from '@ngrx/store';
-import {login, loginFailure, loginSuccess, logoutSuccess} from '../actions/user.action';
-import {LoginError, UserModel} from '../../models/user.model';
+import { createReducer, on } from '@ngrx/store';
+import {
+  listRole,
+  listRoleFailure,
+  listRoleSuccess,
+  login,
+  loginFailure,
+  loginSuccess,
+  logoutSuccess
+} from '../actions/user.action';
+import { LoginError, RoleResponseModel, UserModel } from '../../models/user.model';
 
 export interface UserState {
   currentUser: UserModel;
   isLoading: boolean;
   error: LoginError;
+  roleList: RoleResponseModel[];
 }
 
 export const initialState: UserState = {
   currentUser: { username: '', fullname: ''},
   isLoading: false,
-  error: {msg: '', code: 200}
+  error: {msg: '', code: 200},
+  roleList : [],
 };
 
 export const userReducer = createReducer(
@@ -33,5 +43,18 @@ export const userReducer = createReducer(
   on(logoutSuccess, (state) => {
     const currentUser: UserModel = {username: '', fullname: ''};
     return {...state, currentUser: currentUser, error: {msg: '', code: 200}, isLoading: false};
+  }),
+
+  on(listRole, (state) => {
+    const roleList: RoleResponseModel[] = [];
+    return { ...state, roleList: roleList, isLoading: true };
+  }),
+  on(listRoleSuccess, (state, props) => {
+    const roleList: RoleResponseModel[] = props.roles;
+    return { ...state, roleList: roleList, isLoading: false };
+  }),
+  on(listRoleFailure, (state, props) => {
+    const roleList: RoleResponseModel[] = [];
+    return { ...state, roleList: roleList, isLoading: false, error: { msg: props.msg, code: props.code } };
   }),
 );
