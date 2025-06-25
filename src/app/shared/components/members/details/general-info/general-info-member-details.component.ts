@@ -29,7 +29,7 @@ export class GeneralInfoMemberDetailsComponent implements OnInit {
   }
 
   buildForm(memberGeneralInfo: MemberGeneralInfo): FormGroup {
-    return this._fb.group({ ...memberGeneralInfo });
+    return this.fb.group({ ...memberGeneralInfo });
   }
 
   ngOnInit(): void {
@@ -58,6 +58,6 @@ export class GeneralInfoMemberDetailsComponent implements OnInit {
   }
 
   onSubmit() {
-    // TODO
+
   }
 }

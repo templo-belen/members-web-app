@@ -3,23 +3,23 @@ import {EnumResponseModel} from './enum.model';
 import {ComponentModel} from '../../shared/components/members/details/detail.interface';
 
 export class MemberListItem {
-  id = 0;
-  idNumber = '';
-  surnames = '';
-  names = '';
+  id: number = 0;
+  idNumber: string = '';
+  surnames: string = '';
+  names: string = '';
   birthdate: Date = new Date(0);
-  birthCountry = '';
-  residenceCountry = '';
-  address = '';
-  phoneNumber = '';
-  cellphoneNumber = '';
-  email = '';
-  occupation = '';
-  zonePastor = '';
-  isPastor = false;
-  isCellLeader = false;
-  currentRole = '';
-  status = '';
+  birthCountry: string = '';
+  residenceCountry: string = '';
+  address: string = '';
+  phoneNumber: string = '';
+  cellphoneNumber: string = '';
+  email: string = '';
+  occupation: string = '';
+  zonePastor: string = '';
+  isPastor: boolean = false;
+  isCellLeader: boolean = false;
+  currentRole: string = '';
+  status: string = '';
 }
 
 export class MemberBasicInfo implements ComponentModel {
@@ -51,15 +51,15 @@ export class MemberBasicInfo implements ComponentModel {
   leadership: string | null = null;
   status: string | null = '';
   createdAt: Date = new Date(0);
-  createdBy = '';
+  createdBy: string = '';
   updatedAt: Date = new Date(0);
-  updatedBy = '';
+  updatedBy: string = '';
 }
 
 export class MemberNames {
-  id = 0;
-  names = '';
-  surnames = '';
+  id: number = 0;
+  names: string = '';
+  surnames: string = '';
 }
 
 export class MemberError {
@@ -74,20 +74,20 @@ export class MemberError {
 
 export class MemberReferences {
   references: MemberReference[] = [];
-  reasonsForCongregating = '';
+  reasonsForCongregating: string = '';
 }
 
 export class MemberReference {
-  id = 0;
-  totalTime = 0;
-  churchName = '';
-  mainPastorName = '';
-  leavingReason = '';
+  id: number = 0;
+  totalTime: number = 0;
+  churchName: string = '';
+  mainPastorName: string = '';
+  leavingReason: string = '';
 }
 
 export class MemberGeneralInfo {
-  id = 0;
-  memberId = 0;
+  id: number = 0;
+  memberId: number = 0;
   conversionDate: Date | null = new Date(0);
   conversionPlace: string | null = '';
   baptismDate: Date | null = new Date(0);
@@ -104,15 +104,15 @@ export class MemberGeneralInfo {
 }
 
 export class MemberDewInfo {
-  id = 0;
-  memberId = 0;
+  id: number = 0;
+  memberId: number = 0;
   ministrationDate: Date | null = new Date(0);
   worker1: string | null = '';
   worker2: string | null = '';
-  isSharingTestimony = false;
-  isPublishingTestimony = false;
-  isPublishingTestimonyName = false;
-  isAgreedShareTestimony = false;
+  isSharingTestimony: boolean = false;
+  isPublishingTestimony: boolean = false;
+  isPublishingTestimonyName: boolean = false;
+  isAgreedShareTestimony: boolean = false;
 }
 
 export class Member {
@@ -132,7 +132,7 @@ export class MemberInformation {
   personalInformation: MemberBasicInfo | null = null;
   dew: MemberDewInfo | null = null;
   generalData: MemberGeneralInfo | null = null;
-  familyData = '';    // TODO cambiar al modelo de family data con tarea https://github.com/templo-belen/members-web-app/issues/15
+  familyData: any | null = null;    // TODO cambiar al modelo de family data con tarea https://github.com/templo-belen/members-web-app/issues/15
   references: MemberReferences | null = null;
-  adn = '';           // TODO cambiar al modelo de adn con tarea https://github.com/templo-belen/members-web-app/issues/21
+  adn: any | null = null;           // TODO cambiar al modelo de adn con tarea https://github.com/templo-belen/members-web-app/issues/21
 }
