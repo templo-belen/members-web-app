@@ -16,14 +16,11 @@ import { EnumResponseModel } from '../../../../../core/models/enum.model';
 export class GeneralInfoMemberDetailsComponent {
 
   private _memberService = inject(MemberService);
+  private _formBuilder = inject(FormBuilder);
 
+  memberFormValues = this._memberService.selectMemberFormValues()
   generalInfoForm: FormGroup;
   isEditable: boolean = false;
-  memberFormValues: MemberFormValues = {
-    enums: new EnumResponseModel,
-    zonePastors: [],
-    preachingPoints: []
-  }
 
   constructor(private fb: FormBuilder) {
     this.generalInfoForm = this.buildForm(new MemberGeneralInfo());
@@ -45,10 +42,6 @@ export class GeneralInfoMemberDetailsComponent {
       this.setFormEditable();
     });
 
-    // Enums
-    this._memberService.fetchMemberFormValues().subscribe(memberFormValues => {
-      this.memberFormValues = memberFormValues;
-    });
   }
 
   toggleEditMode() {

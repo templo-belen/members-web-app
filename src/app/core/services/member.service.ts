@@ -5,7 +5,7 @@ import {
   list,
   memberFormValues,
   memberInfo,
-  selectedMemberId
+  selectedMemberId, updateBasicInfo, updateMemberReferences
 } from '../state/actions/members.action';
 import {
   selectCurrentMember, selectCurrentMemberBasicInfo,
@@ -19,7 +19,7 @@ import {
   selectMemberReferences,
   selectSelectedMemberId
 } from '../state/selector/member.selector';
-import {Member, MemberBasicInfo} from '../models/member.model';
+import {Member, MemberBasicInfo, MemberReferences} from '../models/member.model';
 
 @Injectable({
   providedIn: 'root'
@@ -105,6 +105,16 @@ export class MemberService {
 
   public fetchCurrentMemberBasicInfo() {
     return this._store.selectSignal(selectCurrentMemberBasicInfo);
+  }
+
+  // Updates
+
+  public dispatchUpdateMemberInfo(memberBasicInfo: MemberBasicInfo) {
+    this._store.dispatch(updateBasicInfo(memberBasicInfo));
+  }
+
+  public dispatchUpdateReferences(memberReferences: MemberReferences) {
+    this._store.dispatch(updateMemberReferences(memberReferences));
   }
 }
 

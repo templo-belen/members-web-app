@@ -28,21 +28,45 @@ export class MemberDetailsComponent {
 
   constructor() {
     effect(() => {
-        if (this.operation() === 'PUT') {
-          this._update();
-        }
+      if (this._isUpdateOperation()) {
+        this._update();
+      }
     });
   }
 
-  public setBasicInfo(input: MemberBasicInfo) {
-    this.currentMember.memberBasicInfo = input;
+  private _isUpdateOperation() {
+    return this.operation() === 'PUT';
   }
 
   private _update() {
     switch (this.selected()) {
-      case 'basicInfo':
-
+      case 'basicInfo': {
+        this._memberService.dispatchUpdateMemberInfo(this.currentMember.memberBasicInfo);
         break;
+      }
+      case 'familyInfo': {
+        break;
+      }
+      case 'generalInfo': {
+        break;
+      }
+      case 'references': {
+        this._memberService.dispatchUpdateReferences(this.currentMember.memberReferences);
+        break;
+      }
+      case 'dewInfo': {
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+  }
+
+  public setBasicInfo(input: MemberBasicInfo) {
+    this.currentMember.memberBasicInfo = input;
+    if (this._isUpdateOperation()) {
+      this._update();
     }
   }
 }

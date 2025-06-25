@@ -1,5 +1,5 @@
 import {createAction, props} from '@ngrx/store';
-import {MemberBasicInfo, MemberFormValues, MemberInformation} from '../../models/member.model'
+import {MemberBasicInfo, MemberFormValues, MemberInformation, MemberReferences} from '../../models/member.model'
 import {ErrorResponseModel, MemberListResponseModel} from '../../models/api-response.model';
 
 export enum MembersAction {
@@ -16,6 +16,10 @@ export enum MembersAction {
   UpdateMemberBasicInfo = '[Member] Update Basic Info',
   UpdateMemberBasicInfoSuccess = '[Member] Update Basic Info Success',
   UpdateMemberBasicInfoFailure = '[Member] Update Basic Info Failure',
+
+  UpdateMemberReferences = '[Member] Update Member References',
+  UpdateMemberReferencesSuccess = '[Member] Update Member References Success',
+  UpdateMemberReferencesFailure = '[Member] Update Member References Failure',
 
   BasicInfoCreate = '[Member] Basic Info Create',
   BasicInfoCreateSuccess = '[Member] Basic Info Create Success',
@@ -38,6 +42,16 @@ export const memberInfoFailure = createAction(MembersAction.MemberInfoFailure, p
 
 export const basicInfoCreate = createAction(MembersAction.BasicInfoCreate, props<MemberBasicInfo>());
 export const basicInfoCreateSuccess = createAction(MembersAction.BasicInfoCreateSuccess, props<MemberBasicInfo>());
+
+export const updateBasicInfo = createAction(MembersAction.UpdateMemberBasicInfo, props<MemberBasicInfo>());
+export const updateBasicInfoSuccess = createAction(MembersAction.UpdateMemberBasicInfoSuccess, props<MemberBasicInfo>());
+export const updateBasicInfoFailure = createAction(MembersAction.UpdateMemberBasicInfoFailure, props<ErrorResponseModel>());
+
+
+export const updateMemberReferences = createAction(MembersAction.UpdateMemberReferences, props<MemberReferences>());
+export const updateMemberReferencesSuccess = createAction(MembersAction.UpdateMemberReferencesSuccess, props<MemberReferences>());
+export const updateMemberReferencesFailure = createAction(MembersAction.UpdateMemberReferencesFailure, props<MemberReferences>());
+
 
 export const memberFormValues = createAction(MembersAction.MemberFormValues);
 export const memberFormValuesSuccess = createAction(MembersAction.MemberFormValuesSuccess, props<MemberFormValues>());

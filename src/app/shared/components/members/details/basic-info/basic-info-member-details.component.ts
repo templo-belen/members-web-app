@@ -1,9 +1,10 @@
 import {Component, effect, inject, input, output} from '@angular/core';
 import {ClarityModule} from '@clr/angular';
 import {MemberBasicInfo} from '../../../../../core/models/member.model';
-import {CommonModule} from '@angular/common';
+import {CommonModule, formatDate} from '@angular/common';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MemberService} from '../../../../../core/services/member.service';
+import {ComponentModel, DetailComponent} from '../detail.interface';
 
 @Component({
   selector: 'app-basic-info-member-details',
@@ -11,7 +12,7 @@ import {MemberService} from '../../../../../core/services/member.service';
   templateUrl: './basic-info-member-details.component.html',
   styleUrl: './basic-info-member-details.component.scss',
 })
-export class BasicInfoMemberDetailsComponent {
+export class BasicInfoMemberDetailsComponent implements DetailComponent {
   private _memberService = inject(MemberService);
   private _formBuilder = inject(FormBuilder);
 
@@ -30,6 +31,7 @@ export class BasicInfoMemberDetailsComponent {
     effect(() => {
       if (this.inputModel!) {
         this.form.patchValue({...this.inputModel()});
+        console.log(`values: ${JSON.stringify(this.form.value)}`);
       }
 
       if (this.isEditable()) {
@@ -38,6 +40,14 @@ export class BasicInfoMemberDetailsComponent {
         this.form.disable();
       }
     });
+  }
+
+  getForm(): FormGroup {
+    return this.form;
+  }
+
+  getComponentModel(): ComponentModel {
+    return this.inputModel();
   }
 
   buildForm(basicInfo: MemberBasicInfo): FormGroup {
@@ -49,6 +59,7 @@ export class BasicInfoMemberDetailsComponent {
       surnames: new FormControl('', [Validators.required]),
       currentRole: new FormControl('', [Validators.required]),
       cellLeadership: new FormControl('', [Validators.required]),
+      commitmentDate: new FormControl('', [Validators.required]),
       leadership: new FormControl('', [Validators.required]),
       phoneNumber: new FormControl('', [Validators.pattern(phoneRegex)]),
       cellphoneNumber: new FormControl('', [Validators.pattern(phoneRegex)]),

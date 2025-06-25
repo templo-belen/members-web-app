@@ -24,10 +24,15 @@ export class ShowcaseComponent {
 
   isEditable = false;
   selected = "basicInfo";
+  operation = 'NOOP';
   currentTabTitle = 'Datos Personales';
 
   toggleEditMode() {
     this.isEditable = !this.isEditable;
+  }
+
+  updateModel() {
+    this.operation = 'PUT';
   }
 
   handleClose() {
@@ -38,5 +43,9 @@ export class ShowcaseComponent {
 
   select(option: string) {
     this.selected = option;
+  }
+
+  public onSave() {
+
   }
 }

@@ -11,7 +11,7 @@ import {
   memberInfo,
   memberInfoFailure,
   memberInfoSuccess,
-  selectedMemberId
+  selectedMemberId, updateBasicInfoSuccess
 } from '../actions/members.action';
 import {
   Member,
@@ -105,6 +105,9 @@ export const memberReducer = createReducer(
   }),
   on(basicInfoCreateSuccess, (state, props) => {
     return state;
+  }),
+  on(updateBasicInfoSuccess, (state, props) => {
+    return {...state, selectedMember: {...state.selectedMember, basicInfo: props}};
   }),
   // All data for init member forms
   on(memberFormValues, (state) => {

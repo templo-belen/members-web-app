@@ -40,12 +40,13 @@
             <cds-icon shape="pencil"></cds-icon>
           </button>
           <!-- Save / Cancel buttons -->
-          <button type="submit" class="btn btn-primary" *ngIf="isEditable">Guardar</button>
-          <button type="button" class="btn btn-secondary" *ngIf="isEditable" (click)="toggleEditMode()">Cancelar
-          </button>
+          @if(isEditable) {
+            <button type="submit" class="btn btn-primary" (click)="updateModel()" >Guardar</button>
+            <button type="button" class="btn btn-secondary" (click)="toggleEditMode()">Cancelar</button>
+          }
         </div>
       </div>
-      <app-member-details [selected]="selected" [operation]="'PUT'" [isEditable]="isEditable"/>
+      <app-member-details [selected]="selected" [operation]="operation" [isEditable]="isEditable"/>
     </div>
   </div>
 </div>

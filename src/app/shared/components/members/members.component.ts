@@ -29,8 +29,6 @@ export class MembersComponent implements OnInit {
   private readonly _error = toSignal(this._memberService.fetchCurrentMemberListError());
   private readonly _isLoading = this._memberService.fetchIsLoading();
   public isModalOpen = false;
-  public selectedMemberId: number = -1;
-  public selectedMemberName: string = '';
   public membersList = this._dataList;
   public isLoading = this._isLoading();
   public hasError = computed(() => this._error()?.code !== 200)

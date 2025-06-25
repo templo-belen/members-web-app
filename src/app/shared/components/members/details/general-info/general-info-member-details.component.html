@@ -71,7 +71,7 @@
         <label>Motivo del retiro de Templo Belén</label>
         <select clrSelect formControlName="leavingReason">
           <option [ngValue]="null"></option>
-          <option *ngFor="let leavingReason of memberFormValues.enums['leaving-reason'] || []"
+          <option *ngFor="let leavingReason of memberFormValues().enums['leaving-reason'] || []"
                   value="{{ leavingReason.name }}">{{ leavingReason.value }}
           </option>
         </select>

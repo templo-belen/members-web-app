@@ -1,5 +1,6 @@
 import { SelectOption } from "./select-option.model";
 import {EnumResponseModel} from './enum.model';
+import {ComponentModel} from '../../shared/components/members/details/detail.interface';
 
 export class MemberListItem {
   id: number = 0;
@@ -21,7 +22,7 @@ export class MemberListItem {
   status: string = '';
 }
 
-export class MemberBasicInfo {
+export class MemberBasicInfo implements ComponentModel {
   id: number = 0;
   idNumber: string = '';
   surnames: string = '';

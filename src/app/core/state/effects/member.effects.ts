@@ -8,7 +8,7 @@ import {
   memberFormValuesSuccess,
   memberInfoFailure,
   memberInfoSuccess,
-  MembersAction
+  MembersAction, updateBasicInfoFailure, updateBasicInfoSuccess
 } from '../actions/members.action';
 import {exhaustMap, map} from 'rxjs';
 import {MemberApiService} from '../../services/member.api.service';
@@ -92,4 +92,23 @@ export class MemberEffects {
           })
         )
     });
+
+  onMemberBasicInfoUpdate$ = createEffect(() => {
+    return this._actions$
+      .pipe(
+        ofType(MembersAction.UpdateMemberBasicInfo),
+        exhaustMap((basicInfo) => {
+          return this._memberApiService.updateBasicInfo(basicInfo)
+            .pipe(
+              map(response => {
+                if (response instanceof MemberBasicInfo) {
+                  return updateBasicInfoSuccess(response);
+                } else {
+                  return updateBasicInfoFailure({ code: response.code, msg: response.msg });
+                }
+              })
+            )
+        })
+      )
+  });
 }
