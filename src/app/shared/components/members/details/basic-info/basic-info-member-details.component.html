@@ -28,19 +28,25 @@
       <clr-input-container>
         <label [class.clr-required-mark]="isEditable()">Número de documento</label>
         <input clrInput formControlName="idNumber" />
-        <clr-control-error>{{ requiredFieldError }}</clr-control-error>
+<!--
+        <clr-control-error>{{}}</clr-control-error>
+-->
       </clr-input-container>
 
       <clr-input-container>
         <label [class.clr-required-mark]="isEditable()">Nombres</label>
         <input clrInput formControlName="names" />
-        <clr-control-error>{{ requiredFieldError }}</clr-control-error>
+<!--
+        <clr-control-error>{{}}</clr-control-error>
+-->
       </clr-input-container>
 
       <clr-input-container>
         <label [class.clr-required-mark]="isEditable()">Apellidos</label>
         <input clrInput formControlName="surnames" />
-        <clr-control-error>{{ requiredFieldError }}</clr-control-error>
+<!--
+        <clr-control-error>{{}}</clr-control-error>
+-->
       </clr-input-container>
 
       <clr-date-container>
@@ -66,19 +72,25 @@
       <clr-input-container>
         <label>Teléfono</label>
         <input type="tel" clrInput formControlName="phoneNumber" />
-        <clr-control-error>{{ invalidFormatError }}</clr-control-error>
+<!--
+        <clr-control-error>{{}}</clr-control-error>
+-->
       </clr-input-container>
 
       <clr-input-container>
         <label>Celular</label>
         <input type="tel" clrInput formControlName="cellphoneNumber" />
-        <clr-control-error>{{ invalidFormatError }}</clr-control-error>
+<!--
+        <clr-control-error>{{}}</clr-control-error>
+-->
       </clr-input-container>
 
       <clr-input-container>
         <label>Email</label>
         <input type="email" clrInput formControlName="email" />
-        <clr-control-error>{{ invalidFormatError }}</clr-control-error>
+<!--
+        <clr-control-error>{{}}</clr-control-error>
+-->
       </clr-input-container>
 
       <clr-radio-container>
@@ -150,7 +162,9 @@
           <option [ngValue]="null">-- Seleccione una opción --</option>
           <option *ngFor="let role of memberFormValues().enums['role'] || []" value="{{ role.name }}">{{ role.value }}</option>
         </select>
-        <clr-control-error>{{ requiredFieldError }}</clr-control-error>
+<!--
+        <clr-control-error>{{}}</clr-control-error>
+-->
       </clr-select-container>
 
       <clr-date-container>
@@ -165,7 +179,9 @@
           <option *ngFor="let cellLeadership of memberFormValues()!.enums['cell-leadership'] || []"
                   value="{{ cellLeadership.name }}">{{ cellLeadership.value }}</option>
         </select>
-        <clr-control-error>{{ requiredFieldError }}</clr-control-error>
+<!--
+        <clr-control-error>{{}}</clr-control-error>
+-->
       </clr-select-container>
 
       <clr-select-container>
@@ -183,7 +199,9 @@
           <option *ngFor="let leadership of memberFormValues().enums['leadership'] || []" value="{{ leadership.name }}">
             {{ leadership.value }}</option>
         </select>
-        <clr-control-error>{{ requiredFieldError }}</clr-control-error>
+<!--
+        <clr-control-error>{{}}</clr-control-error>
+-->
       </clr-select-container>
 
     </div>
