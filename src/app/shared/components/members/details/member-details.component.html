@@ -1,72 +1,25 @@
-<div class="details-main-container">
-  <header class="header">
-    <div class="details-header">
-      <span class="title">{{ memberName() }}</span>
-      <button type="button" class="btn btn-outline" (click)="handleClose()">Cerrar</button>
-    </div>
-  </header>
-  <div class="content-container">
-    <clr-vertical-nav>
-      <a clrVerticalNavLink (click)="select('basicInfo')">
-        <cds-icon clrVerticalNavIcon shape="user"></cds-icon>
-        Datos Personales
-      </a>
-      <a clrVerticalNavLink (click)="select('familyInfo')">
-        <cds-icon clrVerticalNavIcon shape="home"></cds-icon>
-        Datos Familiares
-      </a>
-      <a clrVerticalNavLink (click)="select('generalInfo')">
-        <cds-icon clrVerticalNavIcon shape="details"></cds-icon>
-        Datos Generales
-      </a>
-      <a clrVerticalNavLink (click)="select('references')">
-        <cds-icon clrVerticalNavIcon shape="book"></cds-icon>
-        Referencias
-      </a>
-      <a clrVerticalNavLink (click)="select('dewInfo')">
-        <cds-icon clrVerticalNavIcon shape="world"></cds-icon>
-        DEW
-      </a>
-    </clr-vertical-nav>
-    <div class="details-content-area">
-      <div class="clr-row">
-        <div cds-text="subsection bold">{{ currentTabTitle }}</div>
-      </div>
-      <div class="clr-row">
-        <!-- Edit member button -->
-        <div class="clr-col-12 edit-member-button" *ngIf="!isEditable">
-          <button role="button" (click)="toggleEditMode()" class="btn btn-secondary">
-            <cds-icon shape="pencil"></cds-icon>
-          </button>
-        </div>
-        <!-- Save / Cancel buttons -->
-        <div class="clr-col-12 edit-member-actions" *ngIf="isEditable">
-          <button type="submit" class="btn btn-primary">Guardar</button>
-          <button type="button" class="btn btn-secondary" (click)="toggleEditMode()">Cancelar</button>
-        </div>
-      </div>
-      <div class="clr-row">
-        <div class="clr-col-12">
-          @switch (selected) {
-            @case ("basicInfo") {
-              <app-basic-info-member-details/>
-            }
-            @case ("familyInfo") {
-              <app-family-info-member-details/>
-            }
-            @case ("generalInfo") {
-              <app-general-info-member-details/>
-            }
-            @case ("references") {
-              <app-references-member-details/>
-            }
-            @case ("dewInfo") {
-              <app-dew-info-member-details/>
-            }
-          }
-        </div>
-      </div>
-    </div>
+<div class="clr-row">
+  <div class="clr-col-12">
+    @switch (selected()) {
+      @case ("basicInfo") {
+        <app-basic-info-member-details [inputModel]="selectedMember().memberBasicInfo" [isEditable]="isEditable()"/>
+      }
+      @case ("familyInfo") {
+        <app-family-info-member-details/>
+      }
+      @case ("generalInfo") {
+        <app-general-info-member-details/>
+      }
+      @case ("references") {
+        <app-references-member-details/>
+      }
+      @case ("dewInfo") {
+        <app-dew-info-member-details/>
+      }
+      @default {
+        <app-basic-info-member-details [inputModel]="selectedMember().memberBasicInfo" [isEditable]="isEditable()"/>
+      }
+    }
   </div>
 </div>
 

@@ -48,6 +48,17 @@ export class MemberApiService {
         }));
   }
 
+  public updateBasicInfo(body: MemberBasicInfo): Observable<MemberBasicInfo | ErrorResponseModel> {
+    return this._http.put<MemberBasicInfo>(`${this._baseUrl}/members`, body, { observe: "response" })
+      .pipe(
+        map(response => {
+          return Object.assign(new MemberBasicInfo(), response.body!);
+        }),
+        catchError(error => {
+          return of(new ErrorResponseModel({msg: error.error.detail, code: error.status}));
+        }));
+  }
+
   public memberFormValues(): Observable<MemberFormValues | ErrorResponseModel> {
     return this._http.get<MemberFormValues>(`${this._membersAPIUrl}/init-form`, { observe: "response" })
       .pipe(

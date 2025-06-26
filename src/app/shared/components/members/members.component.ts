@@ -6,6 +6,7 @@ import {ClrModalModule} from '@clr/angular';
 import {CommonModule} from '@angular/common';
 import {MemberDetailsComponent} from './details/member-details.component';
 import {NewMemberWizardComponent} from './new-member-wizard/new-member-wizard.component';
+import {ShowcaseComponent} from './showcase/showcase.component';
 
 @Component({
   selector: 'app-members',
@@ -13,8 +14,8 @@ import {NewMemberWizardComponent} from './new-member-wizard/new-member-wizard.co
     MembersListComponent,
     ClrModalModule,
     CommonModule,
-    MemberDetailsComponent,
     NewMemberWizardComponent,
+    ShowcaseComponent,
   ],
   templateUrl: './members.component.html',
   styleUrl: './members.component.scss',
@@ -24,14 +25,12 @@ export class MembersComponent implements OnInit {
   private _memberService = inject(MemberService);
 
   memberDetailsReference: Signal<MemberDetailsComponent> = viewChild.required(MemberDetailsComponent);
-  private readonly _dataList = toSignal(this._memberService.fetchMemberList(), { initialValue: [] });
+  private readonly _dataList = this._memberService.fetchMemberList();
   private readonly _error = toSignal(this._memberService.fetchCurrentMemberListError());
-  private readonly _isLoading = toSignal(this._memberService.fetchIsLoading(), { initialValue: true });
+  private readonly _isLoading = this._memberService.fetchIsLoading();
   public isModalOpen = false;
-  public selectedMemberId = -1;
-  public selectedMemberName = '';
   public membersList = this._dataList;
-  public isLoading = this._isLoading;
+  public isLoading = this._isLoading();
   public hasError = computed(() => this._error()?.code !== 200)
   public errorMsg: Signal<string | undefined> = computed(() => this._error()?.msg);
 
@@ -45,10 +44,7 @@ export class MembersComponent implements OnInit {
     return this.hasError()!;
   }
 
-  public openModal = (memberId: number, memberName: string) => {
-    this.selectedMemberId = memberId;
-    this.selectedMemberName = memberName;
-    this._memberService.dispatchSelectedMemberId(this.selectedMemberId);
+  public openModal = () => {
     this.isModalOpen = true;
   }
 

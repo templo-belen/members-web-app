@@ -6,7 +6,7 @@ import {
   MemberGeneralInfo,
   MemberFormValues,
   MemberListItem,
-  MemberReferences
+  MemberReferences, Member
 } from '../../models/member.model';
 import { MemberState } from '../reducers/member.reducer';
 
@@ -30,6 +30,20 @@ export const selectIsLoading = createSelector(
   selectMemberState,
   (state): boolean => {
     return state.isLoading ?? false
+  }
+);
+
+export const selectCurrentMember = createSelector(
+  selectMemberState,
+  (state): Member => {
+    return state.selectedMember;
+  }
+);
+
+export const selectCurrentMemberBasicInfo = createSelector(
+  selectMemberState,
+  (state): MemberBasicInfo => {
+    return state.selectedMember.memberBasicInfo;
   }
 );
 

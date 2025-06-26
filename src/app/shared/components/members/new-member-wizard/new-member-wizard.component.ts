@@ -8,6 +8,7 @@ import { BasicInfoMemberDetailsComponent } from '../details/basic-info/basic-inf
 import { editModeSubject } from '../../../../core/subjects/members.subjects';
 import { MemberService } from '../../../../core/services/member.service';
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
+import {MemberBasicInfo} from '../../../../core/models/member.model';
 
 
 @Component({
@@ -37,6 +38,7 @@ export class NewMemberWizardComponent implements OnInit {
 
   @Input() wizardSize = 'full-screen';
 
+  modelBasicInfo = new MemberBasicInfo();
   wizardOpen = false;
   confirmationOpen = false;
 
@@ -85,7 +87,7 @@ export class NewMemberWizardComponent implements OnInit {
   onCancelConfirmed() {
     this.wizard?.close();
     this.wizard?.reset();
-    this.basicInfo?.basicInfoForm.reset();
+    //this.basicInfo?.form.reset();
     //this.familyInfo?.familyInfoForm.reset();
     this.generalInfo?.generalInfoForm.reset();
     this.references?.referencesForm.reset();
