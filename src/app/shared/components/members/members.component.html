@@ -6,7 +6,7 @@
 </div>
 <app-new-member-wizard #newMemberWizard></app-new-member-wizard>
 
-<app-members-list [membersList]="membersList()" [isLoading]="isLoading" (onSelection)="openModal()"/>
+<app-members-list [membersList]="membersList()" [isLoading]="isLoading" (selection)="openModal()"/>
 <clr-modal [(clrModalOpen)]="isModalOpen" [clrModalSize]="'full-screen'" [clrModalClosable]="false">
   <div class="modal-body">
     <app-member-showcase (closeModal)="closeModal()" />

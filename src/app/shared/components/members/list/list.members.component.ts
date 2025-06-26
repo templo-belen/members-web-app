@@ -1,5 +1,5 @@
 import {CommonModule} from '@angular/common';
-import {Component, inject, input, Input, output, signal, Signal} from '@angular/core';
+import {Component, inject, input, output} from '@angular/core';
 import {ClrDatagridModule, ClrIconModule, ClrProgressBarModule} from '@clr/angular';
 import {MemberListItem} from '../../../../core/models/member.model';
 import {CheckIconFilter} from '../../filters/grid.boolean.filter'
@@ -16,13 +16,13 @@ export class MembersListComponent {
   private _memberService = inject(MemberService);
   membersList = input.required<MemberListItem[]>();
   isLoading = input.required<boolean>();
-  onSelection = output<void>();
+  selection = output<void>();
 
   onDetailIconClick(memberId: number, memberName: string, event: MouseEvent): void {
     event.stopPropagation(); // Prevent row selection if enabled
     this._memberService.dispatchMember(memberId);
     this._memberService.dispatchMemberFormValues();
-    this.onSelection.emit();
+    this.selection.emit();
   }
 }
 

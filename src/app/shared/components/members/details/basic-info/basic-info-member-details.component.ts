@@ -1,7 +1,7 @@
 import {Component, effect, inject, input, output} from '@angular/core';
 import {ClarityModule} from '@clr/angular';
 import {MemberBasicInfo} from '../../../../../core/models/member.model';
-import {CommonModule, formatDate} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MemberService} from '../../../../../core/services/member.service';
 import {ComponentModel, DetailComponent} from '../detail.interface';
@@ -39,6 +39,13 @@ export class BasicInfoMemberDetailsComponent implements DetailComponent {
     });
   }
 
+  getForm(): FormGroup {
+        throw new Error('Method not implemented.');
+    }
+    getComponentModel(): ComponentModel {
+        throw new Error('Method not implemented.');
+    }
+
 
   buildForm(memberBasicInfo: MemberBasicInfo): FormGroup {
     const form = this._formBuilder.group({
@@ -62,10 +69,6 @@ export class BasicInfoMemberDetailsComponent implements DetailComponent {
 
 
     return form;
-  }
-
-  onFileSelected(event: any) {
-
   }
 
   onSubmit() {

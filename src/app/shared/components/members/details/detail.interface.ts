@@ -7,5 +7,5 @@ export interface DetailComponent {
 }
 
 export interface ComponentModel {
-
+ //TODO
 }

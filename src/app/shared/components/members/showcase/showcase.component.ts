@@ -1,9 +1,8 @@
-import {Component, computed, inject, input, output} from '@angular/core';
+import {Component, inject, output} from '@angular/core';
 import {ClrIconModule, ClrVerticalNavModule} from '@clr/angular';
 import {NgIf} from '@angular/common';
 import {MemberService} from '../../../../core/services/member.service';
 import {MemberDetailsComponent} from '../details/member-details.component';
-import {Member} from '../../../../core/models/member.model';
 
 @Component({
   selector: 'app-member-showcase',
@@ -46,6 +45,6 @@ export class ShowcaseComponent {
   }
 
   public onSave() {
-
+    // TODO
   }
 }

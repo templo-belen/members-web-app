@@ -1,11 +1,10 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ClrFormsModule } from '@clr/angular';
-import { MemberService } from '../../../../../core/services/member.service';
-import { MemberFormValues, MemberGeneralInfo } from '../../../../../core/models/member.model';
-import { editModeSubject } from '../../../../../core/subjects/members.subjects';
-import { EnumResponseModel } from '../../../../../core/models/enum.model';
+import {CommonModule} from '@angular/common';
+import {Component, inject, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {ClrFormsModule} from '@clr/angular';
+import {MemberService} from '../../../../../core/services/member.service';
+import {MemberGeneralInfo} from '../../../../../core/models/member.model';
+import {editModeSubject} from '../../../../../core/subjects/members.subjects';
 
 @Component({
   selector: 'app-general-info-member-details',
@@ -21,7 +20,7 @@ export class GeneralInfoMemberDetailsComponent implements OnInit {
 
   memberFormValues = this._memberService.selectMemberFormValues()
   generalInfoForm: FormGroup;
-  isEditable: boolean = false;
+  isEditable = false;
 
   constructor() {
     this.generalInfoForm = this.buildForm(new MemberGeneralInfo());
@@ -29,7 +28,7 @@ export class GeneralInfoMemberDetailsComponent implements OnInit {
   }
 
   buildForm(memberGeneralInfo: MemberGeneralInfo): FormGroup {
-    return this.fb.group({ ...memberGeneralInfo });
+    return this._formBuilder.group({ ...memberGeneralInfo });
   }
 
   ngOnInit(): void {
@@ -58,6 +57,6 @@ export class GeneralInfoMemberDetailsComponent implements OnInit {
   }
 
   onSubmit() {
-
+    //TODO
   }
 }
