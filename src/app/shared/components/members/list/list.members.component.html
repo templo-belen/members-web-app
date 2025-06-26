@@ -1,4 +1,5 @@
 <div class="datagrid-limit-height">
+<<<<<<< feature/controller-implementation
   @if (isLoading()) {
     <div>
       <clr-progress-bar clrValue="75" clrLoop></clr-progress-bar>
@@ -55,6 +56,60 @@
           </clr-dg-filter>
           <ng-container *clrDgHideableColumn="{ hidden: false }">¿Es Líder de célula?</ng-container>
         </clr-dg-column>
+=======
+<div *ngIf="isLoading();">
+<clr-progress-bar clrValue="75" clrLoop></clr-progress-bar>
+<h4>Cargando datos...</h4>
+</div>
+  <div *ngIf="membersList().length > 0;" class="datagrid-limit-height">
+  <clr-datagrid>
+  <clr-dg-column class="icon-column"></clr-dg-column>
+    <clr-dg-column>
+      <ng-container *clrDgHideableColumn="{ hidden: false }">Nro. de Documento</ng-container>
+    </clr-dg-column>
+    <clr-dg-column>
+      <ng-container *clrDgHideableColumn="{ hidden: false }">Nombres</ng-container>
+    </clr-dg-column>
+    <clr-dg-column>
+      <ng-container *clrDgHideableColumn="{ hidden: false }">Fecha de nacimiento</ng-container>
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'birthCountry'">
+      <ng-container  *clrDgHideableColumn="{ hidden: false }">País de nacimiento</ng-container>
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'residenceCountry'">
+      <ng-container  *clrDgHideableColumn="{ hidden: false }">País de residencia</ng-container>
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'occupation'">
+      <ng-container  *clrDgHideableColumn="{ hidden: false }">Ocupación</ng-container>
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'currentRole'">
+      <ng-container *clrDgHideableColumn="{ hidden: false }">Rol en la Iglesia</ng-container>
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'zonePastor'">
+      <ng-container  *clrDgHideableColumn="{ hidden: false }">Pastor de zona</ng-container>
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'isPastor'">
+      <clr-dg-filter [clrDgFilter]="pastorFilter">
+        <app-check-icon-filter
+          #pastorFilter
+          [field]="'isPastor'"
+          [label]="'¿Es Pastor?'">
+        </app-check-icon-filter>
+      </clr-dg-filter>
+      <ng-container *clrDgHideableColumn="{ hidden: false }">¿Es Pastor?</ng-container>
+    </clr-dg-column>
+
+    <clr-dg-column [clrDgField]="'isCellLeader'">
+      <clr-dg-filter [clrDgFilter]="cellLeaderFilter">
+        <app-check-icon-filter
+          #cellLeaderFilter
+          [field]="'isCellLeader'"
+          [label]="'¿Es Líder de célula?'">
+        </app-check-icon-filter>
+      </clr-dg-filter>
+      <ng-container *clrDgHideableColumn="{ hidden: false }">¿Es Líder de célula?</ng-container>
+    </clr-dg-column>
+>>>>>>> master
 
         <clr-dg-row *clrDgItems="let member of membersList()">
           <clr-dg-cell class="icon-cell">

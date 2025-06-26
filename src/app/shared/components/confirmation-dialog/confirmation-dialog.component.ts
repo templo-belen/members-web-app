@@ -10,10 +10,10 @@ import { ClrModalModule } from '@clr/angular';
 })
 export class ConfirmationDialogComponent {
 
-  @Input() opened: boolean = false;
-  @Input() title: string = 'Confirmación';
+  @Input() opened = false;
+  @Input() title = 'Confirmación';
   @Input() paragraphs: string[] = ['¿Está seguro de continuar?'];
-  
+
   @Output() openedChange = new EventEmitter<boolean>();
   @Output() confirm = new EventEmitter<void>();
   @Output() decline = new EventEmitter<void>();

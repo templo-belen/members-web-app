@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ClrFormsModule } from '@clr/angular';
 import { MemberService } from '../../../../../core/services/member.service';
@@ -13,22 +13,23 @@ import { EnumResponseModel } from '../../../../../core/models/enum.model';
   templateUrl: './general-info-member-details.component.html',
   styleUrl: './general-info-member-details.component.scss'
 })
-export class GeneralInfoMemberDetailsComponent {
+export class GeneralInfoMemberDetailsComponent implements OnInit {
 
   private _memberService = inject(MemberService);
+
   private _formBuilder = inject(FormBuilder);
 
   memberFormValues = this._memberService.selectMemberFormValues()
   generalInfoForm: FormGroup;
   isEditable: boolean = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor() {
     this.generalInfoForm = this.buildForm(new MemberGeneralInfo());
     this.setFormEditable();
   }
 
   buildForm(memberGeneralInfo: MemberGeneralInfo): FormGroup {
-    return this.fb.group({ ...memberGeneralInfo });
+    return this._fb.group({ ...memberGeneralInfo });
   }
 
   ngOnInit(): void {
@@ -57,6 +58,6 @@ export class GeneralInfoMemberDetailsComponent {
   }
 
   onSubmit() {
-
+    // TODO
   }
 }

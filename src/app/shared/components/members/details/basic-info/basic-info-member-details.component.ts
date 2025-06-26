@@ -14,6 +14,7 @@ import {ComponentModel, DetailComponent} from '../detail.interface';
 })
 export class BasicInfoMemberDetailsComponent implements DetailComponent {
   private _memberService = inject(MemberService);
+<<<<<<< feature/controller-implementation
   private _formBuilder = inject(FormBuilder);
 
   model = output<MemberBasicInfo>();
@@ -25,6 +26,35 @@ export class BasicInfoMemberDetailsComponent implements DetailComponent {
   invalidFormatError: string = 'El formato es incorrecto';
 
   form: FormGroup = this.buildForm(this.basicInfo());
+=======
+  private _fb = inject(FormBuilder);
+
+  @ViewChild('formElement') formElement!: ElementRef<HTMLFormElement>;
+
+  memberId = 0;
+  basicInfoForm: FormGroup;
+  isEditable = false;
+  memberFormValues: MemberFormValues = {
+    enums: new EnumResponseModel,
+    zonePastors: [],
+    preachingPoints: []
+  }
+
+  // TODO: replace with key in the HTML when applying i18n.
+  requiredFieldError = 'Este campo es obligatorio';
+  invalidFormatError = 'El formato es incorrecto';
+
+  constructor() {
+    this.basicInfoForm = this.buildForm(new MemberBasicInfo());
+    this.setFormEditable();
+  }
+
+  buildForm(memberBasicInfo: MemberBasicInfo): FormGroup {
+    const form = this._fb.group({
+      ...memberBasicInfo,
+      file: new FormControl<FileList | undefined>(undefined),  //TODO evaluar si formara parte del modelo
+    });
+>>>>>>> master
 
 
   constructor() {
@@ -42,12 +72,27 @@ export class BasicInfoMemberDetailsComponent implements DetailComponent {
     });
   }
 
+<<<<<<< feature/controller-implementation
   getForm(): FormGroup {
     return this.form;
   }
 
   getComponentModel(): ComponentModel {
     return this.inputModel();
+=======
+  onSubmit() {
+    this.triggerFocusAndBlurEvents();
+
+    if (!this.basicInfoForm.valid) {
+      return;
+    }
+
+    if (this.memberId === 0) {
+      this._memberService.dispatchMemberBasicInfoCreate(this.formToModel());
+    } else {
+      // TODO: implement update logic
+    }
+>>>>>>> master
   }
 
   buildForm(basicInfo: MemberBasicInfo): FormGroup {
