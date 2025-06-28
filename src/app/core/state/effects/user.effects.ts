@@ -33,7 +33,7 @@ export class UserEffects {
                   if (response instanceof LoginResponseModel) {
                     const success = loginSuccess({
                       username: response.username,
-                      fullname: response.full_name,
+                      fullName: response.fullName,
                       token: response.token
                     });
                     this._router.navigate(['/app']).then();

@@ -36,7 +36,7 @@ export class UserAdminDialogComponent {
   }
 
   onNewUser() {
-    const newUser = new UserModel({ id: null, username: '', fullname: '', role: 3 });
+    const newUser = new UserModel({ id: null, username: '', fullName: '', role: 3 });
     this.onEditUser(newUser);
   }
 

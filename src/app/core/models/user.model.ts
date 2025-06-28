@@ -15,13 +15,13 @@ export class LoginError {
 export class UserModel {
   id?: number | null = null;
   username: string | null = null;
-  fullname: string | null = null;
+  fullName: string | null = null;
   role?: number;
 
   constructor(props: UserModel) {
     this.id = props.id ?? null;
     this.username = props.username;
-    this.fullname = props.fullname;
+    this.fullName = props.fullName;
     this.role = props.role;
   }
 

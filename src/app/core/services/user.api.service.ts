@@ -29,7 +29,7 @@ export class UserApiService {
         map(response => {
           const props: LoginResponseModel = {
             token: response.headers!.get('Authorization')!,
-            full_name: response.body!.full_name,
+            fullName: response.body!.fullName,
             username: response.body!.username
           };
           return new LoginResponseModel(props);

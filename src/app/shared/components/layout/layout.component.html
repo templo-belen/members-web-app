@@ -15,8 +15,8 @@
       </button>
       <app-user-admin-dialog />
       <clr-dropdown>
-        <button class="nav-text" clrDropdownTrigger [title]="currentUser().fullname">
-          <app-avatar [name]="currentUser().fullname!" [size]="40"></app-avatar>
+        <button class="nav-text" clrDropdownTrigger [title]="currentUser().fullName">
+          <app-avatar [name]="currentUser().fullName!" [size]="40"></app-avatar>
         </button>
         <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
           <button clrDropdownItem (click)="logout()">Cerrar sesión</button>

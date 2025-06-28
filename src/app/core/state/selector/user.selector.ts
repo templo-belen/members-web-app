@@ -11,7 +11,7 @@ const currentLoginError = (state: any): LoginError => {
 export const selectCurrentUser = createSelector(
   currentUserSelector,
   (state): UserModel => {
-    return {username: state.username, fullname: state.fullname};
+    return {username: state.username, fullName: state.fullName};
   }
 );
 

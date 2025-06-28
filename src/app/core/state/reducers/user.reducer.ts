@@ -18,7 +18,7 @@ export interface UserState {
 }
 
 export const initialState: UserState = {
-  currentUser: { username: '', fullname: ''},
+  currentUser: { username: '', fullName: ''},
   isLoading: false,
   error: {msg: '', code: 200},
   roleList : [],
@@ -27,21 +27,21 @@ export const initialState: UserState = {
 export const userReducer = createReducer(
   initialState,
   on(login, (state) => {
-    const currentUser: UserModel = {username: '', fullname: ''};
+    const currentUser: UserModel = {username: '', fullName: ''};
     return {...state, currentUser: currentUser, error: {msg: '', code: 200}, isLoading: true};
   }),
   on(loginSuccess, (state, props) => {
-    const currentUser: UserModel = {username: props.username, fullname: props.fullname};
+    const currentUser: UserModel = {username: props.username, fullName: props.fullName};
     localStorage.setItem("token", props.token);
     return {...state, currentUser: currentUser, token: props.token};
   }),
   on(loginFailure, (state, props) => {
-    const currentUser: UserModel = {username: '', fullname: ''};
+    const currentUser: UserModel = {username: '', fullName: ''};
     const error: LoginError = {msg: props.msg, code: props.code};
     return {...state, currentUser: currentUser, isLoading: false, error: error};
   }),
   on(logoutSuccess, (state) => {
-    const currentUser: UserModel = {username: '', fullname: ''};
+    const currentUser: UserModel = {username: '', fullName: ''};
     return {...state, currentUser: currentUser, error: {msg: '', code: 200}, isLoading: false};
   }),
 

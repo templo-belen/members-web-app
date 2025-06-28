@@ -24,7 +24,7 @@ export class LayoutComponent {
 
   @ViewChild(UserAdminDialogComponent) userAdminDialog: UserAdminDialogComponent | undefined;
 
-  currentUser: Signal<UserModel> = toSignal(this._userService.fetchCurrentUser(), { initialValue: new UserModel({ username: '', fullname: '' }) });
+  currentUser: Signal<UserModel> = toSignal(this._userService.fetchCurrentUser(), { initialValue: new UserModel({ username: '', fullName: '' }) });
 
   logout() {
     this._userService.dispatchLogout();

@@ -1,14 +1,14 @@
 import {MemberListItem} from "./member.model";
 
 export class LoginResponseModel {
-  full_name: string;
+  fullName: string;
   username: string;
   token: string;
 
-  constructor(props: ({ token: string, username: string, full_name: string })) {
+  constructor(props: ({ token: string, username: string, fullName: string })) {
     this.token = props.token;
     this.username = props.username;
-    this.full_name = props.full_name;
+    this.fullName = props.fullName;
   }
 }
 
