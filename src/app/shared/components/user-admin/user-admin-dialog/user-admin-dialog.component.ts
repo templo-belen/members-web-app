@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ClrModalModule } from '@clr/angular';
 import { UserListComponent } from '../user-list/user-list.component';
 import { UserModel } from '../../../../core/models/user.model';
 import { UserEditComponent } from '../user-edit/user-edit.component';
+import { UserService } from '../../../../core/services/user.service';
 
 @Component({
   selector: 'app-user-admin-dialog',
@@ -22,8 +23,11 @@ export class UserAdminDialogComponent {
   isEditing = false;
   selectedUser: UserModel | null = null;
 
+  private _userService = inject(UserService);
+
   openModal() {
     this.opened = true;
+    this._userService.dispatchRoleList();
   }
 
   closeModal() {

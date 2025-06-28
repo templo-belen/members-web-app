@@ -46,7 +46,7 @@ export class UserApiService {
   }
 
   public listRoles(): Observable<RoleResponseModel[] | ErrorResponseModel> {
-    return this._http.get<RoleResponseModel[]>(`${this._baseUrl}/roles`, {observe: "response"}).pipe(
+    return this._http.get<RoleResponseModel[]>(`${this._baseUrl}/roles/`, {observe: "response"}).pipe(
       map(response => response.body!),
       catchError(error =>
         of(new ErrorResponseModel({msg: error.error.msg, code: error.status}))

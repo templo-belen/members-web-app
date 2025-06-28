@@ -79,7 +79,6 @@ export class UserListComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this._userService.dispatchRoleList();
 
     this._userService.fetchRoleList().subscribe(roleList => {
       this.roles = roleList;
