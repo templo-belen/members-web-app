@@ -6,10 +6,9 @@
 </div>
 <app-new-member-wizard #newMemberWizard></app-new-member-wizard>
 
-<app-members-list [membersList]="membersList" [isLoading]="isLoading" [openModal]="openModal"></app-members-list>
+<app-members-list [membersList]="membersList()" [isLoading]="isLoading" (selection)="openModal()"/>
 <clr-modal [(clrModalOpen)]="isModalOpen" [clrModalSize]="'full-screen'" [clrModalClosable]="false">
   <div class="modal-body">
-    <app-member-details [memberName]="selectedMemberName" [memberId]="selectedMemberId"
-      (closeModal)="closeModal()"></app-member-details>
+    <app-member-showcase (closeModal)="closeModal()" />
   </div>
 </clr-modal>

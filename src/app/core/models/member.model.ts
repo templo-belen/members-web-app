@@ -1,5 +1,6 @@
 import { SelectOption } from "./select-option.model";
 import {EnumResponseModel} from './enum.model';
+import {ComponentModel} from '../../shared/components/members/details/detail.interface';
 
 export class MemberListItem {
   id = 0;
@@ -21,7 +22,7 @@ export class MemberListItem {
   status = '';
 }
 
-export class MemberBasicInfo {
+export class MemberBasicInfo implements ComponentModel {
   id = 0;
   idNumber = '';
   surnames = '';
@@ -114,6 +115,13 @@ export class MemberDewInfo {
   isAgreedShareTestimony = false;
 }
 
+export class Member {
+  memberBasicInfo : MemberBasicInfo = new MemberBasicInfo();
+  memberReferences: MemberReferences = new MemberReferences();
+  memberInfo: MemberGeneralInfo = new MemberGeneralInfo();
+  dewInfo: MemberDewInfo = new MemberDewInfo();
+}
+
 export class MemberFormValues {
   enums: EnumResponseModel = {};
   zonePastors: MemberNames[]  = [];
@@ -124,7 +132,7 @@ export class MemberInformation {
   personalInformation: MemberBasicInfo | null = null;
   dew: MemberDewInfo | null = null;
   generalData: MemberGeneralInfo | null = null;
-  familyData = '';    // TODO cambiar al modelo de family data con tarea https://github.com/templo-belen/members-web-app/issues/15
+  familyData: any | null = null;    // TODO cambiar al modelo de family data con tarea https://github.com/templo-belen/members-web-app/issues/15
   references: MemberReferences | null = null;
-  adn = '';           // TODO cambiar al modelo de adn con tarea https://github.com/templo-belen/members-web-app/issues/21
+  adn: any | null = null;           // TODO cambiar al modelo de adn con tarea https://github.com/templo-belen/members-web-app/issues/21
 }

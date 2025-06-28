@@ -1,11 +1,10 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ClrFormsModule } from '@clr/angular';
-import { MemberService } from '../../../../../core/services/member.service';
-import { MemberFormValues, MemberGeneralInfo } from '../../../../../core/models/member.model';
-import { editModeSubject } from '../../../../../core/subjects/members.subjects';
-import { EnumResponseModel } from '../../../../../core/models/enum.model';
+import {CommonModule} from '@angular/common';
+import {Component, inject, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {ClrFormsModule} from '@clr/angular';
+import {MemberService} from '../../../../../core/services/member.service';
+import {MemberGeneralInfo} from '../../../../../core/models/member.model';
+import {editModeSubject} from '../../../../../core/subjects/members.subjects';
 
 @Component({
   selector: 'app-general-info-member-details',
@@ -16,15 +15,12 @@ import { EnumResponseModel } from '../../../../../core/models/enum.model';
 export class GeneralInfoMemberDetailsComponent implements OnInit {
 
   private _memberService = inject(MemberService);
-  private _fb = inject(FormBuilder);
 
+  private _formBuilder = inject(FormBuilder);
+
+  memberFormValues = this._memberService.selectMemberFormValues()
   generalInfoForm: FormGroup;
   isEditable = false;
-  memberFormValues: MemberFormValues = {
-    enums: new EnumResponseModel,
-    zonePastors: [],
-    preachingPoints: []
-  }
 
   constructor() {
     this.generalInfoForm = this.buildForm(new MemberGeneralInfo());
@@ -32,7 +28,7 @@ export class GeneralInfoMemberDetailsComponent implements OnInit {
   }
 
   buildForm(memberGeneralInfo: MemberGeneralInfo): FormGroup {
-    return this._fb.group({ ...memberGeneralInfo });
+    return this._formBuilder.group({ ...memberGeneralInfo });
   }
 
   ngOnInit(): void {
@@ -46,10 +42,6 @@ export class GeneralInfoMemberDetailsComponent implements OnInit {
       this.setFormEditable();
     });
 
-    // Enums
-    this._memberService.fetchMemberFormValues().subscribe(memberFormValues => {
-      this.memberFormValues = memberFormValues;
-    });
   }
 
   toggleEditMode() {
@@ -65,6 +57,6 @@ export class GeneralInfoMemberDetailsComponent implements OnInit {
   }
 
   onSubmit() {
-    // TODO
+    //TODO
   }
 }

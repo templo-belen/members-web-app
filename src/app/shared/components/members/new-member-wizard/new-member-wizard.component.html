@@ -13,9 +13,10 @@
   <clr-wizard-button [type]="'next'">Guardar y continuar</clr-wizard-button>
   <clr-wizard-button [type]="'finish'">Guardar y finalizar</clr-wizard-button>
 
+  <!--<clr-wizard-page [clrWizardPageNextDisabled]="!basicInfo.form.valid" (clrWizardPageNext)="saveBasicInfo()">-->
   <clr-wizard-page (clrWizardPageNext)="saveBasicInfo()">
     <ng-template clrPageTitle>Datos Personales</ng-template>
-    <app-basic-info-member-details #basicInfo></app-basic-info-member-details>
+    <app-basic-info-member-details [inputModel]="modelBasicInfo" [isEditable]="true" #basicInfo></app-basic-info-member-details>
   </clr-wizard-page>
 
   <clr-wizard-page (clrWizardPageNext)="saveFamilyInfo()">

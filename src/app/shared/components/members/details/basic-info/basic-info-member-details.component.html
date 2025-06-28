@@ -1,4 +1,4 @@
-<form #formElement clrForm [formGroup]="basicInfoForm" (ngSubmit)="onSubmit()" clrLayout="horizontal" clrLabelSize="3">
+<form #formElement clrForm [formGroup]="form" (ngSubmit)="onSubmit()" clrLayout="horizontal" clrLabelSize="3">
   <div class="clr-row">
     <div class="clr-col-2">
       <div class="profile-container">
@@ -26,20 +26,27 @@
     </div>
     <div class="clr-col-5">
       <clr-input-container>
-        <label [class.clr-required-mark]="isEditable">Número de documento</label>
+        <label [class.clr-required-mark]="isEditable()">Número de documento</label>
         <input clrInput formControlName="idNumber" />
-        <clr-control-error>{{ requiredFieldError }}</clr-control-error>
-      </clr-input-container>
-      <clr-input-container>
-        <label [class.clr-required-mark]="isEditable">Nombres</label>
-        <input clrInput formControlName="names" />
-        <clr-control-error>{{ requiredFieldError }}</clr-control-error>
+<!--
+        <clr-control-error>{{}}</clr-control-error>
+-->
       </clr-input-container>
 
       <clr-input-container>
-        <label [class.clr-required-mark]="isEditable">Apellidos</label>
+        <label [class.clr-required-mark]="isEditable()">Nombres</label>
+        <input clrInput formControlName="names" />
+<!--
+        <clr-control-error>{{}}</clr-control-error>
+-->
+      </clr-input-container>
+
+      <clr-input-container>
+        <label [class.clr-required-mark]="isEditable()">Apellidos</label>
         <input clrInput formControlName="surnames" />
-        <clr-control-error>{{ requiredFieldError }}</clr-control-error>
+<!--
+        <clr-control-error>{{}}</clr-control-error>
+-->
       </clr-input-container>
 
       <clr-date-container>
@@ -65,24 +72,30 @@
       <clr-input-container>
         <label>Teléfono</label>
         <input type="tel" clrInput formControlName="phoneNumber" />
-        <clr-control-error>{{ invalidFormatError }}</clr-control-error>
+<!--
+        <clr-control-error>{{}}</clr-control-error>
+-->
       </clr-input-container>
 
       <clr-input-container>
         <label>Celular</label>
         <input type="tel" clrInput formControlName="cellphoneNumber" />
-        <clr-control-error>{{ invalidFormatError }}</clr-control-error>
+<!--
+        <clr-control-error>{{}}</clr-control-error>
+-->
       </clr-input-container>
 
       <clr-input-container>
         <label>Email</label>
-        <input type="email" clrInput formControlName="email" type="email" />
-        <clr-control-error>{{ invalidFormatError }}</clr-control-error>
+        <input type="email" clrInput formControlName="email" />
+<!--
+        <clr-control-error>{{}}</clr-control-error>
+-->
       </clr-input-container>
 
       <clr-radio-container>
         <label>Género</label>
-        <clr-radio-wrapper *ngFor="let gender of memberFormValues.enums['gender'] || []">
+        <clr-radio-wrapper *ngFor="let gender of memberFormValues().enums['gender'] || []">
           <input type="radio" clrRadio value="{{ gender.name }}" formControlName="gender" />
           <label>{{ gender.value }}</label>
         </clr-radio-wrapper>
@@ -92,7 +105,7 @@
         <label>RH</label>
         <select clrSelect formControlName="rh" class="clr-w-100">
           <option [ngValue]="null">-- Seleccione una opción --</option>
-          <option *ngFor="let bloodType of memberFormValues.enums['blood-type'] || []"
+          <option *ngFor="let bloodType of memberFormValues().enums['blood-type'] || []"
                   value="{{ bloodType.name }}">{{ bloodType.value }}</option>
         </select>
       </clr-select-container>
@@ -137,52 +150,58 @@
 
       <clr-select-container>
         <label>Punto de predicación</label>
-        <select clrSelect formControlName="preachingPoint" class="clr-w-100">
+        <select clrSelect formControlName="preachingPoint" class="clr-w-100" >
           <option [ngValue]="null">-- Seleccione una opción --</option>
-          <option *ngFor="let point of memberFormValues.preachingPoints || []" [value]="point.id">{{ point.name }}</option>
+          <option *ngFor="let point of memberFormValues().preachingPoints || []" [value]="point.id">{{ point.name }}</option>
         </select>
       </clr-select-container>
 
       <clr-select-container>
-        <label [class.clr-required-mark]="isEditable">Rol actual</label>
+        <label [class.clr-required-mark]="isEditable()">Rol actual</label>
         <select clrSelect formControlName="currentRole" class="clr-w-100" >
           <option [ngValue]="null">-- Seleccione una opción --</option>
-          <option *ngFor="let role of memberFormValues.enums['role'] || []" value="{{ role.name }}">{{ role.value }}</option>
+          <option *ngFor="let role of memberFormValues().enums['role'] || []" value="{{ role.name }}">{{ role.value }}</option>
         </select>
-        <clr-control-error>{{ requiredFieldError }}</clr-control-error>
+<!--
+        <clr-control-error>{{}}</clr-control-error>
+-->
       </clr-select-container>
 
       <clr-date-container>
         <label>Fecha de compromiso</label>
-        <input clrDate formControlName="commitmentDate" />
+        <input clrDate formControlName="commitmentDate" placeholder="YYYY/MM/DD" />
       </clr-date-container>
 
       <clr-select-container>
-        <label [class.clr-required-mark]="isEditable">Liderazgo de célula</label>
+        <label [class.clr-required-mark]="isEditable()">Liderazgo de célula</label>
         <select clrSelect formControlName="cellLeadership" class="clr-w-100" required>
           <option [ngValue]="null">-- Seleccione una opción --</option>
-          <option *ngFor="let cellLeadership of memberFormValues.enums['cell-leadership'] || []"
+          <option *ngFor="let cellLeadership of memberFormValues()!.enums['cell-leadership'] || []"
                   value="{{ cellLeadership.name }}">{{ cellLeadership.value }}</option>
         </select>
-        <clr-control-error>{{ requiredFieldError }}</clr-control-error>
+<!--
+        <clr-control-error>{{}}</clr-control-error>
+-->
       </clr-select-container>
 
       <clr-select-container>
         <label>Pastor de zona</label>
         <select clrSelect formControlName="zonePastor" class="clr-w-100">
           <option [ngValue]="null">-- Seleccione una opción --</option>
-          <option *ngFor="let pastor of memberFormValues.zonePastors || []" [value]="pastor.id">{{ pastor.names }} {{ pastor.surnames }}</option>
+          <option *ngFor="let pastor of memberFormValues()!.zonePastors || []" [value]="pastor.id">{{ pastor.names }} {{ pastor.surnames }}</option>
         </select>
       </clr-select-container>
 
       <clr-select-container>
-        <label [class.clr-required-mark]="isEditable">Liderazgo</label>
+        <label [class.clr-required-mark]="isEditable()">Liderazgo</label>
         <select clrSelect formControlName="leadership" class="clr-w-100">
           <option [ngValue]="null">-- Seleccione una opción --</option>
-          <option *ngFor="let leadership of memberFormValues.enums['leadership'] || []" value="{{ leadership.name }}">
+          <option *ngFor="let leadership of memberFormValues().enums['leadership'] || []" value="{{ leadership.name }}">
             {{ leadership.value }}</option>
         </select>
-        <clr-control-error>{{ requiredFieldError }}</clr-control-error>
+<!--
+        <clr-control-error>{{}}</clr-control-error>
+-->
       </clr-select-container>
 
     </div>
