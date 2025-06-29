@@ -1,11 +1,18 @@
-import {inject, Injectable} from '@angular/core';
-import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {UserApiService} from '../../services/user.api.service';
-import {loginFailure, loginSuccess, logoutSuccess, UserAction} from '../actions/user.action';
-import {exhaustMap, map, of} from 'rxjs';
-import {LoginRequestModel} from '../../models/api-request.model';
-import {LoginResponseModel} from '../../models/api-response.model';
-import {Router} from '@angular/router';
+import { inject, Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { UserApiService } from '../../services/user.api.service';
+import {
+  listRoleFailure,
+  listRoleSuccess,
+  loginFailure,
+  loginSuccess,
+  logoutSuccess,
+  UserAction
+} from '../actions/user.action';
+import { exhaustMap, map, of } from 'rxjs';
+import { LoginRequestModel } from '../../models/api-request.model';
+import { LoginResponseModel } from '../../models/api-response.model';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class UserEffects {
@@ -26,7 +33,7 @@ export class UserEffects {
                   if (response instanceof LoginResponseModel) {
                     const success = loginSuccess({
                       username: response.username,
-                      fullname: response.full_name,
+                      fullName: response.fullName,
                       token: response.token
                     });
                     this._router.navigate(['/app']).then();
@@ -48,6 +55,26 @@ export class UserEffects {
             localStorage.removeItem('token');
             this._router.navigate(['/']).then();
             return of(logoutSuccess());
+          })
+        )
+    });
+
+  doRoleList$ = createEffect(
+    () => {
+      return this._actions$
+        .pipe(
+          ofType(UserAction.ListRole),
+          exhaustMap(() => {
+            return this._loginApiService.listRoles()
+              .pipe(
+                map(response => {
+                  if ('code' in response && 'msg' in response) {
+                    return listRoleFailure({ code: response.code, msg: response.msg });
+                  } else {
+                    return listRoleSuccess({ roles: response });
+                  }
+                }),
+              );
           })
         )
     });

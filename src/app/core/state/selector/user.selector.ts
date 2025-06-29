@@ -1,7 +1,9 @@
-import {createSelector} from '@ngrx/store';
-import {LoginError, UserModel} from '../../models/user.model';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { LoginError, RoleResponseModel, UserModel } from '../../models/user.model';
+import { UserState } from '../reducers/user.reducer';
 
 const currentUserSelector = (state: any): UserModel => state.user.currentUser;
+export const selectUserState = createFeatureSelector<UserState>('user');
 const currentLoginError = (state: any): LoginError => {
   return state.user.error;
 };
@@ -9,7 +11,7 @@ const currentLoginError = (state: any): LoginError => {
 export const selectCurrentUser = createSelector(
   currentUserSelector,
   (state): UserModel => {
-    return {username: state.username, fullname: state.fullname};
+    return {username: state.username, fullName: state.fullName};
   }
 );
 
@@ -19,3 +21,9 @@ export const selectLoginError = createSelector(
     return state;
   }
 );
+
+export const selectRoleList = createSelector(
+  selectUserState,
+  (state): RoleResponseModel[] => state.roleList
+);
+
